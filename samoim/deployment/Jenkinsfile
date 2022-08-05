@@ -1,8 +1,8 @@
-def label = "bootcamp-${UUID.randomUUID().toString()}"
+def label = "samoim-${UUID.randomUUID().toString()}"
 
 /* -------- functions ---------- */
 def notifySlack(STATUS, COLOR) {
-	slackSend (channel: '#bootcamp', color: COLOR, message: STATUS+" : " +  "${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})")
+	slackSend (channel: '#samoim', color: COLOR, message: STATUS+" : " +  "${env.JOB_NAME} [${env.BUILD_NUMBER}] (${env.BUILD_URL})")
 }
 
 
