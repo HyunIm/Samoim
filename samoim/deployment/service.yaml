@@ -8,6 +8,6 @@ spec:
   type: NodePort
   ports:
   - port: 8080
-    targetPort: 3010
+    targetPort: 8080
   selector:
     app: samoim-front
