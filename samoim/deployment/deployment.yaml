@@ -1,13 +1,28 @@
-apiVersion: v1
-kind: Service
+apiVersion: apps/v1
+kind: Deployment
 metadata:
-  name: samoim-front-svc
+  name: samoim-front
   labels:
     app: samoim-front
 spec:
-  type: NodePort
-  ports:
-  - port: 8080
-    targetPort: 3010
+  replicas: 1
   selector:
-    app: samoim-front
+    matchLabels:
+      app: samoim-front
+  template:
+    metadata:
+      labels:
+        app: samoim-front
+    spec:
+      containers:
+      - name: samoim-front
+        image: jin8227/samoim-front:dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SERVLET_CONTEXT_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: samoim-front-config
+              key: SERVLET_CONTEXT_PATH
