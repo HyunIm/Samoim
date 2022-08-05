@@ -63,6 +63,7 @@ podTemplate(containers: [
        			stageName = "NPM Build project"
 
 			// Build Source from Repository in gitlab
+			/*
 			stage(stageName) {
 				echo "**** START : " + stageName
 				def _dir = pwd();
@@ -72,13 +73,15 @@ podTemplate(containers: [
 				sh "ls -al"
 				container('npm') {
 						//sh "mvn -B -f ${baseDir} clean package -Dmaven.testSkips=true "
+						sh "cd samoim"
 						sh "npm install"
 						sh "npm run build"
 						echo "*** RESULT ***"
 						sh "pwd"
-						sh "ls -al ${baseDir}/target"
+						//sh "ls -al ${baseDir}/target"
 				}
 			}
+			*/
 
 			// Code Inspection
 			stage("Inspection Code") {
@@ -104,7 +107,7 @@ podTemplate(containers: [
 					               )]) {
 					  //sh 'echo user "$USER" pasword "$PASSWORD"'
 					  sh "podman login --tls-verify=false --username ${USER} --password ${PASSWORD} ${dockerRegistry}"
-						sh "podman build -f ./deployment/Dockerfile -t ${image}:${tag} ."
+						sh "podman build -f ./samoim/deployment/Dockerfile -t ${image}:${tag} ."
 						sh "podman push ${image}:${tag}"
 						sh "podman tag ${image}:${tag} ${image}:dev"
 						sh "podman push ${image}:dev"
