@@ -13,9 +13,10 @@ COPY samoim/package*.json ./
 RUN npm install --production
 
 # copy project files and folders to the current working directory (i.e. 'app' folder)
-COPY samoim .
+COPY samoim/ .
 
 # build app for production with minification
+RUN npm i @vue/cli-service
 RUN npm run build
 
 EXPOSE 8080
