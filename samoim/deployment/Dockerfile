@@ -7,7 +7,7 @@ RUN npm install -g http-server
 WORKDIR /app
 
 # copy both 'package.json' and 'package-lock.json' (if available)
-COPY package*.json ./
+COPY samoim/package*.json ./
 
 # install project dependencies leaving out dev dependencies
 RUN npm install --production
