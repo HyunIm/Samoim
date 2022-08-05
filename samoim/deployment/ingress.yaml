@@ -9,3 +9,12 @@ spec:
   - secretName: tls-secret
   rules:
   - host: "samoim.169.56.100.104.nip.io"
+    http:
+      paths:
+      - path: /samoim
+        pathType: Prefix
+        backend:
+          service:
+            name: samoim-front-service
+            port:
+              number: 8080
