@@ -72,7 +72,8 @@ podTemplate(containers: [
 				sh "ls -al"
 				container('npm') {
 						//sh "mvn -B -f ${baseDir} clean package -Dmaven.testSkips=true "
-						sh "npm build"
+						sh "npm install"
+						sh "npm run build"
 						echo "*** RESULT ***"
 						sh "pwd"
 						sh "ls -al ${baseDir}/target"
