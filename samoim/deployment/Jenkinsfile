@@ -11,7 +11,7 @@ notifySlack("STARTED", "#FFFF00")
 
 
 podTemplate(containers: [
-    containerTemplate(name: 'maven', image: 'maven:3.8.1-jdk-8', command: 'sleep', args: '99d'),
+    containerTemplate(name: 'npm', image: 'node:lts', command: 'sleep', args: '99d'),
 	containerTemplate(name: "docker", image: "docker:latest", ttyEnabled: true, command: "cat"),
 	containerTemplate(name: "kubectl", image: "lachlanevenson/k8s-kubectl", command: "cat", ttyEnabled: true),
 	containerTemplate(name: "scanner", image: "newtmitch/sonar-scanner", ttyEnabled: true, command: "cat"),
@@ -31,7 +31,7 @@ podTemplate(containers: [
 	 		//git branch: 'main', url: 'https://github.com/happykube/hellonode.git'
 			// Java based on Spring Boot, branch : msa
 			// 여기에 자신의 gitlab repository의 msa branch로 바꾸세요.
-			git branch: 'msa', url: 'https://gitlab.com/kb8/sample-service.git'
+			git branch: 'main', url: 'https://gitlab.com/sa-moim/frontend.git'
 		} 
 
 		//-- 환경변수 파일 읽어서 변수값 셋팅 
@@ -60,7 +60,7 @@ podTemplate(containers: [
 
 		try {
 
-       			stageName = "Build maven project"
+       			stageName = "NPM Build project"
 
 			// Build Source from Repository in gitlab
 			stage(stageName) {
@@ -70,8 +70,9 @@ podTemplate(containers: [
 				echo "baseDir : ${baseDir}"
 				echo "baseDeployDir : ${baseDeployDir}"
 				sh "ls -al"
-				container('maven') {
-						sh "mvn -B -f ${baseDir} clean package -Dmaven.testSkips=true "
+				container('npm') {
+						//sh "mvn -B -f ${baseDir} clean package -Dmaven.testSkips=true "
+						sh "npm build"
 						echo "*** RESULT ***"
 						sh "pwd"
 						sh "ls -al ${baseDir}/target"
