@@ -13,16 +13,6 @@
         ></v-carousel-item>
       </v-carousel>
     </v-row>
-    
-    <!--
-    <v-row>
-      <v-img
-        max-height="300"
-        max-width="414"
-        src="../assets/tennis.png"
-      ></v-img>
-    </v-row>
-    -->
 
     <!-- 모임 리스트 -->
     <v-row>
