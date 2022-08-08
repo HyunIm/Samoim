@@ -1,1 +1,14 @@
+server:
+  port: 8081
 
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://169.56.100.108:32701
+    username: sumin
+    password: passw0rd
+
+mybatis:
+  mapper-locations: "classpath:mybatis/mappers/*.xml"
+  configuration:
+    map-underscore-to-camel-case: true
