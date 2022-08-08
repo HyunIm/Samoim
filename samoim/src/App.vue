@@ -4,7 +4,6 @@
     <v-row>
       <v-app-bar
         :color="color"
-      
         class=""
         fixed
         style="padding:0 5%"
@@ -33,32 +32,53 @@
       </v-app-bar>
     </v-row>
 
+    <!-- Main View -->
     <v-main>
-      <Main/>
+      <router-view></router-view>
     </v-main>
 
     <!-- bottom bar -->
     <v-footer padless fixed=true>
         <v-bottom-navigation v-model="value" dark background-color="#FBC02D">
-          <v-btn value="recent" color="#FBC02D" class="mt-2">
-            <span>홈</span>
-            <v-icon>mdi-home</v-icon>
-          </v-btn>
+          <router-link 
+            style="text-decoration: none; color: inherit;" 
+            to="/main" 
+          >
+            <v-btn value="recent" color="#FBC02D" class="mt-1">
+              <span>홈</span>
+              <v-icon>mdi-home</v-icon>
+            </v-btn>
+          </router-link>
 
-          <v-btn value="favorites" color="#FBC02D" class="mt-2">
-            <span>만들기</span>
-            <v-icon>mdi-plus-circle-outline</v-icon>
-          </v-btn>
+          <router-link 
+            style="text-decoration: none; color: inherit;" 
+            to="/make"
+          >
+            <v-btn value="favorites" color="#FBC02D" class="mt-1">
+              <span>만들기</span>
+              <v-icon>mdi-plus-circle-outline</v-icon>
+            </v-btn>
+          </router-link>
 
-          <v-btn value="nearby" color="#FBC02D" class="mt-2">
-            <span>내 모임</span>
-            <v-icon>mdi-calendar-month</v-icon>
-          </v-btn>
+          <router-link 
+            style="text-decoration: none; color: inherit;" 
+            to="/mypage"
+          >
+            <v-btn value="nearby" color="#FBC02D" class="mt-1">
+              <span>내 모임</span>
+              <v-icon>mdi-calendar-month</v-icon>
+            </v-btn>
+          </router-link>
 
-          <v-btn value="nearby" color="#FBC02D" class="mt-2">
-            <span>프로필</span>
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
+          <router-link 
+            style="text-decoration: none; color: inherit;" 
+            to="/profile"
+          >
+            <v-btn value="nearby" color="#FBC02D" class="mt-1">
+              <span>프로필</span>
+              <v-icon>mdi-account</v-icon>
+            </v-btn>
+          </router-link>  
         </v-bottom-navigation>
     </v-footer>
 
@@ -67,13 +87,11 @@
 </template>
 
 <script>
-import Main from './components/Main';
 
 export default {
   name: 'App',
 
   components: {
-    Main,
   },
 
   data: () => ({
