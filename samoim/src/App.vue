@@ -1,47 +1,68 @@
 <template>
   <v-app>
-    <!--
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="d-flex align-center">
-        <v-img
-          alt="Vuetify Logo"
-          class="shrink mr-2"
-          contain
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-          transition="scale-transition"
-          width="40"
-        />
-
-        <v-img
-          alt="Vuetify Name"
-          class="shrink mt-1 hidden-sm-and-down"
-          contain
-          min-width="100"
-          src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-          width="100"
-        />
-      </div>
+        <!-- top bar -->
+    <v-row>
+      <v-app-bar
+        :color="color"
+      
+        class=""
+        fixed
+        style="padding:0 5%"
+        flat
+      >
+        <div class="d-flex align-center">
+          <h1>
+            <p class="font-2 mb-n1" :style="`color:#FBC02D`">SAMOIM</p>
+          </h1>
+        </div>
 
       <v-spacer></v-spacer>
-
-      <v-btn
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-        text
+      <v-icon
+        large
+        color="black darken-2"
       >
-        <span class="mr-2">Latest Release</span>
-        <v-icon>mdi-open-in-new</v-icon>
-      </v-btn>
-    </v-app-bar>
-    -->
+        mdi-filter-cog-outline
+      </v-icon>
+      <v-icon
+        large
+        color="black darken-2"
+        class="ml-2"
+      >
+        mdi-magnify
+      </v-icon>
+      </v-app-bar>
+    </v-row>
 
     <v-main>
       <Main/>
     </v-main>
+
+    <!-- bottom bar -->
+    <v-footer padless fixed=true>
+        <v-bottom-navigation v-model="value" dark background-color="#FBC02D">
+          <v-btn value="recent" color="#FBC02D" class="mt-2">
+            <span>홈</span>
+            <v-icon>mdi-home</v-icon>
+          </v-btn>
+
+          <v-btn value="favorites" color="#FBC02D" class="mt-2">
+            <span>만들기</span>
+            <v-icon>mdi-plus-circle-outline</v-icon>
+          </v-btn>
+
+          <v-btn value="nearby" color="#FBC02D" class="mt-2">
+            <span>내 모임</span>
+            <v-icon>mdi-calendar-month</v-icon>
+          </v-btn>
+
+          <v-btn value="nearby" color="#FBC02D" class="mt-2">
+            <span>프로필</span>
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </v-bottom-navigation>
+    </v-footer>
+
+
   </v-app>
 </template>
 
