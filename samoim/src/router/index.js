@@ -5,6 +5,7 @@ import Mypage from '../views/mypage/CalendarList.vue';
 import Profile from '../views/profile/Profile.vue';
 import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
+import MyGathering from '../views/MyGathering.vue';
 
 Vue.use(VueRouter);
 
@@ -33,6 +34,10 @@ export default new VueRouter({
     {
       path: '/intro',
       component: Intro
-    }
+    },
+    {
+      path: '/myGathering',
+      component: MyGathering
+    },
   ]
 });
