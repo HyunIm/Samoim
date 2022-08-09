@@ -1,6 +1,9 @@
 <template>
   <v-container>
 
+    <!-- TopBar -->
+    <TopBar></TopBar>
+
     <!-- 추천 모임 -->
     <v-row>
       <v-carousel height="350" cycle show-arrows-on-hover>
@@ -94,14 +97,23 @@
 
     </v-row>
 
+    <BottomBar></BottomBar>
+
   </v-container>
 </template>
 
 <script>
 import tennis from '../assets/tennis.png';
+import TopBar from '../components/common/TopBar.vue'
+import BottomBar from '../components/common/BottomBar.vue'
 
 export default {
   name: 'Main',
+
+  components: {
+    TopBar,
+    BottomBar
+  },
 
   data: () => ({
     test: 'SAMOIM MAIN PAGE',

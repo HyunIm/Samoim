@@ -1,36 +1,6 @@
 <template>
   <v-app>
-        <!-- top bar -->
-    <v-row>
-      <v-app-bar
-        :color="color"
-        class=""
-        fixed
-        style="padding:0 5%"
-        flat
-      >
-        <div class="d-flex align-center">
-          <h1>
-            <p class="font-2 mb-n1" :style="`color:#FBC02D`">SAMOIM</p>
-          </h1>
-        </div>
-
-      <v-spacer></v-spacer>
-      <v-icon
-        large
-        color="black darken-2"
-      >
-        mdi-filter-cog-outline
-      </v-icon>
-      <v-icon
-        large
-        color="black darken-2"
-        class="ml-2"
-      >
-        mdi-magnify
-      </v-icon>
-      </v-app-bar>
-    </v-row>
+    <!-- top bar -->
 
     <!-- Main View -->
     <v-main>
@@ -38,6 +8,7 @@
     </v-main>
 
     <!-- bottom bar -->
+
     <v-footer padless fixed=true>
         <v-bottom-navigation v-model="value" dark background-color="#FBC02D">
           <router-link 
@@ -81,7 +52,6 @@
           </router-link>  
         </v-bottom-navigation>
     </v-footer>
-
 
   </v-app>
 </template>
