@@ -1,0 +1,26 @@
+server:  
+  port: ${PORT:8080}
+  servlet:
+    context-path: ${SERVLET_CONTEXT_PATH:/}
+
+spring: 
+  application:
+    name: samoim
+    
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_SERVER:169.56.100.108}:${DB_PORT:32701}/${DB_NAME:samoim}?useUnicode=true&characterEncoding=utf-8
+    username: ${DB_USERNAME:sumin}
+    password: ${DB_PASSWORD:passw0rd}
+    hikari:
+      connection-timeout: 5000
+      validation-timeout: 1000
+      maximum-pool-size: 30
+      minimum-idle: 2
+      connection-test-query: SELECT 1    
+
+#MyBatis
+mybatis:
+    mapper-locations: classpath:mybatis/mapper/*.xml
+    configuration:
+        map-underscore-to-camel-case: true  
