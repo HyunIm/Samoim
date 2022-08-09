@@ -130,7 +130,7 @@ podTemplate(containers: [
 					sh "kubectl apply -n ${namespace} -f ${deployment}"
 					sh "sleep 5"
 					sh "kubectl apply -n ${namespace} -f ${service}"
-					sh "kubectl apply -n ${namespace} -f ${ingress}"
+					// sh "kubectl apply -n ${namespace} -f ${ingress}"
 				}
 			}
             echo "**** FINISH ALL STAGES : SUCCESS"
