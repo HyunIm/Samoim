@@ -47,6 +47,13 @@
       @change="getEvents"
     ></v-calendar>
   </v-sheet>
+
+  <v-img
+    align="center"
+    max-height="322"
+    max-width="343"
+    src="../../assets/gathering_date.png">
+  </v-img>
 </div>
 </template>
 
