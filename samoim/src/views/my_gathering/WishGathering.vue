@@ -1,7 +1,5 @@
 <template>
-  <div>
-    myGathering
-  </div>
+  <p>wish</p>
 </template>
 
 <script>
