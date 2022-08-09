@@ -35,7 +35,7 @@ podTemplate(containers: [
 	 		//git branch: 'main', url: 'https://github.com/happykube/hellonode.git'
 			// Java based on Spring Boot, branch : msa
 			// 여기에 자신의 gitlab repository의 msa branch로 바꾸세요.
-			git branch: 'msa', url: 'https://gitlab.com/kb8/sample-service.git'
+			git branch: 'main', url: 'https://gitlab.com/sa-moim/backend.git'
 		} 
 
 		//-- 환경변수 파일 읽어서 변수값 셋팅 
