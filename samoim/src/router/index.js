@@ -1,9 +1,10 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Main from '../views/Main.vue';
-import Mypage from '../views/mypage/CalendarList.vue'
-import Profile from '../views/profile/Profile.vue'
-import MakeClass from '../views/class/MakeClass.vue'
+import Mypage from '../views/mypage/CalendarList.vue';
+import Profile from '../views/profile/Profile.vue';
+import MakeClass from '../views/class/MakeClass.vue';
+import Intro from '../views/Intro.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,10 @@ export default new VueRouter({
     {
       path: '/make',
       component: MakeClass
+    },
+    {
+      path: '/intro',
+      component: Intro
     }
   ]
 });
