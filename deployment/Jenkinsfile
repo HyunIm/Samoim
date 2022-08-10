@@ -127,7 +127,6 @@ podTemplate(containers: [
 			stage( "Deploy to Cluster" ) {
 				container("kubectl") {
 					sh "kubectl apply -n ${namespace} -f ${config}"
-					sh "kubectl delete -n ${namespace} -f ${deployment}"
 					sh "kubectl apply -n ${namespace} -f ${deployment}"
 					sh "sleep 5"
 					sh "kubectl apply -n ${namespace} -f ${service}"
