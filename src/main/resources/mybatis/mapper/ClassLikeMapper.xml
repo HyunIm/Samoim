@@ -17,4 +17,14 @@
 		where CLASS_ID = #{classId}
 		and USER_ID = #{userId}		
 	</delete>
+	
+	<select id="selectClassLike" parameterType="string" resultType="com.kb.samoim.model.Class">
+		select *
+		from CLASS
+		WHERE ID IN (
+			select CLASS_ID
+			from CLASS_LIKE
+			where USER_ID = #{userId}
+		)
+	</select>
 </mapper>

@@ -130,4 +130,17 @@ public class ClassController {
 
 		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
+
+	@ApiOperation(value = "찜한 모임 리스트 가져오기")
+	@GetMapping(value = "/like/{userId}")
+	public ResponseEntity<List<Class>> selectClassLike(@PathVariable String userId) {
+		List<Class> list = null;
+		try {
+			list = classLikeDao.selectClassLike(userId);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
+	}
 }
