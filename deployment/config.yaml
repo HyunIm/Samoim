@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: samoim-backend-config
 data:
-  SERVLET_CONTEXT_PATH: "/samoim"
+  SERVLET_CONTEXT_PATH: "/"
 # MYSQL DB
   DB_SERVER: samoim-mysql
   DB_PORT: "3306"
