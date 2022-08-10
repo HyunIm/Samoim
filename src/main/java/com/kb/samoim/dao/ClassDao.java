@@ -9,4 +9,6 @@ import com.kb.samoim.model.Class;
 @Mapper
 public interface ClassDao {
 	List<Class> selectClassAll();
+
+	Class selectClass(long id);
 }
