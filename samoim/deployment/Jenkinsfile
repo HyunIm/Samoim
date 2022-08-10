@@ -128,9 +128,12 @@ podTemplate(containers: [
 
 			// Deploy App to Cluster in Kubernetes
 			stage( "Deploy to Cluster" ) {
+				check = "k get deployment -n ${namespace} | grep ${deployment} | wc -l"
 				container("kubectl") {
 					sh "kubectl apply -n ${namespace} -f ${config}"
-					sh "kubectl delete -n ${namespace} -f ${deployment}"
+					if(check > 0) {
+						sh "kubectl delete -n ${namespace} -f ${deployment}"
+					}
 					sh "kubectl apply -n ${namespace} -f ${deployment}"
 					sh "sleep 5"
 					sh "kubectl apply -n ${namespace} -f ${service}"
