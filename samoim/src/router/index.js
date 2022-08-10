@@ -4,6 +4,7 @@ import Main from '../views/Main.vue';
 import Profile from '../views/profile/Profile.vue';
 import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
+import SignUp from '../views/SignUp.vue';
 import CompleteGathering from '../views/my_gathering/CompleteGathering.vue';
 import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
 import WishGathering from '../views/my_gathering/WishGathering.vue';
@@ -33,6 +34,10 @@ export default new VueRouter({
     {
       path: '/intro',
       component: Intro
+    },
+    {
+      path: '/signup',
+      component: SignUp
     },
     {
       path: '/completegathering',
