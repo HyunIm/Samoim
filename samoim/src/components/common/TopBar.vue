@@ -149,21 +149,23 @@ import axios from 'axios'
       ],
     }),
 
+    mounted() {
+      this.getCategory();
+    },
+
     methods: {
       getCategory: async function() {
         const response = await axios.get('/api/categories');
 
         if(response.statusText === 'OK') {
           this.categoriesData = response.data;
+          console.log(this.categoriesData);
         } else {
           console.log(response);
         }
-
-        this.fillterDialog = true;
       },
       openFillterDialog() {
-        this.getCategory();
-        
+        this.fillterDialog = true;
       }
     }
   }
