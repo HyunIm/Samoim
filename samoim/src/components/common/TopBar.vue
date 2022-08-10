@@ -1,7 +1,6 @@
 <template>
   <v-row>
       <v-app-bar
-        :color="color"
         class=""
         fixed
         style="padding:0 5%"
@@ -17,7 +16,7 @@
       <v-icon
         large
         color="black darken-2"
-        @click="fillterDialog = !fillterDialog"
+        @click="openFillterDialog()"
       >
         mdi-filter-cog-outline
       </v-icon>
@@ -51,8 +50,14 @@
           <v-card-subtitle class="mt-3">
             <h2>카테고리</h2>
           </v-card-subtitle>
+
           <v-card-text>
-            API호출 데이터 바인딩
+            <v-list-item
+              v-for="(item, i) in categoriesData"
+              :key="i"
+              >
+              {{ item.name }}
+            </v-list-item>
           </v-card-text>
 
           <v-card-subtitle class="mt-3">
@@ -125,6 +130,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
   export default {
     name: 'TopBar',
@@ -135,6 +141,34 @@
     data: () => ({
       fillterDialog: false,
       searchDialog: false,
+      categoriesData: [],
+      items: [
+        { text: 'Real-Time', icon: 'mdi-clock' },
+        { text: 'Audience', icon: 'mdi-account' },
+        { text: 'Conversions', icon: 'mdi-flag' },
+      ],
     }),
+
+    mounted() {
+      this.getCategory();
+    },
+
+    methods: {
+      getCategory: async function() {
+        const response = await axios.get('/api/categories');
+
+        if(response.statusText === 'OK') {
+          this.categoriesData = response.data;
+        } else {
+          console.log(response);
+        }
+
+        this.fillterDialog = true;
+      },
+      openFillterDialog() {
+        this.getCategory();
+        
+      }
+    }
   }
 </script>

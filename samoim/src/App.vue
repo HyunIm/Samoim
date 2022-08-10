@@ -8,9 +8,8 @@
     </v-main>
 
     <!-- bottom bar -->
-
-    <v-footer padless fixed=true>
-        <v-bottom-navigation v-model="value" dark background-color="#FBC02D">
+    <v-footer padless fixed>
+        <v-bottom-navigation dark background-color="#FBC02D">
           <router-link 
             style="text-decoration: none; color: inherit;" 
             to="/main" 
