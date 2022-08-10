@@ -3,6 +3,7 @@ FROM node:lts-alpine as build-stage
 WORKDIR /app
 COPY samoim/package*.json ./
 RUN npm install --production
+RUN npm i @vue/cli-service
 COPY . .
 RUN npm run build
 
