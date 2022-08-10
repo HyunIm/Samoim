@@ -13,4 +13,22 @@
 		from CLASS
 		where id = #{id}
 	</select>
+	
+	<select id="selectClassByFilter" parameterType="java.util.List" resultType="com.kb.samoim.model.Class">
+		select *
+		from CLASS
+		where 1 = 1
+		<if test="category!=null and category.size!=0">
+			and LARGE_CATEGORY in
+			<foreach collection="category" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		<if test="area!=null and area.size!=0">
+			and CITY in
+			<foreach collection="area" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.kb.samoim.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kb.samoim.dao.ClassDao;
@@ -46,5 +49,18 @@ public class ClassController {
 		}
 
 		return new ResponseEntity<Class>(cls, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "카테고리/지역 필터링에 따른 모임 목록 가져오기")
+	@PostMapping(value = "/classes")
+	public ResponseEntity<List<Class>> getClassByFilter(@RequestBody HashMap<String, List<String>> params) {
+		List<Class> list = null;
+		try {
+			list = classDao.selectClassByFilter(params.get("category"), params.get("area"));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
 	}
 }
