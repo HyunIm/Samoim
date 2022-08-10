@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kb.samoim.dao.ClassDao;
+import com.kb.samoim.dao.ClassJoinDao;
+import com.kb.samoim.dao.ClassLikeDao;
 import com.kb.samoim.model.Class;
+import com.kb.samoim.model.ClassJoin;
+import com.kb.samoim.model.ClassLike;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +28,12 @@ public class ClassController {
 
 	@Autowired
 	private ClassDao classDao;
+
+	@Autowired
+	private ClassJoinDao classJoinDao;
+
+	@Autowired
+	private ClassLikeDao classLikeDao;
 
 	@ApiOperation(value = "모임 목록 정보 가져오기 (모임 생성 최신 순으로 정렬)")
 	@GetMapping(value = "/classes")
@@ -62,5 +72,62 @@ public class ClassController {
 		}
 
 		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "모임 참가")
+	@PostMapping(value = "/join")
+	public ResponseEntity<String> insertClassJoin(@RequestBody ClassJoin classJoin) {
+		int rc = 0;
+		String msg = null;
+
+		try {
+			rc = classJoinDao.insertClassJoin(classJoin);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		if (rc > 0) {
+			msg = "모임 참가 완료";
+		}
+
+		return new ResponseEntity<String>(msg, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "모임 찜 등록")
+	@PostMapping(value = "/like")
+	public ResponseEntity<String> insertClassLike(@RequestBody ClassLike classLike) {
+		int rc = 0;
+		String msg = null;
+
+		try {
+			rc = classLikeDao.insertClassLike(classLike);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		if (rc > 0) {
+			msg = "모임 찜 등록 완료";
+		}
+
+		return new ResponseEntity<String>(msg, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "모임 찜 해제")
+	@PostMapping(value = "/like/delete")
+	public ResponseEntity<String> deleteClassLike(@RequestBody ClassLike classLike) {
+		int rc = 0;
+		String msg = null;
+
+		try {
+			rc = classLikeDao.deleteClassLike(classLike);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		if (rc > 0) {
+			msg = "모임 찜 해제 완료";
+		}
+
+		return new ResponseEntity<String>(msg, HttpStatus.OK);
 	}
 }
