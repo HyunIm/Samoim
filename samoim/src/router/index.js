@@ -8,6 +8,7 @@ import CompleteGathering from '../views/my_gathering/CompleteGathering.vue';
 import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
 import WishGathering from '../views/my_gathering/WishGathering.vue';
 import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
+import TermsAccept from '../views/TermsAccept.vue';
 
 Vue.use(VueRouter);
 
@@ -48,6 +49,10 @@ export default new VueRouter({
     {
       path: '/reviewwrite',
       component: ReviewWrite
+    },
+    {
+      path: '/termsaccept',
+      component: TermsAccept
     },
   ]
 });
