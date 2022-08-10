@@ -40,7 +40,7 @@
         dark
         color="#FFBC00"
       >
-        동의하기
+        결제하기
       </v-btn>
     </router-link>
   </div>
