@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kb.samoim.dao.ClassDao;
@@ -32,5 +33,18 @@ public class ClassController {
 		}
 
 		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
+	}
+
+	@ApiOperation(value = "모임 세부 정보 가져오기")
+	@GetMapping(value = "/classes/{id}")
+	public ResponseEntity<Class> getClass(@PathVariable long id) {
+		Class cls = null;
+		try {
+			cls = classDao.selectClass(id);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+
+		return new ResponseEntity<Class>(cls, HttpStatus.OK);
 	}
 }
