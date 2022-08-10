@@ -56,13 +56,13 @@
     <v-card-actions>
       <router-link
         style="text-decoration: none; color: inherit;" 
-        to="/payment" 
+        to="/termsaccept" 
       >
         <v-btn
           color="orange"
           text
         >
-          리뷰작성
+          정산하기
         </v-btn>
       </router-link>
 
@@ -99,12 +99,17 @@
     </v-card-text>
 
     <v-card-actions>
-      <v-btn
-        color="orange"
-        text
+      <router-link
+        style="text-decoration: none; color: inherit;" 
+        to="/termsaccept" 
       >
-        정산하기
-      </v-btn>
+        <v-btn
+          color="orange"
+          text
+        >
+          정산하기
+        </v-btn>
+      </router-link>
 
       <v-btn
         color="orange"

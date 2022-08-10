@@ -29,26 +29,59 @@
         </v-list-item-content>
       </v-list-item>
     </v-card>
-
-    <router-link
-      style="text-decoration: none; color: inherit;" 
-      to="/test" 
-    >
-      <v-btn
-        align="end"
-        block
-        dark
-        color="#FFBC00"
+    
+    <v-row justify="center">
+      <v-dialog
+        v-model="dialog"
+        persistent
+        max-width="290"
       >
-        결제하기
-      </v-btn>
-    </router-link>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            block
+            color="#FFBC00"
+            dark
+            v-bind="attrs"
+            v-on="on"
+          >
+            결제하기
+          </v-btn>
+        </template>
+        <v-card>
+          <v-card-title class="text-h5">
+            추천 보험
+          </v-card-title>
+          <v-img src="../assets/insurance.png"></v-img>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="dialog = false"
+            >
+              안 하기
+            </v-btn>
+            <v-btn
+              color="green darken-1"
+              text
+              @click="dialog = false"
+            >
+              가입하기
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-row>
   </div>
 </template>
 
 <script>
 export default {
-
+  data () {
+    return {
+      dialog: false,
+    }
+  }
 }
 </script>
 
