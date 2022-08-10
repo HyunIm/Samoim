@@ -8,5 +8,7 @@ import com.kb.samoim.model.Category;
 
 @Mapper
 public interface CategoryDao {
+	
 	List<Category> selectCategoryAll();
+	
 }
