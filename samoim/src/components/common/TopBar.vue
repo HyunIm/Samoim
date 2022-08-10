@@ -149,6 +149,10 @@ import axios from 'axios'
       ],
     }),
 
+    mounted() {
+      this.getCategory();
+    },
+
     methods: {
       getCategory: async function() {
         const response = await axios.get('/api/categories');
@@ -159,7 +163,7 @@ import axios from 'axios'
           console.log(response);
         }
 
-        this.fillterDialog = true;
+        //this.fillterDialog = true;
       },
       openFillterDialog() {
         this.getCategory();
