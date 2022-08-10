@@ -9,13 +9,7 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
-public class reviewDto {
-	
-	private Long id;
-	private classDto classdto;
-	private int score;
-	private String contents;
-	private String photo_path;
-	private String create_dat;
-	
+public class locationDto {
+	private String city; //도시
+	private String address; //지역
 }
