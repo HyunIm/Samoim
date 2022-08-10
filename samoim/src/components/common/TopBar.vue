@@ -149,10 +149,6 @@ import axios from 'axios'
       ],
     }),
 
-    mounted() {
-      this.getCategory();
-    },
-
     methods: {
       getCategory: async function() {
         const response = await axios.get('/api/categories');
