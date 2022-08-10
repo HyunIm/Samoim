@@ -11,4 +11,6 @@ public interface ClassDao {
 	List<Class> selectClassAll();
 
 	Class selectClass(long id);
+
+	List<Class> selectClassByFilter(List<String> category, List<String> area);
 }
