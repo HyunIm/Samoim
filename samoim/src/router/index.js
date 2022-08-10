@@ -1,12 +1,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Main from '../views/Main.vue';
-import Mypage from '../views/mypage/CalendarList.vue';
 import Profile from '../views/profile/Profile.vue';
 import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
 import SignUp from '../views/SignUp.vue';
-
+import CompleteGathering from '../views/my_gathering/CompleteGathering.vue';
+import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
+import WishGathering from '../views/my_gathering/WishGathering.vue';
 
 Vue.use(VueRouter);
 
@@ -19,10 +20,6 @@ export default new VueRouter({
     {
         path: '/main',
         component: Main
-    },
-    {
-      path: '/mypage',
-      component: Mypage
     },
     {
       path: '/profile',
@@ -39,6 +36,18 @@ export default new VueRouter({
     {
       path: '/signup',
       component: SignUp
-    }
+    },
+    {
+      path: '/completegathering',
+      component: CompleteGathering
+    },
+    {
+      path: '/progressgathering',
+      component: ProgressGathering
+    },
+    {
+      path: '/wishgathering',
+      component: WishGathering
+    },
   ]
 });
