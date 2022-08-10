@@ -48,12 +48,46 @@
     ></v-calendar>
   </v-sheet>
 
-  <v-img
-    align="center"
-    max-height="322"
-    max-width="343"
-    src="../../assets/gathering_date.png">
-  </v-img>
+  <v-card
+    class="mx-auto ma-10"
+    max-width="370"
+    outlined
+  >
+    <v-list-item three-line>
+      <v-list-item-content>
+        <div class="text-overline mb-4">
+          모임 일정
+        </div>
+        <v-list-item-title class="text-h5 mb-1">
+          오르락 내리락!
+        </v-list-item-title>
+        <v-list-item-subtitle>
+          일정 : 8월 6일 (토) 14:00 ~ 15:00<br>
+          장소 : 볼더프렌즈 클라이밍(홍대입구역)<br>
+          금액 : ₩ 50,000
+        </v-list-item-subtitle>
+      </v-list-item-content>
+
+      <v-list-item-avatar
+        tile
+        size="80"
+      >
+        <img
+          src="../../assets/climbing.jpeg"
+        >
+      </v-list-item-avatar>
+    </v-list-item>
+
+    <v-card-actions>
+      <v-btn
+        outlined
+        rounded
+        text
+      >
+        상세 페이지
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </div>
 </template>
 
