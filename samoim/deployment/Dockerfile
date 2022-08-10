@@ -4,7 +4,7 @@ WORKDIR /app
 COPY samoim/package*.json ./
 RUN npm install --production
 RUN npm i @vue/cli-service
-COPY . .
+COPY ./samoim/ .
 RUN npm run build
 
 # production stage
