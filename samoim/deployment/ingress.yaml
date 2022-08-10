@@ -6,10 +6,10 @@ metadata:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-  - host: "samoim.169.56.100.104.nip.io"
+  - host: "samoim.kbfg.kubepia.com"
     http:
       paths:
-      - path: /samoim
+      - path: /
         pathType: Prefix
         backend:
           service:
