@@ -7,6 +7,7 @@ import Intro from '../views/Intro.vue';
 import CompleteGathering from '../views/my_gathering/CompleteGathering.vue';
 import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
 import WishGathering from '../views/my_gathering/WishGathering.vue';
+import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
 
 Vue.use(VueRouter);
 
@@ -43,6 +44,10 @@ export default new VueRouter({
     {
       path: '/wishgathering',
       component: WishGathering
+    },
+    {
+      path: '/reviewwrite',
+      component: ReviewWrite
     },
   ]
 });

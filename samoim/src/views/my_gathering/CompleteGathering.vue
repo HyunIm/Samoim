@@ -61,12 +61,17 @@
         정산하기
       </v-btn>
 
-      <v-btn
-        color="orange"
-        text
+      <router-link
+        style="text-decoration: none; color: inherit;" 
+        to="/reviewwrite" 
       >
-        리뷰작성
-      </v-btn>
+        <v-btn
+          color="orange"
+          text
+        >
+          리뷰작성
+        </v-btn>
+      </router-link>
     </v-card-actions>
   </v-card>
 
