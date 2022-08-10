@@ -16,10 +16,3 @@ spec:
             name: samoim-front-service
             port:
               number: 8080
-      - path: /api/
-        pathType: Prefix
-        backend:
-          service:
-            name: samoim-backend-svc
-            port:
-              number: 8080
