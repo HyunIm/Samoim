@@ -97,22 +97,20 @@
 
     </v-row>
 
-    <BottomBar></BottomBar>
-
   </v-container>
 </template>
 
 <script>
 import tennis from '../assets/tennis.png';
 import TopBar from '../components/common/TopBar.vue'
-import BottomBar from '../components/common/BottomBar.vue'
+//import BottomBar from '../components/common/BottomBar.vue'
 
 export default {
   name: 'Main',
 
   components: {
     TopBar,
-    BottomBar
+    //BottomBar
   },
 
   data: () => ({
@@ -126,5 +124,8 @@ export default {
       },
     ],
   }),
+
+  methods: {
+    }
 }
 </script>
