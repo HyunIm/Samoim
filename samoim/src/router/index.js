@@ -11,6 +11,7 @@ import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
 import TermsAccept from '../views/TermsAccept.vue';
 import Payment from '../views/Payment.vue';
 import ApplyComplete from '../views/ApplyComplete.vue';
+import GatheringInformation from '../views/GatheringInformation.vue';
 
 Vue.use(VueRouter);
 
@@ -63,6 +64,10 @@ export default new VueRouter({
     {
       path: '/applycomplete',
       component: ApplyComplete
+    },
+    {
+      path: '/gatheringinformation',
+      component: GatheringInformation
     },
   ]
 });
