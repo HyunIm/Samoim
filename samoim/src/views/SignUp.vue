@@ -34,8 +34,8 @@
             required
           ></v-text-field>
           <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
+            v-model="birth"
+            :rules="birthRules"
             label="생년월일"
             required
           ></v-text-field>
@@ -55,15 +55,15 @@
           ></v-text-field>
 
           <v-text-field
-            v-model="email"
-            :rules="emailRules"
+            v-model="pw"
+            :rules="pwRules"
             label="비밀번호"
             required
           ></v-text-field>
 
         <v-text-field
-            v-model="email"
-            :rules="emailRules"
+            v-model="pwCheck"
+            :rules="pwRules"
             label="비밀번호 확인"
             required
           ></v-text-field>
@@ -80,13 +80,13 @@
     </v-container>
   </v-form>
 
-  <template>
+<template>
         <v-btn
             block
             dark
             color="#FFBC00"
         >
-            회원 가입
+            가입하기
         </v-btn>
     </template>
   </div>
@@ -99,17 +99,27 @@
       firstname: '',
       lastname: '',
       nameRules: [
-        v => !!v || '이름을 꼭 입력해주세요',
+        v => !!v || '이름을 입력해주세요',
         v => v.length >= 1 || 'Name must be less than 10 characters',
+      ],
+      birth: '',
+      birthRules: [
+        v => !!v || '생년월일을 입력해주세요'
       ],
       email: '',
       emailRules: [
-        v => !!v || '이메일을 꼭 입력해주세요',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
+        v => !!v || '이메일을 입력해주세요',
+        v => /.+@.+/.test(v) || '유효한 이메일 주소가 아닙니다',
+      ],
+      pw: '',
+      pwRules: [
+        v => !!v || '비밀번호를 입력해주세요',
+        v => /.+@.+/.test(v) || '비밀번호를 입력해주세요',
       ],
       sex: ['남성', '여성'],
-      items: ['서울특별시', '경기도', '경상도', '전라도'],
-      items2: ['강남구', '강동구', '강북구', '강서구']
+      items: ['서울특별시', '경기도', '부산광역시', '대구광역시', '인천광역시', '충북', '충남',
+       '세종', '대전', '경상도', '전라도'],
+      items2: ['강남구', '강동구', '강북구', '강서구', '관악구']
     
     }),
   }

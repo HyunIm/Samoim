@@ -8,6 +8,7 @@ import SignUp from '../views/SignUp.vue';
 import CompleteGathering from '../views/my_gathering/CompleteGathering.vue';
 import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
 import WishGathering from '../views/my_gathering/WishGathering.vue';
+import InterestPick from '../views/InterestPick.vue';
 
 Vue.use(VueRouter);
 
@@ -36,6 +37,10 @@ export default new VueRouter({
     {
       path: '/signup',
       component: SignUp
+    },
+    {
+      path: '/interest',
+      component: InterestPick
     },
     {
       path: '/completegathering',
