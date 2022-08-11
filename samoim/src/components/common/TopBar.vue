@@ -135,8 +135,6 @@
 </template>
 
 <script>
-import axios from 'axios'
-
   export default {
     name: 'TopBar',
 
@@ -152,6 +150,7 @@ import axios from 'axios'
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
       ],
+      testData: []
     }),
 
     mounted() {
@@ -160,25 +159,37 @@ import axios from 'axios'
     },
 
     methods: {
+      /*
       getCategory: async function() {
-        const response = await axios.get('/api/categories');
+        const response = await this.$axios.get('/api/categories');
 
         if(response.statusText === 'OK') {
           this.categoriesData = response.data;
-          console.log(this.categoriesData);
+          //console.log(this.categoriesData);
         } else {
           console.log(response);
         }
       },
-      getLocation: async function() {
-        const response = await axios.get('/api/location');
-
-        if(response.statusText === 'OK') {
-          this.locationData = response.data;
+      */
+      getCategory() {
+        this.$axios.get('/api/categories')
+        .then((res) => {
+          this.categoriesData = res.data;
+          console.log(this.categoriesData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      getLocation() {
+        this.$axios.get('/api/location')
+        .then((res) => {
+          this.locationData = res.data;
           console.log(this.locationData);
-        } else {
-          console.log(response);
-        }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       },
       openFillterDialog() {
         this.fillterDialog = true;
