@@ -42,9 +42,14 @@
               </v-card-text>
 
               <v-card-actions>
-                <v-btn text>
-                  상세보기
-                </v-btn>
+                <router-link
+                  style="text-decoration: none; color: inherit;" 
+                  to="/gatheringinformation" 
+                >
+                  <v-btn text>
+                    상세보기
+                  </v-btn>
+                </router-link>
               </v-card-actions>
             </v-card>
           </v-col>

@@ -54,20 +54,30 @@
           <v-img src="../assets/insurance.png"></v-img>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
+            <router-link
+              style="text-decoration: none; color: inherit;" 
+              to="/applycomplete" 
             >
-              안 하기
-            </v-btn>
-            <v-btn
-              color="green darken-1"
-              text
-              @click="dialog = false"
+              <v-btn
+                color="green darken-1"
+                text
+                @click="dialog = false"
+              >
+                안 하기
+              </v-btn>
+            </router-link>
+            <router-link
+              style="text-decoration: none; color: inherit;" 
+              to="/applycomplete"
             >
-              가입하기
-            </v-btn>
+              <v-btn
+                color="green darken-1"
+                text
+                @click="url = true"
+              >
+                가입하기
+              </v-btn>
+            </router-link>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -80,8 +90,14 @@ export default {
   data () {
     return {
       dialog: false,
+      url: false,
     }
-  }
+  },
+  watch: {
+      url () {
+        window.open('https://m.kbinsure.co.kr:8543/MG302030001.ec', '_blank')
+      },
+    },
 }
 </script>
 

@@ -7,8 +7,8 @@
 
     <br>
     <center>
-      <h2>오르락 내리락! 떨어질랑말랑!</h2>
-      <h2># 클라이밍</h2>
+      <h2>{{ classInfoData.name }}</h2>
+      <h2># {{ classInfoData.smallCategory }}</h2>
     </center>
 
     <br>
@@ -22,12 +22,7 @@
           <v-list-item-title class="text-h5 mb-1">
             상세 소개
           </v-list-item-title>
-          초보도 쉽게 배울 수 있는 클라이밍 모임 <br>
-          몸만 오세요! 장비는 모두 대여해 드립니다! <br>
-          한번 해보면 빠져나올 수 없는 매력을 가진 <br>
-          클라이밍초보도 쉽게 배울 수 있는 클라이밍 모임 <br>
-          몸만 오세요! 장비는 모두 대여해 드립니다! <br>
-          한번 해보면 빠져나올 수 없는 클라이밍
+          {{ classInfoData.detailContents }}
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -43,9 +38,9 @@
           <v-list-item-title class="text-h5 mb-1">
             모임 일정
           </v-list-item-title>
-          일정 : 8월 6일 (토) 14:00 ~ 15:00 <br>
-          장소 : 볼더프렌즈 클라이밍(홍대입구역) <br>
-          금액 : ₩ 50,000
+          일정 : {{ classInfoData.openDate }} <br>
+          장소 : {{ classInfoData.city }} {{ classInfoData.address }} <br>
+          금액 : ₩ { 금액 }
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -61,9 +56,7 @@
           <v-list-item-title class="text-h5 mb-1">
             모임 리뷰
           </v-list-item-title>
-          혼자서 처음 참가해보았는데 모임장님이 <br>
-          친절하게 잘 알려주시고, 장비도 대여할 <br>
-          수 있어서 좋았습니다.
+          { 모임 리뷰 }
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -89,7 +82,39 @@
 
 <script>
 export default {
+  mounted() {
+    this.getClassInfo();
+  },
 
+  data: () => ({
+    classInfoData:
+      {
+        id: 16,
+        name: "클라클라 클라이밍",
+        largeCategory: "운동·액티비티",
+        smallCategory: "클라이밍",
+        city: "서울",
+        address: "서초구",
+        maxMember: 8,
+        ownerId: "admin@kb.com",
+        openDate: "2022-08-09T00:00:00.000+00:00",
+        detailContents: "클라이밍에 처음이신 분들 추천합니다!",
+        photoPath: "/photo/path"
+      },
+  }),
+
+  methods: {
+    getClassInfo() {
+      this.$axios.get('/api/classes/16')
+      .then((res) => {
+        this.classInfoData = res.data;
+        console.log(this.classInfoData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+  }
 }
 </script>
 
