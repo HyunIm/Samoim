@@ -53,8 +53,8 @@
 
           <v-card-text>
             <v-list-item
-              v-for="(item, i) in categoriesData"
-              :key="i"
+              v-for="(item, index) in categoriesData"
+              :key="index"
               >
               {{ item.name }}
             </v-list-item>
@@ -64,7 +64,12 @@
             <h2>지역</h2>
           </v-card-subtitle>
           <v-card-text>
-            API호출 데이터 바인딩
+            <v-list-item
+              v-for="(item, index) in locationData"
+              :key="index"
+              >
+              {{ item.CITY }} - {{ item.ADDRESS }}
+            </v-list-item>
           </v-card-text>
 
           <v-card-actions>
@@ -141,16 +146,17 @@ import axios from 'axios'
     data: () => ({
       fillterDialog: false,
       searchDialog: false,
-      categoriesData: [],
-      items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
+      categoriesData: [
+        { id: '1', name: '문화/예술' },
+      ],
+      locationData: [
+        { CITY: '서울', ADDRESS: '강남구' },
       ],
     }),
 
     mounted() {
       this.getCategory();
+      this.getLocation();
     },
 
     methods: {
@@ -160,6 +166,16 @@ import axios from 'axios'
         if(response.statusText === 'OK') {
           this.categoriesData = response.data;
           console.log(this.categoriesData);
+        } else {
+          console.log(response);
+        }
+      },
+      getLocation: async function() {
+        const response = await axios.get('/api/location');
+
+        if(response.statusText === 'OK') {
+          this.locationData = response.data;
+          console.log(this.locationData);
         } else {
           console.log(response);
         }
