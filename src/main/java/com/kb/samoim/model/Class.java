@@ -12,6 +12,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class Class {
+	
 	private long id;
 	private String name;
 	private String largeCategory;
@@ -24,3 +25,4 @@ public class Class {
 	private String detailContents;
 	private String photoPath;
 }
+
