@@ -13,6 +13,7 @@ import TermsAccept from '../views/TermsAccept.vue';
 import Payment from '../views/Payment.vue';
 import ApplyComplete from '../views/ApplyComplete.vue';
 import GatheringInformation from '../views/GatheringInformation.vue';
+import InterestPick from '../views/InterestPick.vue';
 
 Vue.use(VueRouter);
 
@@ -41,6 +42,10 @@ export default new VueRouter({
     {
       path: '/signup',
       component: SignUp
+    },
+    {
+      path: '/interest',
+      component: InterestPick
     },
     {
       path: '/completegathering',
