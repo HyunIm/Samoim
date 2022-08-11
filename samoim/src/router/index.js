@@ -10,6 +10,7 @@ import WishGathering from '../views/my_gathering/WishGathering.vue';
 import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
 import TermsAccept from '../views/TermsAccept.vue';
 import Payment from '../views/Payment.vue';
+import ApplyComplete from '../views/ApplyComplete.vue';
 
 Vue.use(VueRouter);
 
@@ -58,6 +59,10 @@ export default new VueRouter({
     {
       path: '/payment',
       component: Payment
+    },
+    {
+      path: '/applycomplete',
+      component: ApplyComplete
     },
   ]
 });
