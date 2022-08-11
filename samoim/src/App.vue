@@ -9,8 +9,7 @@
 
     <!-- bottom bar -->
     <BottomBar 
-      v-if="this.$route.path === '/'
-      || this.$route.path === '/main'
+      v-if="this.$route.path === '/main'
       || this.$route.path === '/make'
       || this.$route.path === '/progressGathering'
       || this.$route.path === '/completegathering'
