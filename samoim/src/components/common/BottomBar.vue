@@ -1,5 +1,5 @@
 <template>
-  <v-footer padless>
+     <v-footer padless fixed>
         <v-bottom-navigation dark background-color="#FBC02D">
           <router-link 
             style="text-decoration: none; color: inherit;" 
@@ -23,7 +23,7 @@
 
           <router-link 
             style="text-decoration: none; color: inherit;" 
-            to="/mypage"
+            to="/progressGathering"
           >
             <v-btn value="nearby" color="#FBC02D" class="mt-1">
               <span>내 모임</span>
