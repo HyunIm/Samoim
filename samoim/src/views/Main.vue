@@ -19,82 +19,36 @@
 
     <!-- 모임 리스트 -->
     <v-row>
-        <v-col cols="12">
-          <v-card
-            color="#385F73"
-            dark
+        <v-list-item
+          v-for="(item, index) in classData"
+          :key="index"
           >
-            <v-card-title class="text-h5">
-              Unlimited music now
-            </v-card-title>
 
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
+          <v-col cols="12">
+            <v-card
+              color="#385F73"
+              dark
+            >
+              <v-card-title class="text-h5">
+                {{ item.name }}
+              </v-card-title>
 
-            <v-card-actions>
-              <v-btn text>
-                Listen Now
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+              <v-card-subtitle>
+                {{ item.largeCategory }} - {{ item.smallCategory }}
+              </v-card-subtitle>
 
-        <v-col cols="12">
-          <v-card
-            color="#385F73"
-            dark
-          >
-            <v-card-title class="text-h5">
-              Unlimited music now
-            </v-card-title>
+              <v-card-text>
+                {{ item.detailContents }}
+              </v-card-text>
 
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>
-                Listen Now
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12">
-          <v-card
-            color="#385F73"
-            dark
-          >
-            <v-card-title class="text-h5">
-              Unlimited music now
-            </v-card-title>
-
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>
-                Listen Now
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-
-        <v-col cols="12">
-          <v-card
-            color="#385F73"
-            dark
-          >
-            <v-card-title class="text-h5">
-              Unlimited music now
-            </v-card-title>
-
-            <v-card-subtitle>Listen to your favorite artists and albums whenever and wherever, online and offline.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>
-                Listen Now
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-
+              <v-card-actions>
+                <v-btn text>
+                  상세보기
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-list-item>
     </v-row>
 
   </v-container>
@@ -113,6 +67,10 @@ export default {
     //BottomBar
   },
 
+  mounted() {
+      this.getClassList();
+    },
+
   data: () => ({
     test: 'SAMOIM MAIN PAGE',
     suggestionItems: [
@@ -123,9 +81,34 @@ export default {
         src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
       },
     ],
+    classData: [
+      {
+        id: 16,
+        name: "클라클라 클라이밍",
+        largeCategory: "운동·액티비티",
+        smallCategory: "클라이밍",
+        city: "서울",
+        address: "서초구",
+        maxMember: 8,
+        ownerId: "admin@kb.com",
+        openDate: "2022-08-09T00:00:00.000+00:00",
+        detailContents: "클라이밍에 처음이신 분들 추천합니다!",
+        photoPath: "/photo/path"
+      },
+    ]
   }),
 
   methods: {
+      getClassList() {
+        this.$axios.get('/api/classes')
+        .then((res) => {
+          this.classData = res.data;
+          console.log(this.classData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     }
 }
 </script>
