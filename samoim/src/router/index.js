@@ -17,7 +17,7 @@ export default new VueRouter({
 	mode:'history', //해쉬값 제거 방식
     routes: [{
         path: '/', 
-        redirect: '/main' 
+        component: Main
     },
     {
         path: '/main',
