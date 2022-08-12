@@ -14,6 +14,7 @@ import Payment from '../views/Payment.vue';
 import ApplyComplete from '../views/ApplyComplete.vue';
 import GatheringInformation from '../views/GatheringInformation.vue';
 import InterestPick from '../views/InterestPick.vue';
+import Login from '../views/Login.vue';
 
 Vue.use(VueRouter);
 
@@ -21,7 +22,7 @@ export default new VueRouter({
 	mode:'history', //해쉬값 제거 방식
     routes: [{
         path: '/', 
-        component: Main
+        component: Intro
     },
     {
         path: '/main',
@@ -78,6 +79,10 @@ export default new VueRouter({
     {
       path: '/gatheringinformation',
       component: GatheringInformation
+    },
+    {
+      path: '/login',
+      component: Login
     },
   ]
 });

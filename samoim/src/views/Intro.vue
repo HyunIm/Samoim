@@ -1,21 +1,48 @@
 <template>
   <v-container class="bg">
-    <div style="height: 750px;"></div>
+    <div style="height: 700px;"></div>
 
     <template>
+      <v-row class="justify-center">
         <v-btn
-            block
             dark
-            color="#FFBC00"
+            x-large
+            disabled
         >
-            스타뱅킹으로 5초만에 시작하기
+            스타뱅킹으로 5초만에 시작하기(추후 연동)
         </v-btn>
-    </template>
+      </v-row>
 
-    <template>
-        <v-btn block>
+      <v-row class="justify-center">
+        <router-link
+          to="/login"
+          style="text-decoration: none; color: inherit;"  
+        >
+          <v-btn
+            x-large
+            color="#FFBC00"
+            min-width="350"
+          >
             다른 방법으로 시작하기
-        </v-btn>
+          </v-btn>
+        </router-link>
+      </v-row>
+
+      <v-row class="justify-center">
+        <router-link
+          to="/signup" 
+        >
+          <v-btn
+            x-large
+            min-width="350"
+            plain
+            text
+            dark
+          >
+            회원 가입 후 시작하기
+          </v-btn>
+        </router-link>
+      </v-row>
     </template>
 
   </v-container>
