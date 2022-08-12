@@ -11,6 +11,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ReviewDto {
 	
+	public ReviewDto() {
+		
+	}
+	
 	private int class_id; //클래스 id
 	private String user_id; //유저 email
 	private int score;

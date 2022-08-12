@@ -11,6 +11,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ClassDto {
 	
+	public ClassDto() {
+		
+	}
+	
 	public Long getId() {
 		return id;
 	}
