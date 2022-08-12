@@ -15,6 +15,7 @@ import ApplyComplete from '../views/ApplyComplete.vue';
 import GatheringInformation from '../views/GatheringInformation.vue';
 import InterestPick from '../views/InterestPick.vue';
 import Login from '../views/Login.vue';
+import MyGathering from '../views/my_gathering/MyGathering.vue';
 
 Vue.use(VueRouter);
 
@@ -83,6 +84,10 @@ export default new VueRouter({
     {
       path: '/login',
       component: Login
+    },
+    {
+      path: '/mygathering',
+      component: MyGathering
     },
   ]
 });
