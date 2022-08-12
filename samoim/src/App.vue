@@ -17,18 +17,23 @@
       || this.$route.path === '/profile'
       "
     ></BottomBar>
-
+    <NextButton
+      v-if="this.$route.path === '/signup'"
+    >
+    </NextButton>
   </v-app>
 </template>
 
 <script>
 import BottomBar from './components/common/BottomBar.vue';
+import NextButton from './components/common/NextButton.vue';
 
 export default {
   name: 'App',
 
   components: {
-    BottomBar
+    BottomBar,
+    NextButton
   },
 
   data: () => ({
