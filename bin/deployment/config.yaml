@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: samoim-backend-config
+data:
+  SERVLET_CONTEXT_PATH: "/samoim"
+# MYSQL DB
+  DB_SERVER: samoim-mysql
+  DB_PORT: "3306"
+  DB_USERNAME: sumin
+  DB_PASSWORD: passw0rd

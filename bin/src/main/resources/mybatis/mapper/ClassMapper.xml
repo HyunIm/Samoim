@@ -7,4 +7,10 @@
 		from CLASS
 		ORDER BY OPEN_DATE DESC
 	</select>
+
+	<select id="selectClass" parameterType="long" resultType="com.kb.samoim.model.Class">
+		select * 
+		from CLASS
+		where id = #{id}
+	</select>
 </mapper>
