@@ -1,150 +1,95 @@
 <template>
-<div>
-  <v-bottom-navigation v-model="value" background-color="#FBC02D">
-    <router-link
-      style="text-decoration: none; color: inherit;" 
-      to="/progressgathering" 
-    >
-      <v-btn
-        color="#FFBC00"
-        block>
-        진행
-      </v-btn>
-    </router-link>
-
-    <router-link
-      style="text-decoration: none; color: inherit;" 
-      to="/completegathering" 
-    >
-      <v-btn
-        color="#FFBC00"
-        block>
-        완료
-      </v-btn>
-    </router-link>
-
-    <router-link
-      style="text-decoration: none; color: inherit;" 
-      to="/wishgathering" 
-    >
-      <v-btn
-        color="#FFBC00"
-        block>
-        찜
-      </v-btn>
-    </router-link>
-  </v-bottom-navigation>
-
-
   <v-card
     class="mx-auto ma-5"
     max-width="344"
     outlined
   >
     <v-list-item three-line>
-      <v-list-item-content>
-        <v-list-item-title class="text-h5 mb-1">
-          등신: 등반의 신
-        </v-list-item-title>
-        &nbsp; • 인원: 7명/15명 <br>
-        &nbsp; • 스포츠 > 등산 <br>
-        &nbsp; • 지역 : 수원(영통구)
-      </v-list-item-content>
-
       <v-list-item-avatar
         tile
         size="80"
       >
         <img src="../../assets/mountaineering.jpeg">
       </v-list-item-avatar>
-    </v-list-item>
-
-    <v-card-actions>
-      <v-btn
-        outlined
-        rounded
-        text
-      >
-        상세 페이지
-      </v-btn>
-    </v-card-actions>
-  </v-card>
-
-
-  <v-card
-    class="mx-auto ma-5"
-    max-width="344"
-    outlined
-  >
-    <v-list-item three-line>
       <v-list-item-content>
+        <div class="text-overline">
+          정원 마감
+        </div>
         <v-list-item-title class="text-h5 mb-1">
-          테니스의 왕자
+          참 즐거운 산악 동호회
         </v-list-item-title>
-        &nbsp; • 인원: 5명/10명 <br>
-        &nbsp; • 스포츠 > 테니스 <br>
-        &nbsp; • 지역 : 서울(강남구)
+          <v-row>
+            &nbsp;
+            <v-chip
+              class="ma-2 text-center"
+              color="green lighten-5"
+              text-color="green"
+              small
+            >
+              D-8
+            </v-chip>
+            <v-chip
+              class="ma-2 text-center"
+              outlined
+              small
+              text-color="grey darken-2"
+            >
+              <v-icon left>
+                mdi-map-marker-outline
+              </v-icon>
+              강북구∙8.20(토)
+            </v-chip>
+          </v-row>
+        <v-list-item-subtitle>
+          <v-row>
+            &nbsp;
+            <v-chip
+              class="ma-2 text-center"
+              outlined
+              small
+              text-color="grey darken-2"
+            >
+              8.12(금) 신청
+            </v-chip>
+            <v-chip
+              class="ma-2 text-center"
+              outlined
+              small
+              text-color="grey darken-2"
+            >
+              <v-icon left>
+                mdi-account-group
+              </v-icon>
+              12/16
+            </v-chip>
+          </v-row>
+        </v-list-item-subtitle>
       </v-list-item-content>
-
-      <v-list-item-avatar
-        tile
-        size="80"
-      >
-        <img src="../../assets/tennis.png">
-      </v-list-item-avatar>
     </v-list-item>
 
     <v-card-actions>
       <v-btn
         outlined
-        rounded
         text
+        width="48%"
       >
-        상세 페이지
+        참여 신청
       </v-btn>
-    </v-card-actions>
-  </v-card>
-
-
-  <v-card
-    class="mx-auto ma-5"
-    max-width="344"
-    outlined
-  >
-    <v-list-item three-line>
-      <v-list-item-content>
-        <v-list-item-title class="text-h5 mb-1">
-          와인 럽
-        </v-list-item-title>
-        &nbsp; • 인원: 4명/6명 <br>
-        &nbsp; • 사교 > 와인 <br>
-        &nbsp; • 지역 : 일산
-      </v-list-item-content>
-
-      <v-list-item-avatar
-        tile
-        size="80"
-      >
-        <img src="../../assets/wine.jpeg">
-      </v-list-item-avatar>
-    </v-list-item>
-
-    <v-card-actions>
       <v-btn
         outlined
-        rounded
         text
+        width="48%"
       >
-        상세 페이지
+        찜 취소
       </v-btn>
     </v-card-actions>
   </v-card>
-</div>
 </template>
 
 <script>
-  export default {
-  }
+export default {
+
+}
 </script>
 
 <style>
