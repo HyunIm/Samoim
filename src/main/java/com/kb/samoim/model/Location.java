@@ -10,7 +10,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 public class Location {
+	
 	private int id;
 	private String city;
 	private String address;
+
+
 }

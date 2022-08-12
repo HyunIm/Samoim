@@ -18,10 +18,8 @@ public class LocationController {
 	@Autowired
 	private LocationDao locationDao;
 	
-	
-	
 	@ApiOperation("Location 전체 호출 API")
-	@GetMapping("/location")
+	@GetMapping("")
 	public ResponseEntity<List<Location>> getAddressList(){
 		List<Location> locationList = locationDao.getLocationList();
 		return ResponseEntity.ok(locationList);
