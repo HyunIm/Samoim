@@ -32,15 +32,12 @@
     	WHERE EMAIL = #{email}
     </select>
     
-    <!--포인트만 더하는 메소드-->
-    <insert id="addUserPoint" parameterType="string" resultType="com.kb.samoim.dto.UserDto">
+    <insert id="addUserPoint" parameterType="string">
     	INSERT POINT
     	FROM USER
     	WHERE EMAIL = #{email}
     </insert>
     
-
-
     <!--이메일 중복되어 있는지 체크 ing-->
     <select id="emailCheck" parameterType="com.kb.samoim.dto.UserDto" resultType="int">
     	SELECT COUNT(*)
