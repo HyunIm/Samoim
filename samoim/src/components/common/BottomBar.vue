@@ -23,7 +23,7 @@
 
           <router-link 
             style="text-decoration: none; color: inherit;" 
-            to="/progressGathering"
+            to="/mygathering"
           >
             <v-btn value="nearby" color="#FBC02D" class="mt-1">
               <span>내 모임</span>
