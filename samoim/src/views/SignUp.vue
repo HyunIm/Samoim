@@ -1,101 +1,244 @@
 <template>
-  <div>
-  <h1>
-    <center>
-        회원가입
-    </center>
-  </h1>
 
-  <v-form v-model="valid">
-    <v-container>
-      <v-row>
-        <!-- 
-        NAME / 이름
-        BIRTH / 생년월일 ex 19940414
+  <v-container>
+    <v-row>
+      <v-col>
+        <BackButton/>
+      </v-col>
+      <v-col class="mt-3">
+        <h3>
+          <center>
+              회원가입
+          </center>
+        </h3>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
 
-        GENDER / 성별 -> 라디어 버튼
+    <div v-if="this.$store.getters.getSignUpPage === 1">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
 
-        PHONE / 전화번호
-        EMAIL / 이메일
-        PASSWORD / 비밀번호
-        PASSWORD / 비밀번호 확인
-              
+      <v-row class="mt-15 mx-3">
+        <h2>이메일을 입력해 주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        로그인 시 사용할 이메일을 입력해주세요.
+      </v-row>
 
-        CITY / 시도
-        ADDRESS / 구군 -->
-        <v-col
-          cols="12"
-          md="4"
+      <v-row class="mt-15"/>
+
+      <v-row class="mx-3 mt-15">
+        <v-text-field 
+          outlined
+          label="samoim@kb.com"
+          persistent-hint
+          solo
+          v-model="email"
+          :counter="20"
+          :rules="emailRules"
+          required
+          flat
+          dense
         >
-          <v-text-field
-            v-model="firstname"
-            :rules="nameRules"
-            label="이름"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="birth"
-            :rules="birthRules"
-            label="생년월일"
-            required
-          ></v-text-field>
-          <v-select
-            :items="sex"
-            label="성별"
-          ></v-select>
-        <v-text-field
-            label="전화번호"
-            required
-          ></v-text-field>
-          <v-text-field
-            v-model="email"
-            :rules="emailRules"
-            label="이메일"
-            required
-          ></v-text-field>
+        </v-text-field>
+      </v-row>
+    </div>
 
-          <v-text-field
-            v-model="pw"
-            :rules="pwRules"
-            label="비밀번호"
-            required
-          ></v-text-field>
+    <!-- password 입력 -->
+    <div v-if="this.$store.getters.getSignUpPage === 2">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
 
-        <v-text-field
-            v-model="pwCheck"
-            :rules="pwRules"
-            label="비밀번호 확인"
-            required
-          ></v-text-field>
-          <v-select
-            :items="items"
-            label="시/도"
-          ></v-select>
-          <v-select
-            :items="items2"
-            label="군/구"
-          ></v-select>
+      <v-row class="mt-15 mx-3">
+        <h2>비밀번호를 입력해 주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        영문과 숫자를 포함하여 6~15자를 작성해 주세요.
+      </v-row>
+
+      <v-row class="mt-15"/>
+      
+      <v-row class="mx-6  mt-15">
+        <h5 class="font-weight-black">비밀번호</h5>
+      </v-row>
+      <v-row class="mx-3">
+        <v-text-field 
+          outlined
+          label="비밀번호를 입력해 주세요"
+          persistent-hint
+          solo
+          v-model="password"
+          :counter="15"
+          required
+          flat
+          dense
+          :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="passwordShow ? 'text' : 'password'"
+          @click:append="passwordShow = !passwordShow"
+        >
+        </v-text-field>
+      </v-row>
+
+      <v-row class="mx-6  mt-10">
+        <h5 class="font-weight-black">비밀번호 확인</h5>
+      </v-row>
+      <v-row class="mx-3">
+        <v-text-field 
+          outlined
+          label="비밀번호를 한번 더 입력해주세요."
+          persistent-hint
+          solo
+          v-model="passwordCheck"
+          :counter="15"
+          required
+          flat
+          dense
+          :append-icon="passwordCheckShow ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="passwordCheckShow ? 'text' : 'password'"
+          @click:append="passwordCheckShow = !passwordCheckShow"
+        >
+        </v-text-field>
+      </v-row>
+    </div>
+
+    <div v-if="this.$store.getters.getSignUpPage === 3">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>성별을 선택해 주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        모임 추천 서비스를 위해 필요한 정보입니다.
+      </v-row>
+
+      <v-row class="mt-15"/>
+
+      <v-row class="mx-3 mt-15">
+        <v-col>
+          <v-btn
+            x-large
+            block
+            outlined
+            color="grey"
+            :class="{ choice : man }"
+            @click="changeGender('man')"
+          >
+            남성
+          </v-btn>
+        </v-col>
+        <v-col>
+          <v-btn
+            x-large
+            block
+            outlined
+            color="grey"
+            :class="{ choice : woman }"
+            @click="changeGender('woman')"
+          >
+            여성
+          </v-btn>
         </v-col>
       </v-row>
-    </v-container>
-  </v-form>
+    </div>
 
-<template>
-        <v-btn
-            block
-            dark
-            color="#FFBC00"
+    <div v-if="this.$store.getters.getSignUpPage === 4">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>생년월일을 입력해주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        모임 추천 서비스를 위해 필요한 정보입니다.
+      </v-row>
+
+      <v-row class="mt-15"/>
+        
+      <v-row class="mx-3 mt-15">
+        
+      </v-row>
+    </div>
+
+    <div v-if="this.$store.getters.getSignUpPage === 5">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <center class="mt-15 mx-3">
+        <v-img
+          max-height="128"
+          max-width="128"
+          src="../assets/check.png"
         >
-            가입하기
-        </v-btn>
-    </template>
-  </div>
+        </v-img>
+      </center>
+
+      <h1><center>가입 완료</center></h1>
+    </div>
+
+  </v-container>
 </template>
 
 <script>
+import BackButton from '../components/common/BackButton.vue'
+
   export default {
+    components: {
+      BackButton,
+    },
+
+    methods: {
+      changeGender(gender){
+        if(gender === 'man') {
+          this.man = true;
+          this.woman = false;
+        } else {
+          this.man = false;
+          this.woman = true;
+        }
+      }
+    },
+
+    computed: {
+      changePage() {
+        return this.$store.state.signupPage
+      }
+    },
+
+    watch: {
+      changePage() {
+        this.progress = 20 * this.$store.state.signupPage
+      }
+    },
+
     data: () => ({
+      man: false,
+      woman: false,
+      progress: 20,
       valid: false,
+      passwordShow: false,
+      passwordCheckShow: false,
+      password: '',
+      passwordCheck: '',
+      activePicker: 'YEAR',
+      date: null,
+      menu: true,
       firstname: '',
       lastname: '',
       nameRules: [
@@ -124,3 +267,10 @@
     }),
   }
 </script>
+
+<style scoped>
+.choice {
+    border: 4px solid #1976D2;
+    border-radius: 7px 7px 7px 7px;
+}
+</style>
