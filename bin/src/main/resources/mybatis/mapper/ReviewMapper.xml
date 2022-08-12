@@ -2,7 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kb.samoim.dao.ReviewDao">
 	
-    <!--리뷰 생성-->
 	<insert id="createReview" parameterType="com.kb.samoim.dao.ReviewDao">
         INSERT INTO REVIEW
         (CLASS_ID, USER_ID, SCORE, CONTENTS, PHOTO_PATH, CREATE_DATE)
@@ -10,7 +9,6 @@
         (#{class_id},#{user_id},#{score},#{contents},#{photo_path},#{create_date});
     </insert>
     
-    <!--리뷰 전체 조회-->
     <select id="getReviewAll" parameterType="int" resultType="com.kb.samoim.dto.ReviewDto">
     	SELECT *
     	FROM REVIEW

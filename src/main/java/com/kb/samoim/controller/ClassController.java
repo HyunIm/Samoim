@@ -3,6 +3,8 @@ package com.kb.samoim.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,13 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
 import com.kb.samoim.dao.ClassJoinDao;
 import com.kb.samoim.dao.ClassLikeDao;
+import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.model.Class;
 import com.kb.samoim.model.ClassJoin;
 import com.kb.samoim.model.ClassLike;
+import com.kb.samoim.service.ClassService;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 public class ClassController {
-
+	private static final Logger logger = LoggerFactory.getLogger(ClassController.class);
+	private ClassService classService;
+	public ClassController(
+			@Autowired
+			ClassService classService
+	) {
+		this.classService = classService;
+	}
+	
+	
 	@Autowired
 	private ClassDao classDao;
 
@@ -143,4 +157,14 @@ public class ClassController {
 
 		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
 	}
+	
+	@ApiOperation("모임(Class) 생성 API")
+	@PostMapping("/create/{userId}")
+	public ResponseEntity<?> createClass(
+			@PathVariable String userId,
+			@RequestBody ClassDto classDto
+	){
+		return ResponseEntity.ok(this.classService.createClass(userId, classDto));
+	}
+	
 }

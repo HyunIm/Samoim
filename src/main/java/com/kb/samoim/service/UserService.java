@@ -1,8 +1,9 @@
 package com.kb.samoim.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -12,6 +13,7 @@ import com.kb.samoim.dto.UserDto;
 @Service
 public class UserService {
 
+	private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 	private UserDao userDao;
 	
 	public UserService(
@@ -21,6 +23,7 @@ public class UserService {
 	}
 	
 	public void saveUser(UserDto userDto) {
+		//회원가입시 중복 체크하는 로직 필요
 		
 		UserDto newUser = new UserDto();
 		newUser.setEmail(userDto.getEmail());
@@ -32,6 +35,7 @@ public class UserService {
 		newUser.setCity(userDto.getCity());
 		newUser.setAddress(userDto.getAddress());
 		newUser.setInterest(userDto.getInterest());
+		newUser.setPoint(userDto.getPoint());
 		
 		this.userDao.saveUser(newUser);
 	}
@@ -75,4 +79,21 @@ public class UserService {
 		return newUserDto;
 	}
 	
+	public UserDto getUserPoint(String email) {
+		UserDto findUser = null;
+		findUser = this.userDao.findByEmail(email);	
+		if(findUser == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		return this.userDao.getUserPoint(findUser.getEmail());
+	}
+
+
+	public boolean emailCheck(String email) {
+		UserDto findUser = this.userDao.findByEmail(email);
+		String userEmail = findUser.getEmail();
+		if(findUser == null || userEmail.equals(email)) {
+			return false;
+		}
+		return true;
+	}
 }
