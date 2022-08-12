@@ -105,7 +105,7 @@ export default {
 
   methods: {
     getClassInfo() {
-      this.$axios.get('/api/classes/16')
+      this.$axios.get('/api/classes/1')
       .then((res) => {
         this.classInfoData = res.data;
         console.log(this.classInfoData);

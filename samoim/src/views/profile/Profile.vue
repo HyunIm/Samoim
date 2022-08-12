@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>&nbsp;프로필</h2>
     <br> <br>
     <v-card
       class="mx-auto"
