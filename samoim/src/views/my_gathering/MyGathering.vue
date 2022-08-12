@@ -1,6 +1,5 @@
 <template>
   <div>
-    <br>
     <h2>&nbsp;내 활동</h2>
     <br>
     <GatheringBar

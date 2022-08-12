@@ -5,8 +5,6 @@ import Profile from '../views/profile/Profile.vue';
 import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
 import SignUp from '../views/SignUp.vue';
-import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
-import WishGathering from '../views/my_gathering/WishGathering.vue';
 import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
 import TermsAccept from '../views/TermsAccept.vue';
 import Payment from '../views/Payment.vue';
@@ -47,14 +45,6 @@ export default new VueRouter({
     {
       path: '/interest',
       component: InterestPick
-    },
-    {
-      path: '/progressgathering',
-      component: ProgressGathering
-    },
-    {
-      path: '/wishgathering',
-      component: WishGathering
     },
     {
       path: '/reviewwrite',
