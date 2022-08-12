@@ -24,7 +24,19 @@ public class UserDto {
 	private String interest;
 	private String photo_path;
 	private String tag;
+	private int point;
 	
+	
+	public UserDto() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}	
 	public String getEmail() {
 		return email;
 	}

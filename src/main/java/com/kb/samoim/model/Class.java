@@ -24,5 +24,6 @@ public class Class {
 	private Timestamp openDate;
 	private String detailContents;
 	private String photoPath;
+	
 }
 

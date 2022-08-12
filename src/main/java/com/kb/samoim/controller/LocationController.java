@@ -11,7 +11,6 @@ import com.kb.samoim.model.*;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 
-
 @RestController("location")
 public class LocationController {
 	

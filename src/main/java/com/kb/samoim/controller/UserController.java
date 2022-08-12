@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dto.UserDto;
 import com.kb.samoim.service.UserService;
@@ -68,6 +69,14 @@ public class UserController {
 			@RequestBody UserDto userDto
 	){
 		return ResponseEntity.ok(this.userService.updateUser(email, userDto));
+	}
+	
+	@ApiOperation("유저 포인트 및 정보 함께 조회 API")
+	@GetMapping("/balance/{email}")
+	public ResponseEntity<Integer> getUserPoint(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.userService.getUserPoint(email).getPoint());
 	}
 	
 }
