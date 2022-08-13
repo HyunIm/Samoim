@@ -22,7 +22,7 @@
       nextPage() {
         if(this.$store.state.signupPage === 5) {
           //로그인 상태로 메인 페이지 이동
-          this.$router.replace('Main')
+          this.$router.replace('/main')
         } else if(this.$store.state.signupPage === 4) {
           // 회원가입 API 호출
 

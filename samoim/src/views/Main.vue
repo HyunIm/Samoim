@@ -6,7 +6,13 @@
 
     <!-- 추천 모임 -->
     <v-row>
-      <v-carousel height="350" cycle show-arrows-on-hover>
+      <v-carousel 
+        height="300" 
+        cycle 
+        show-arrows-on-hover
+        delimiter-icon="mdi-minus"
+        hide-delimiter-background
+      >
         <v-carousel-item
           v-for="(item,i) in suggestionItems"
           :key="i"
@@ -18,41 +24,51 @@
     </v-row>
 
     <!-- 모임 리스트 -->
+    <v-row class="mx-3 mt-5">
+      <h2>내 주변 사모임</h2>
+    </v-row>
+
     <v-row>
         <v-list-item
           v-for="(item, index) in classData"
           :key="index"
           >
+          <router-link
+            style="text-decoration: none; color: inherit;" 
+            to="/gatheringinformation" 
+          >
 
           <v-col cols="12">
             <v-card
-              color="#385F73"
-              dark
+              class="mx-auto"
+              max-width="360"
+              outlined
+              shaped
             >
-              <v-card-title class="text-h5">
-                {{ item.name }}
-              </v-card-title>
-
-              <v-card-subtitle>
-                {{ item.largeCategory }} - {{ item.smallCategory }}
-              </v-card-subtitle>
-
-              <v-card-text>
-                {{ item.detailContents }}
-              </v-card-text>
-
-              <v-card-actions>
-                <router-link
-                  style="text-decoration: none; color: inherit;" 
-                  to="/gatheringinformation" 
-                >
-                  <v-btn text>
-                    상세보기
-                  </v-btn>
-                </router-link>
-              </v-card-actions>
+              <v-list-item three-line>
+                <v-list-item-avatar
+                  tile
+                  size="80"
+                  color="grey"
+                ></v-list-item-avatar>
+                <v-list-item-content>
+                  <div class="text-overline">
+                    <h4> {{ item.largeCategory }}>{{ item.smallCategory }} </h4>
+                  </div>
+                  <v-list-item-title class="mb-1">
+                    <h3>{{ item.name }}</h3>
+                  </v-list-item-title>
+                  <v-list-item-subtitle>
+                    <v-icon>mdi-map-marker</v-icon>
+                    {{ item.city }} {{ item.address }}
+                    <v-icon class="ml-2">mdi-account-multiple</v-icon>
+                    현재인원 / {{ item.maxMember }}
+                  </v-list-item-subtitle>
+                </v-list-item-content>
+              </v-list-item>
             </v-card>
           </v-col>
+          </router-link>
         </v-list-item>
     </v-row>
 
@@ -60,9 +76,12 @@
 </template>
 
 <script>
-import tennis from '../assets/tennis.png';
 import TopBar from '../components/common/TopBar.vue'
-//import BottomBar from '../components/common/BottomBar.vue'
+
+import football from '../assets/main/football.jpg';
+import band from '../assets/main/band.jpg';
+import surfing from '../assets/main/surfing.jpg';
+import camping from '../assets/main/camping.jpg';
 
 export default {
   name: 'Main',
@@ -80,10 +99,16 @@ export default {
     test: 'SAMOIM MAIN PAGE',
     suggestionItems: [
       {
-        src: tennis,
+        src: football,
       },
       {
-        src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg',
+        src: band,
+      },
+      {
+        src: surfing,
+      },
+      {
+        src: camping,
       },
     ],
     classData: [
@@ -108,7 +133,7 @@ export default {
         this.$axios.get('/api/classes')
         .then((res) => {
           this.classData = res.data;
-          console.log(this.classData);
+          //console.log(this.classData);
         })
         .catch((error) => {
           console.log(error);

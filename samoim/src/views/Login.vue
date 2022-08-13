@@ -10,13 +10,11 @@
     </v-row>
 
     <v-row class="ml-2">
-      <v-img>
-        <v-img
-          max-height="40"
-          max-width="150"
-          :src="samoimLogo"
-        ></v-img>
-      </v-img>
+      <v-img
+        max-height="40"
+        max-width="150"
+        :src="samoimLogo"
+      ></v-img>
     </v-row>
 
     <form class="mt-10">
@@ -71,7 +69,7 @@
               x-large
               color="primary"
               dark
-              @click="submit"
+              @click="login()"
               block
               rounded
             >
@@ -109,6 +107,12 @@ import Logo from '../assets/samoimLogo.png';
 
     components: {
       BackButton,
+    },
+
+    methods: {
+      login(){
+        // 로그인 api 호출
+      }
     },
 
     data: () => ({
