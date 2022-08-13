@@ -13,6 +13,7 @@ import GatheringInformation from '../views/GatheringInformation.vue';
 import InterestPick from '../views/InterestPick.vue';
 import Login from '../views/Login.vue';
 import MyGathering from '../views/my_gathering/MyGathering.vue';
+import Test from '../views/Test.vue';
 
 Vue.use(VueRouter);
 
@@ -73,6 +74,10 @@ export default new VueRouter({
     {
       path: '/mygathering',
       component: MyGathering
+    },
+    {
+      path: '/test',
+      component: Test
     },
   ]
 });
