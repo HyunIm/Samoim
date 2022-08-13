@@ -51,12 +51,17 @@
       max-width="344"
       outlined
     >
-      <v-list-item three-line>
+      <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
             모임 리뷰
           </v-list-item-title>
-          { 모임 리뷰 }
+          <v-list-item
+            v-for="(item, index) in reviewData"
+            :key="index"
+          >
+            &nbsp; ∙ {{ item.contents }}
+          </v-list-item>
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -68,11 +73,15 @@
     >
       <v-btn
         align="end"
-        block
+        class="mr-4"
+        x-large
+        color="primary"
         dark
-        color="#FFBC00"
+        @click="submit"
+        block
+        rounded
       >
-        가입하기
+        <h3>가입하기</h3>
       </v-btn>
     </router-link>
 
@@ -101,14 +110,33 @@ export default {
         detailContents: "클라이밍에 처음이신 분들 추천합니다!",
         photoPath: "/photo/path"
       },
+    reviewData: [
+      {
+        class_id: 0,
+        user_id: null,
+        score: 5,
+        contents: "좋아요~",
+        photo_path: null,
+        create_date: null
+      },
+    ]
   }),
 
   methods: {
     getClassInfo() {
-      this.$axios.get('/api/classes/16')
+      this.$axios.get('/api/classes/1')
       .then((res) => {
         this.classInfoData = res.data;
         console.log(this.classInfoData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+      this.$axios.get('/api/review/1')
+      .then((res) => {
+        this.reviewData = res.data;
+        console.log(this.reviewData);
       })
       .catch((error) => {
         console.log(error);

@@ -5,8 +5,6 @@ import Profile from '../views/profile/Profile.vue';
 import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
 import SignUp from '../views/SignUp.vue';
-import ProgressGathering from '../views/my_gathering/ProgressGathering.vue';
-import WishGathering from '../views/my_gathering/WishGathering.vue';
 import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
 import TermsAccept from '../views/TermsAccept.vue';
 import Payment from '../views/Payment.vue';
@@ -15,6 +13,7 @@ import GatheringInformation from '../views/GatheringInformation.vue';
 import InterestPick from '../views/InterestPick.vue';
 import Login from '../views/Login.vue';
 import MyGathering from '../views/my_gathering/MyGathering.vue';
+import Test from '../views/Test.vue';
 
 Vue.use(VueRouter);
 
@@ -49,14 +48,6 @@ export default new VueRouter({
       component: InterestPick
     },
     {
-      path: '/progressgathering',
-      component: ProgressGathering
-    },
-    {
-      path: '/wishgathering',
-      component: WishGathering
-    },
-    {
       path: '/reviewwrite',
       component: ReviewWrite
     },
@@ -83,6 +74,10 @@ export default new VueRouter({
     {
       path: '/mygathering',
       component: MyGathering
+    },
+    {
+      path: '/test',
+      component: Test
     },
   ]
 });
