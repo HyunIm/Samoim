@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>&nbsp;프로필</h2>
     <br> <br>
     <v-card
       class="mx-auto"
@@ -7,28 +8,30 @@
       outlined
     >
       <v-list-item three-line>
-        <v-list-item-avatar
-          tile
-          size="80"
+        <v-badge
+          bordered
+          bottom
+          color="grey"
+          icon="mdi-pencil"
+          offset-x="35"
+          offset-y="35"
         >
-          <img src="../../assets/wyw.png">
-        </v-list-item-avatar>
+          <v-list-item-avatar
+            tile
+            size="80"
+          >
+            <img src="../../assets/wyw.png">
+          </v-list-item-avatar>
+        </v-badge>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
-            우영우
+            &nbsp;우영우
           </v-list-item-title>
-          <v-list-item-subtitle>이상한 변호사</v-list-item-subtitle>
         </v-list-item-content>
-        <v-card-actions>
-          <v-btn
-            outlined
-            rounded
-            text
-          >
-            >
-          </v-btn>
-        </v-card-actions>
       </v-list-item>
+      제 이름은 똑바로 읽어도 거꾸로 읽어도 우영우입니다. <br>
+      기러기, 토마토, 스위스, 인도인, 별똥별, 우영우. <br>
+      ...역삼역?
     </v-card>
 
     <br><br>
@@ -56,8 +59,8 @@
     name: 'Profile',
 
     data: () => ({
-      items: ['운동', '문화', '음악', '캠핑', '예술', '요리'],
-      values: ['운동', '캠핑'],
+      items: ['운동', '여행', '문화', '음악', '창작', '성장', '봉사', '요리'],
+      values: ['운동', '음악'],
       value: null,
     }),
   }

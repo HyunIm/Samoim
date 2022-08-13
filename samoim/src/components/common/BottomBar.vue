@@ -24,8 +24,8 @@
           </router-link>
 
           <router-link 
-            style="text-decoration: none; color: inherit;" 
-            to="/progressGathering"
+            style="text-decoration: none; color: inherit;"
+            to="/mygathering"
             class="mx-2"
           >
             <v-btn value="nearby" color="#ffbc00" class="mt-1">

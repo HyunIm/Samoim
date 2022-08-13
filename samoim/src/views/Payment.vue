@@ -1,6 +1,16 @@
 <template>
   <div>
-    <v-card
+    <br>
+    <h1>결제 금액</h1>
+    <h1 align="right">50,000원</h1>
+    <v-divider></v-divider>
+    <br>
+    <h1>보유 포인트</h1>
+    <h1 align="right">108,750원</h1>
+    <v-divider></v-divider>
+    <br>
+    <br>
+    <!-- <v-card
       class="mx-auto ma-10"
       max-width="344"
       outlined
@@ -28,7 +38,7 @@
           108,750P
         </v-list-item-content>
       </v-list-item>
-    </v-card>
+    </v-card> -->
     
     <v-row justify="center">
       <v-dialog
@@ -37,15 +47,18 @@
         max-width="290"
       >
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            block
-            color="#FFBC00"
-            dark
-            v-bind="attrs"
-            v-on="on"
-          >
-            결제하기
-          </v-btn>
+            <v-btn
+              lass="mr-4"
+              x-large
+              color="primary"
+              dark
+              block
+              rounded
+              v-bind="attrs"
+              v-on="on"
+            >
+              <h3>50,000원 결제하기</h3>
+            </v-btn>
         </template>
         <v-card>
           <v-card-title class="text-h5">
