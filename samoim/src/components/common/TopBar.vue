@@ -5,23 +5,24 @@
         fixed
         style="padding:0 5%"
         flat
+        color="white"
       >
-        <div class="d-flex align-center">
-          <h1>
-            <p class="font-2 mb-n1" :style="`color:#FBC02D`">SAMOIM</p>
-          </h1>
+        <div>
+          <v-img
+            max-height="40"
+            max-width="150"
+            :src="samoimLogo"
+          ></v-img>
         </div>
 
       <v-spacer></v-spacer>
       <v-icon
-        large
         color="black darken-2"
         @click="openFillterDialog()"
       >
-        mdi-filter-cog-outline
+        mdi-filter-menu-outline
       </v-icon>
       <v-icon
-        large
         color="black darken-2"
         class="ml-2"
         @click="searchDialog = !searchDialog"
@@ -30,12 +31,15 @@
       </v-icon>
 
       <!-- fillter dialog -->
+      <!--
       <v-dialog
         fullscreen
         hide-overlay
         transition="dialog-top-transition"
         v-model="fillterDialog"
       >
+      -->
+      <v-bottom-sheet v-model="fillterDialog">
         <v-card>
           <v-card-title>
             <v-btn
@@ -52,12 +56,19 @@
           </v-card-subtitle>
 
           <v-card-text>
-            <v-list-item
-              v-for="(item, index) in categoriesData"
-              :key="index"
-              >
-              {{ item.name }}
-            </v-list-item>
+            <v-row>
+              <v-col
+                cols="4"
+                v-for="(item, index) in categoriesData"
+                :key="index"
+                >
+                <v-checkbox
+                  :label=item.name
+                  color="primary"
+                  hide-details
+                ></v-checkbox>
+              </v-col>
+            </v-row>
           </v-card-text>
 
           <v-card-subtitle class="mt-3">
@@ -73,23 +84,24 @@
           </v-card-text>
 
           <v-card-actions>
-            <v-btn>
-              검색
+            <v-btn
+              class="mb-3"
+              x-large
+              color="primary"
+              dark
+              block
+              rounded
+            >
+              <h3 class="font-weight-black">검색</h3>
             </v-btn>
           </v-card-actions>
 
         </v-card>
-
-      </v-dialog>
+      </v-bottom-sheet>
 
 
       <!-- search dialog -->
-      <v-dialog
-        fullscreen
-        hide-overlay
-        transition="dialog-top-transition"
-        v-model="searchDialog"
-      >
+      <v-bottom-sheet v-model="searchDialog">
         <v-card>
           <v-card-title>
             <v-btn
@@ -127,7 +139,7 @@
             </v-list-item>
           </v-list>
         </v-card>
-      </v-dialog>
+      </v-bottom-sheet>
       </v-app-bar>
     </v-row>
     
@@ -135,6 +147,8 @@
 </template>
 
 <script>
+import Logo from '../../assets/samoimLogo.png';
+
   export default {
     name: 'TopBar',
 
@@ -142,6 +156,7 @@
     },
 
     data: () => ({
+      samoimLogo: Logo,
       fillterDialog: false,
       searchDialog: false,
       categoriesData: [
