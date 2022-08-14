@@ -31,12 +31,13 @@
     	FROM USER
     	WHERE EMAIL = #{email}
     </select>
-    
-    <insert id="addUserPoint" parameterType="string">
-    	INSERT POINT
-    	FROM USER
+
+    <!--포인트 추가,업데이트 똑같이-->
+    <update id="updatePoint" parameterType="com.kb.samoim.dto.UserDto">
+    	UPDATE USER
+    	SET POINT = #{point}
     	WHERE EMAIL = #{email}
-    </insert>
+    </update>
     
     <!--이메일 중복되어 있는지 체크 ing-->
     <select id="emailCheck" parameterType="com.kb.samoim.dto.UserDto" resultType="int">
@@ -45,7 +46,7 @@
     	WHERE email = #{email}	
     </select>
 
-        <!--프로필 업데이트 ing -->
+    <!--프로필 업데이트 ing -->
     <update id="updateUser" parameterType="com.kb.samoim.dto.UserDto">
     	UPDATE USER
     	SET PHONE = {phone}, INTEREST = #{interest}

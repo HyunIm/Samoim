@@ -86,7 +86,21 @@ public class UserService {
 		
 		return this.userDao.getUserPoint(findUser.getEmail());
 	}
-
+	
+	public boolean updatePoint(String email, int point) {
+		UserDto findUser = null;
+		findUser = this.userDao.findByEmail(email);
+		if(findUser == null)
+			return false;
+		int balance = findUser.getPoint();
+		int diff = balance - point;
+		if(diff<0)
+			return false;
+		
+		this.userDao.updatePoint(email,diff);
+		
+		return true;
+	}
 
 	public boolean emailCheck(String email) {
 		UserDto findUser = this.userDao.findByEmail(email);

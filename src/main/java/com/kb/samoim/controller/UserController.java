@@ -30,6 +30,7 @@ public class UserController {
     	this.userService = userService;
     }
 	
+    @ApiOperation("회원가입 페이지 GET API")
 	@GetMapping("/signUp")
 	public String saveUser() {
 		return "user/signup"; //signUp 
@@ -77,6 +78,18 @@ public class UserController {
 			@PathVariable String email
 	){
 		return ResponseEntity.ok(this.userService.getUserPoint(email).getPoint());
+	}
+	
+	@ApiOperation("포인트 업데이트 API")
+	@PutMapping("/balance/update/{email}")
+	public ResponseEntity<?> pointUpdate(
+			@PathVariable String email,
+			@RequestBody int price // 가격 
+	){
+		boolean flag = this.userService.updatePoint(email, price);
+		if(!flag) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		return ResponseEntity.ok(flag);
 	}
 	
 }
