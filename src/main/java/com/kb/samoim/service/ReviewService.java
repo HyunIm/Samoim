@@ -40,7 +40,7 @@ public class ReviewService {
 		newReviewDto.setScore(reviewDto.getScore());
 		newReviewDto.setContents(reviewDto.getContents());
 		this.reviewDao.createReview(newReviewDto);
-		logger.info(""+newReviewDto.getContents()+"제발 저장되라");
+		logger.info(""+newReviewDto.getContents()+" 리뷰 저장");
 		
 		return true;
 	}
