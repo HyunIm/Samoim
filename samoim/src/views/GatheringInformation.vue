@@ -8,7 +8,7 @@
     <br>
     <center>
       <h2>{{ classInfoData.name }}</h2>
-      <h2># {{ classInfoData.smallCategory }}</h2>
+      <h3 style="color:grey"># {{ classInfoData.smallCategory }}</h3>
     </center>
 
     <br>
@@ -19,10 +19,12 @@
     >
       <v-list-item three-line>
         <v-list-item-content>
-          <v-list-item-title class="text-h5 mb-1">
-            상세 소개
+          <v-list-item-title class="text-h5 mb-2">
+            <h5>상세 소개</h5>
           </v-list-item-title>
+          <v-list-item>
           {{ classInfoData.detailContents }}
+          </v-list-item>
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -35,12 +37,21 @@
     >
       <v-list-item three-line>
         <v-list-item-content>
-          <v-list-item-title class="text-h5 mb-1">
-            모임 일정
+          <v-list-item-title class="text-h5 mb-2">
+            <h5>모임 일정</h5>
           </v-list-item-title>
-          일정 : {{ classInfoData.openDate }} <br>
-          장소 : {{ classInfoData.city }} {{ classInfoData.address }} <br>
-          금액 : ₩ { 금액 }
+          <div class="ml-3">
+            <v-icon class="mr-2">mdi-calendar-month</v-icon>
+            {{ classInfoData.openDate }}
+          </div>
+          <div class="ml-3">
+            <v-icon class="mr-2">mdi-map-marker</v-icon>
+            {{ classInfoData.city }} {{ classInfoData.address }}
+          </div>
+          <div class="ml-3">
+            <v-icon class="mr-2">mdi-currency-krw</v-icon>
+            { 금액 }
+          </div>
         </v-list-item-content>
       </v-list-item>
     </v-card>
@@ -54,38 +65,44 @@
       <v-list-item>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
-            모임 리뷰
+            <h5>모임 리뷰</h5>
           </v-list-item-title>
-          <v-list-item
+          <div
             v-for="(item, index) in reviewData"
             :key="index"
+            class="ml-2"
           >
             &nbsp; ∙ {{ item.contents }}
-          </v-list-item>
+          </div>
         </v-list-item-content>
       </v-list-item>
     </v-card>
 
-    <br>
-    <router-link
-      style="text-decoration: none; color: inherit;" 
-      to="/termsaccept" 
-    >
-      <v-btn
-        align="end"
-        class="mr-4"
-        x-large
-        color="primary"
-        dark
-        @click="submit"
-        block
-        rounded
-      >
-        <h3>가입하기</h3>
-      </v-btn>
-    </router-link>
-
-    <br><br><br>
+    <v-row class="mb-5 mt-1 mx-3">
+      <v-col cols="2">
+        <v-btn fab class="mt-4" @click="changeFavorite()">
+          <v-icon color="red" v-if="this.favorite">mdi-heart</v-icon>
+          <v-icon v-if="!this.favorite">mdi-cards-heart-outline</v-icon>
+        </v-btn>
+      </v-col>
+      <v-col>
+        <router-link
+          style="text-decoration: none; color: inherit;" 
+          to="/termsaccept"
+        >
+        <v-btn
+          align="end"
+          color="primary"
+          rounded
+          x-large
+          block
+          class="mx-2 mt-5"
+        >
+          <h3>가입하기</h3>
+        </v-btn>
+        </router-link>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -119,7 +136,8 @@ export default {
         photo_path: null,
         create_date: null
       },
-    ]
+    ],
+    favorite : false
   }),
 
   methods: {
@@ -127,6 +145,9 @@ export default {
       this.$axios.get('/api/classes/1')
       .then((res) => {
         this.classInfoData = res.data;
+        this.classInfoData.openDate 
+        = this.classInfoData.openDate.split("T")[0].toString()
+        + " " + this.classInfoData.openDate.split("T")[1].substr(0, 5).toString();
         console.log(this.classInfoData);
       })
       .catch((error) => {
@@ -142,6 +163,12 @@ export default {
         console.log(error);
       });
     },
+    changeFavorite() {
+      // 찜 API 호출
+
+      // 하트 색깔 변경
+      this.favorite = !this.favorite;
+    }
   }
 }
 </script>
