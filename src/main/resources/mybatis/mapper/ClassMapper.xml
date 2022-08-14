@@ -31,4 +31,10 @@
 			</foreach>
 		</if>
 	</select>
+
+	<!--모임 신청 완료 API-->
+	<!-- <select id="completeClassApplication" parameterType="String" resultType="com.kb.samoim.dto.ClassDto">
+		SELET *
+	</select> -->
+
 </mapper>

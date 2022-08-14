@@ -92,4 +92,15 @@ public class UserController {
 		return ResponseEntity.ok(flag);
 	}
 	
+	@ApiOperation("이메일 중복체크")
+	@GetMapping("/emailCheck/{email}")
+	public ResponseEntity<?> emailDuplicateCheck(
+			@PathVariable String email
+	){
+		boolean flag = this.userService.emailCheck(email);
+		if(!flag) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		logger.info("가입 가능");
+		return ResponseEntity.ok(flag);
+	}
 }

@@ -32,14 +32,14 @@
     	WHERE EMAIL = #{email}
     </select>
 
-    <!--포인트 추가,업데이트 똑같이-->
+    <!--포인트 추가,업데이트 쿼리 동일-->
     <update id="updatePoint" parameterType="com.kb.samoim.dto.UserDto">
     	UPDATE USER
     	SET POINT = #{point}
     	WHERE EMAIL = #{email}
     </update>
-    
-    <!--이메일 중복되어 있는지 체크 ing-->
+
+    <!--이메일 중복 체크 -->
     <select id="emailCheck" parameterType="com.kb.samoim.dto.UserDto" resultType="int">
     	SELECT COUNT(*)
     	FROM USER

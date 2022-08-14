@@ -104,8 +104,10 @@ public class UserService {
 
 	public boolean emailCheck(String email) {
 		UserDto findUser = this.userDao.findByEmail(email);
-		String userEmail = findUser.getEmail();
-		if(findUser == null || userEmail.equals(email)) {
+		int flag = this.userDao.emailCheck(email);
+		
+		if(findUser != null || flag!=0) {
+			logger.info("이미 가입된 이메일이 있음");
 			return false;
 		}
 		return true;
