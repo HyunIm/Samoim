@@ -171,6 +171,8 @@ import Logo from '../../assets/samoimLogo.png';
     mounted() {
       this.getCategory();
       this.getLocation();
+
+      console.log(this.$store.state.loginUser);
     },
 
     methods: {

@@ -7,7 +7,7 @@ module.exports = {
     proxy: {
       '/api': {
         "target" : 'http://169.56.100.108:32487/',
-        //"target" : 'http://samoim.kbfg.kubepia.com/',
+        //"target" : 'http://localhost:8080/',
         changeOrigin: true,
       }
     }

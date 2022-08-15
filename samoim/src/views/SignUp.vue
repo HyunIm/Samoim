@@ -37,7 +37,7 @@
           label="samoim@kb.com"
           persistent-hint
           solo
-          v-model="email"
+          v-model="signUpForm.email"
           :counter="20"
           :rules="emailRules"
           required
@@ -74,7 +74,7 @@
           label="비밀번호를 입력해 주세요"
           persistent-hint
           solo
-          v-model="password"
+          v-model="signUpForm.password"
           :counter="15"
           required
           flat
@@ -116,6 +116,39 @@
       </v-row>
 
       <v-row class="mt-15 mx-3">
+        <h2>이름을 입력해 주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        정확한 본인 이름을 입력해주세요.
+      </v-row>
+
+      <v-row class="mt-15"/>
+
+      <v-row class="mx-3 mt-15">
+        <v-text-field 
+          outlined
+          label="김국민"
+          persistent-hint
+          solo
+          v-model="signUpForm.name"
+          :counter="20"
+          :rules="nameRules"
+          required
+          flat
+          dense
+        >
+        </v-text-field>
+      </v-row>
+    </div>
+
+    <div v-if="this.$store.getters.getSignUpPage === 4">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
         <h2>성별을 선택해 주세요</h2>
       </v-row>
       <v-row class="mt-5 mx-3">
@@ -131,7 +164,7 @@
             block
             outlined
             color="grey"
-            :class="{ choice : man }"
+            :class="{ pick : man }"
             @click="changeGender('man')"
           >
             남성
@@ -143,7 +176,7 @@
             block
             outlined
             color="grey"
-            :class="{ choice : woman }"
+            :class="{ pick : woman }"
             @click="changeGender('woman')"
           >
             여성
@@ -152,7 +185,7 @@
       </v-row>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 4">
+    <div v-if="this.$store.getters.getSignUpPage === 5">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -166,6 +199,54 @@
         모임 추천 서비스를 위해 필요한 정보입니다.
       </v-row>
 
+      <v-row class="mt-15 mx-3">
+        <v-menu
+          ref="menu"
+          v-model="menu"
+          :close-on-content-click="false"
+          transition="scale-transition"
+          offset-y
+          min-width="auto"
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-text-field
+              v-model="signUpForm.birth"
+              label="생년월일"
+              prepend-icon="mdi-calendar"
+              readonly
+              v-bind="attrs"
+              v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker
+            v-model="signUpForm.birth"
+            :active-picker.sync="activePicker"
+            :max="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
+            min="1950-01-01"
+            @change="save"
+          ></v-date-picker>
+        </v-menu>
+      </v-row>
+        
+      <v-row class="mx-3 mt-15">
+        
+      </v-row>
+    </div>
+
+    <div v-if="this.$store.getters.getSignUpPage === 6">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>희망 활동 지역을 선택해주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        모임 추천 서비스를 위해 필요한 정보입니다.
+      </v-row>
+
       <v-row class="mt-15"/>
         
       <v-row class="mx-3 mt-15">
@@ -173,7 +254,7 @@
       </v-row>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 5">
+    <div v-if="this.$store.getters.getSignUpPage === 7">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -192,6 +273,83 @@
       <h1><center>가입 완료</center></h1>
     </div>
 
+    <div v-if="this.$store.getters.getSignUpPage === 8">
+    <h1>
+      <center>
+          관심사가 무엇인가요?
+      </center>
+    </h1>
+
+      
+
+      <v-list-item
+          class="ma-6"
+      >
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/workout.png" :class="{ choice : isWorkout }" @click="isWorkout = !isWorkout">
+          </v-list-item-avatar>
+
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/culture.png" :class="{ choice : isCulture }" @click="isCulture = !isCulture">
+          </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+          class="ma-6"
+      >
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/music.png" :class="{ choice : isMusic }" @click="isMusic = !isMusic">
+          </v-list-item-avatar>
+
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/camping.png" :class="{ choice : isCamping }" @click="isCamping = !isCamping">
+          </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+          class="ma-6"
+      >
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/art.png" :class="{ choice : isArt }" @click="isArt = !isArt">
+          </v-list-item-avatar>
+
+          <v-list-item-avatar
+                  tile
+                  size="150"
+              >
+                  <img src="../assets/interest/cook.png" :class="{ choice : isCook }" @click="isCook = !isCook">
+          </v-list-item-avatar>
+          
+      </v-list-item>
+    </div>
+
+    <v-btn
+      class="mr-4 mt-15"
+      x-large
+      color="primary"
+      dark
+      @click="nextPage()"
+      block
+      rounded
+    >
+      <h3 class="font-weight-black">다음</h3>
+    </v-btn>
+
   </v-container>
 </template>
 
@@ -208,11 +366,60 @@ import BackButton from '../components/common/BackButton.vue'
         if(gender === 'man') {
           this.man = true;
           this.woman = false;
+
+          this.signUpForm.gender = "남"
         } else {
           this.man = false;
           this.woman = true;
+
+          this.signUpForm.gender = "여"
         }
-      }
+      },
+      nextPage() {
+        if(this.$store.state.signupPage === 8) {
+          // 관심사 pick data 생성
+          this.interest = "운동, 문화, 음악"
+
+          this.$router.replace('/main')
+
+          // 관심사 등록 API
+          /*
+          this.$axios.put('/api/user/' + this.signUpForm.email,
+          this.interest)
+          .then((res) => {
+            console.log(res);
+
+            //로그인 상태로 메인 페이지로 이동
+            this.$router.replace('/main')
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+          */
+        } else if(this.$store.state.signupPage === 6) {
+          // 회원가입 API 호출
+          this.$axios.post('/api/signUp', this.signUpForm)
+          .then((res) => {
+            console.log(res);
+
+            // 회원가입 성공시 전역변수에 login 정보 저장
+            this.$store.state.loginUser = this.signUpForm.email;
+
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+          // response 200이면
+          this.$store.commit('changePage');
+        } else {
+          this.$store.commit('changePage');
+        }
+        
+      },
+      save (date) {
+        this.$refs.menu.save(date)
+      },
     },
 
     computed: {
@@ -223,8 +430,11 @@ import BackButton from '../components/common/BackButton.vue'
 
     watch: {
       changePage() {
-        this.progress = 20 * this.$store.state.signupPage
-      }
+        this.progress = 17 * this.$store.state.signupPage
+      },
+      menu (val) {
+        val && setTimeout(() => (this.activePicker = 'YEAR'))
+      },
     },
 
     data: () => ({
@@ -236,11 +446,12 @@ import BackButton from '../components/common/BackButton.vue'
       passwordCheckShow: false,
       password: '',
       passwordCheck: '',
-      activePicker: 'YEAR',
+      activePicker: null,
       date: null,
-      menu: true,
+      menu: false,
       firstname: '',
       lastname: '',
+      name: '',
       nameRules: [
         v => !!v || '이름을 입력해주세요',
         v => v.length >= 1 || 'Name must be less than 10 characters',
@@ -260,17 +471,38 @@ import BackButton from '../components/common/BackButton.vue'
         v => /.+@.+/.test(v) || '비밀번호를 입력해주세요',
       ],
       sex: ['남성', '여성'],
-      items: ['서울특별시', '경기도', '부산광역시', '대구광역시', '인천광역시', '충북', '충남',
-       '세종', '대전', '경상도', '전라도'],
-      items2: ['강남구', '강동구', '강북구', '강서구', '관악구']
-    
+      signUpForm:{
+        email : "",
+        password : "",
+        gender : "",
+        birth : "",
+        city : "",
+        address : "",
+        name : "",
+        phone : "",
+        photo_path : ""
+      },
+      interest: "",
+      isWorkout : false,
+      isCulture : false,
+      isMusic : false,
+      isCamping : false,
+      isCook : false,
+      isArt : false,
     }),
   }
 </script>
 
 <style scoped>
-.choice {
+.pick {
     border: 4px solid #1976D2;
     border-radius: 7px 7px 7px 7px;
+}
+</style>
+
+<style scoped>
+.choice {
+    border: 5px solid #FFBC00;
+    border-radius: 20px 20px 20px 20px;
 }
 </style>

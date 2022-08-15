@@ -20,10 +20,10 @@
 
     methods: {
       nextPage() {
-        if(this.$store.state.signupPage === 5) {
+        if(this.$store.state.signupPage === 6) {
           //로그인 상태로 메인 페이지 이동
           this.$router.replace('/main')
-        } else if(this.$store.state.signupPage === 4) {
+        } else if(this.$store.state.signupPage === 5) {
           // 회원가입 API 호출
 
           // response 200이면

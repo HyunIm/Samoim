@@ -7,9 +7,6 @@ export default new Vuex.Store({
   state: {
     signupPage: 1,
     loginUser: null,
-    userList: ["FromUserTM001", "ToUserTM001", "DelUserTM001"],
-    pointList: ["refundable-point-tm", "non-refundable-point-tm"],
-    nftAlias: "deploy-test-nft-tm",
   },
   getters: {
     getUser: function(state) {
