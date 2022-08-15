@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.model.Class;
 
@@ -15,5 +16,8 @@ public interface ClassDao {
 
 	List<Class> selectClassByFilter(List<String> category, List<String> area);
 	
-	ClassDto createClass(String user_id,ClassDto classDto);
+	boolean createClass(ClassDto classDto); //모임 생성 API
+	
+	ClassCompleteDto completedClass(String email);
+	
 }

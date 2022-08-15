@@ -58,10 +58,10 @@ public class ClassDto {
 		this.max_member = max_member;
 	}
 	public String getOwener_id() {
-		return owener_id;
+		return owner_id;
 	}
 	public void setOwener_id(String owener_id) {
-		this.owener_id = owener_id;
+		this.owner_id = owener_id;
 	}
 	public String getOpen_date() {
 		return open_date;
@@ -88,7 +88,7 @@ public class ClassDto {
 	private String city;
 	private String address;
 	private String max_member;
-	private String owener_id; // USER Email
+	private String owner_id; // USER Email
 	private String open_date;
 	private String detail_contents;
 	private String photo_path;

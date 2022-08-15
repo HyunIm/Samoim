@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
 import com.kb.samoim.dao.ClassJoinDao;
 import com.kb.samoim.dao.ClassLikeDao;
+import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.model.Class;
 import com.kb.samoim.model.ClassJoin;
@@ -159,12 +159,22 @@ public class ClassController {
 	}
 	
 	@ApiOperation("모임(Class) 생성 API")
-	@PostMapping("/create/{userId}")
+	@PostMapping("/create/{user_id}")
 	public ResponseEntity<?> createClass(
-			@PathVariable String userId,
+			@PathVariable String user_id,
 			@RequestBody ClassDto classDto
 	){
-		return ResponseEntity.ok(this.classService.createClass(userId, classDto));
+		logger.info("새 클래스 생성완료");
+		return ResponseEntity.ok(this.classService.createClass(user_id, classDto));
 	}
+	
+	@ApiOperation("모임 참석 완료 조회 API")
+	@GetMapping("/completed/{email}")
+	public ResponseEntity<ClassCompleteDto> completedClass(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.classService.completedClass(email));
+	}
+	
 	
 }
