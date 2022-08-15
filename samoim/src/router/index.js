@@ -6,14 +6,12 @@ import MakeClass from '../views/class/MakeClass.vue';
 import Intro from '../views/Intro.vue';
 import SignUp from '../views/SignUp.vue';
 import ReviewWrite from '../views/my_gathering/ReviewWrite.vue';
-import TermsAccept from '../views/TermsAccept.vue';
-import Payment from '../views/Payment.vue';
-import ApplyComplete from '../views/ApplyComplete.vue';
 import GatheringInformation from '../views/GatheringInformation.vue';
 import InterestPick from '../views/InterestPick.vue';
 import Login from '../views/Login.vue';
 import MyGathering from '../views/my_gathering/MyGathering.vue';
 import Test from '../views/Test.vue';
+import GatheringJoin from '../views/GatheringJoin.vue';
 
 Vue.use(VueRouter);
 
@@ -52,18 +50,6 @@ export default new VueRouter({
       component: ReviewWrite
     },
     {
-      path: '/termsaccept',
-      component: TermsAccept
-    },
-    {
-      path: '/payment',
-      component: Payment
-    },
-    {
-      path: '/applycomplete',
-      component: ApplyComplete
-    },
-    {
       path: '/gatheringinformation',
       component: GatheringInformation
     },
@@ -78,6 +64,10 @@ export default new VueRouter({
     {
       path: '/test',
       component: Test
+    },
+    {
+      path: '/gatheringjoin',
+      component: GatheringJoin
     },
   ]
 });

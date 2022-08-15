@@ -88,7 +88,7 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit;" 
-          to="/termsaccept"
+          to="/gatheringjoin"
         >
         <v-btn
           align="end"

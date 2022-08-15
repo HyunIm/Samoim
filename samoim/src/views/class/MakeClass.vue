@@ -298,46 +298,47 @@
 
 <script>
 import BackButton from '../../components/common/BackButton.vue'
-  export default {
+export default {
   components: { BackButton },
-    name: 'MakeClass',
 
-    data: () => ({
-      makeStep: 1,
-      progress: 100/7,
-      isWorkout: false,
-      isCulture: false,
-      isMusic: false,
-      isCamping: false,
-      isCook: false,
-      isArt: false,
-      activePicker: null,
-      date: null,
-      menu: false,
-      people: 3,
-    }),
+  name: 'MakeClass',
 
-    watch: {
-      menu (val) {
-        val && setTimeout(() => (this.activePicker = 'DATE'))
-      },
+  data: () => ({
+    makeStep: 1,
+    progress: 100/7,
+    isWorkout: false,
+    isCulture: false,
+    isMusic: false,
+    isCamping: false,
+    isCook: false,
+    isArt: false,
+    activePicker: null,
+    date: null,
+    menu: false,
+    people: 3,
+  }),
+
+  watch: {
+    menu (val) {
+      val && setTimeout(() => (this.activePicker = 'DATE'))
     },
+  },
 
-    methods: {
-      nextPage() {
-        if(this.makeStep === 7) {
-          this.$router.replace('/main')
-        } else {
-          this.makeStep += 1
-          this.progress += 100/7
-        }
-        
-      },
-      save (date) {
-        this.$refs.menu.save(date)
-      },
+  methods: {
+    nextPage() {
+      if(this.makeStep === 7) {
+        this.$router.replace('/main')
+      } else {
+        this.makeStep += 1
+        this.progress += 100/7
+      }
+      
     },
-  }
+    save (date) {
+      this.$refs.menu.save(date)
+    },
+  },
+}
 </script>
 
 <style scoped>
