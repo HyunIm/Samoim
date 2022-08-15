@@ -31,21 +31,22 @@
     	FROM USER
     	WHERE EMAIL = #{email}
     </select>
-    
-    <insert id="addUserPoint" parameterType="string">
-    	INSERT POINT
-    	FROM USER
+
+    <!--포인트 추가,업데이트 쿼리 동일-->
+    <update id="updatePoint" parameterType="com.kb.samoim.dto.UserDto">
+    	UPDATE USER
+    	SET POINT = #{point}
     	WHERE EMAIL = #{email}
-    </insert>
-    
-    <!--이메일 중복되어 있는지 체크 ing-->
+    </update>
+
+    <!--이메일 중복 체크 -->
     <select id="emailCheck" parameterType="com.kb.samoim.dto.UserDto" resultType="int">
     	SELECT COUNT(*)
     	FROM USER
     	WHERE email = #{email}	
     </select>
 
-        <!--프로필 업데이트 ing -->
+    <!--프로필 업데이트 ing -->
     <update id="updateUser" parameterType="com.kb.samoim.dto.UserDto">
     	UPDATE USER
     	SET PHONE = {phone}, INTEREST = #{interest}

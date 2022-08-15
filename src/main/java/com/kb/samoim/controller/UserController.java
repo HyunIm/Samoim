@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,14 +31,15 @@ public class UserController {
     	this.userService = userService;
     }
 	
+    @ApiOperation("회원가입 페이지 GET API")
 	@GetMapping("/signUp")
 	public String saveUser() {
 		return "user/signup"; //signUp 
 	}
 	
 	@ApiOperation("회원가입 API")
-	@PostMapping("/signUp")
-	public ResponseEntity<UserDto> saveUser(UserDto userDto) {
+	@PostMapping(value = "/signUp", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<UserDto> saveUser(@RequestBody UserDto userDto) {
 		userService.saveUser(userDto);
 		return ResponseEntity.ok(null);
 	}
@@ -79,4 +81,27 @@ public class UserController {
 		return ResponseEntity.ok(this.userService.getUserPoint(email).getPoint());
 	}
 	
+	@ApiOperation("포인트 업데이트 API")
+	@PutMapping("/balance/update/{email}")
+	public ResponseEntity<?> pointUpdate(
+			@PathVariable String email,
+			@RequestBody int price // 가격 
+	){
+		boolean flag = this.userService.updatePoint(email, price);
+		if(!flag) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		return ResponseEntity.ok(flag);
+	}
+	
+	@ApiOperation("이메일 중복체크")
+	@GetMapping("/emailCheck/{email}")
+	public ResponseEntity<?> emailDuplicateCheck(
+			@PathVariable String email
+	){
+		boolean flag = this.userService.emailCheck(email);
+		if(!flag) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		logger.info("가입 가능");
+		return ResponseEntity.ok(flag);
+	}
 }

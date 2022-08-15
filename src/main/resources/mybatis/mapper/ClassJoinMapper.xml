@@ -11,4 +11,6 @@
 	    	#{userId}
 	    )
 	</insert>
+	
 </mapper>
+
