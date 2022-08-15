@@ -112,6 +112,9 @@ import Logo from '../assets/samoimLogo.png';
     methods: {
       login(){
         // 로그인 api 호출
+
+        // 로그인 성공시 전역변수에 login 정보 저장
+        this.$store.state.loginUser = this.email;
       }
     },
 
