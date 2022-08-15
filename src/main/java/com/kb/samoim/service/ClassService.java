@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
+import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
 
 @Service
@@ -33,9 +34,29 @@ public class ClassService {
 		newClass.setAddress(classDto.getAddress());
 		newClass.setMax_member(classDto.getMax_member());
 		newClass.setOwener_id(user_id);
-		newClass.setOpen_date(classDto.getOpen_date());
+		newClass.setDetail_contents(classDto.getDetail_contents());
+		newClass.setPhoto_path(classDto.getPhoto_path());
+		this.classDao.createClass(newClass);
 		
-		return this.classDao.createClass(user_id, classDto);
+		return newClass;
+	}
+	
+	
+	public ClassCompleteDto completedClass(String email) {
+		ClassCompleteDto resultDto = new ClassCompleteDto();
+		ClassCompleteDto findClass = this.classDao.completedClass(email);
+		if(findClass == null) {
+			logger.info("참석 완료한 모임 찾기 실패");
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT);	
+		}
+		
+		logger.info("참석 완료 모임 조회 성공");
+		resultDto.setName(findClass.getName());
+		resultDto.setCity(findClass.getCity());
+		resultDto.setAddress(findClass.getAddress());
+		resultDto.setPoint(findClass.getPoint());
+		
+		return resultDto;
 	}
 	
 }

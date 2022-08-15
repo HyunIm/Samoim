@@ -32,9 +32,22 @@
 		</if>
 	</select>
 
-	<!--모임 신청 완료 API-->
-	<!-- <select id="completeClassApplication" parameterType="String" resultType="com.kb.samoim.dto.ClassDto">
-		SELET *
-	</select> -->
+	<!--모임 개설 Query-->
+	<!--현재 Open_Date는 제외-->
+	<insert id="createClass" parameterType="com.kb.samoim.dto.ClassDto">
+        INSERT INTO CLASS
+        (ID, NAME, LARGE_CATEGORY, SMALL_CATEGORY, CITY, ADDRESS, MAX_MEMBER, OWNER_ID, DETAIL_CONTENTS, PHOTO_PATH)
+        VALUES
+        (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{detail_contents},#{photo_path});	
+	</insert>
+
+	<!--모임 참석 완료 Query-->
+	<select id="completedClass" parameterType="string" resultType="com.kb.samoim.dto.ClassCompleteDto">
+		SELECT CLS.NAME, CLS.CITY, CLS.ADDRESS, USR.POINT
+		FROM CLASS CLS, CLASS_JOIN CJ, USER USR
+		WHERE CJ.USER_ID = #{email}
+		AND CJ.CLASS_ID = CLS.ID
+		AND USR.EMAIL = #{email}
+	</select>
 
 </mapper>
