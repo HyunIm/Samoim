@@ -436,7 +436,7 @@
         <h2>어디서 만날까요?</h2>
       </v-row>
       <v-row class="mt-5 mx-3">
-        모임 장소를 입력해주세요. (서울 외 지역 추가 예정)
+        모임 장소를 입력해주세요. (추후 전국구 추가 예정)
       </v-row>
 
       <v-row class="mt-15"/>
@@ -740,7 +740,7 @@ export default {
       if (category === 'isClimbing') {
         this.isClimbing = true
         this.makeClassForm.small_category = "클라이밍"
-        this.makeClassForm.photo_path="0_climbing.png"
+        this.makeClassForm.photo_path="../../assets/small_category_img/0_climbing.png"
       } else if (category === 'isGolf') {
         this.isGolf = true
         this.makeClassForm.small_category = "골프"

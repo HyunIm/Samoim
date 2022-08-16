@@ -1,22 +1,27 @@
 <template>
   <div>
-    <v-tabs
-      align-with-title
-      color="black">
-      <v-tab @click="waitClick">대기</v-tab>
-      <v-tab @click="partClick">참여</v-tab>
-      <v-tab @click="progClick">진행</v-tab>
-      <v-tab @click="wishClick">찜</v-tab>
-    </v-tabs>
+    <v-row>
+      <v-tabs
+        align-with-title
+        color="black"
+      >
+        <v-col cols="4">
+          <v-tab @click="partClick">참여</v-tab>
+        </v-col>
+        <v-col cols="4">
+          <v-tab @click="progClick">진행</v-tab>
+        </v-col>
+        <v-col cols="4">
+          <v-tab @click="wishClick">찜</v-tab>
+        </v-col>
+      </v-tabs>
+    </v-row>
   </div>
 </template>
 
 <script>
 export default {
   methods: {
-    waitClick() {
-      this.$emit('waitClick', 'waitClick')
-    },
     partClick() {
       this.$emit('partClick', 'partClick')
     },
