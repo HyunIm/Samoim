@@ -289,66 +289,81 @@
       </center>
     </h1>
 
-      
-
-      <v-list-item
-          class="ma-6"
+    <v-list-item
+        class="ml-3"
       >
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/workout.png" :class="{ choice : isWorkout }" @click="isWorkout = !isWorkout">
-          </v-list-item-avatar>
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/0_workout.png" :class="{ choice : isWorkout }" @click="isWorkout = !isWorkout">
+        </v-list-item-avatar>
 
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/culture.png" :class="{ choice : isCulture }" @click="isCulture = !isCulture">
-          </v-list-item-avatar>
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/1_travel.png" :class="{ choice : isTravel }" @click="isTravel = !isTravel">
+        </v-list-item-avatar>
       </v-list-item>
 
       <v-list-item
-          class="ma-6"
+        class="ml-3"
       >
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/music.png" :class="{ choice : isMusic }" @click="isMusic = !isMusic">
-          </v-list-item-avatar>
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/2_culture.png" :class="{ choice : isCulture }" @click="isCulture = !isCulture">
+        </v-list-item-avatar>
 
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/camping.png" :class="{ choice : isCamping }" @click="isCamping = !isCamping">
-          </v-list-item-avatar>
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/3_music.png" :class="{ choice : isMusic }" @click="isMusic = !isMusic">
+        </v-list-item-avatar>
       </v-list-item>
 
       <v-list-item
-          class="ma-6"
+        class="ml-3"
       >
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/art.png" :class="{ choice : isArt }" @click="isArt = !isArt">
-          </v-list-item-avatar>
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/4_create.png" :class="{ choice : isCreate }" @click="isCreate = !isCreate">
+        </v-list-item-avatar>
 
-          <v-list-item-avatar
-                  tile
-                  size="150"
-              >
-                  <img src="../assets/interest/cook.png" :class="{ choice : isCook }" @click="isCook = !isCook">
-          </v-list-item-avatar>
-          
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/5_growth.png" :class="{ choice : isGrowth }" @click="isGrowth = !isGrowth">
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+        class="ml-3"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/6_volunteer.png" :class="{ choice : isVolunteer }" @click="isVolunteer = !isVolunteer">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" >
+        </v-list-item-avatar>
       </v-list-item>
     </div>
 
     <v-btn
-      class="mr-4 mt-15"
+      class="mr-4 mt-10"
       x-large
       color="primary"
       dark
@@ -384,29 +399,37 @@ import BackButton from '../components/common/BackButton.vue'
           this.signUpForm.gender = "여"
         }
       },
+
       nextPage() {
         if(this.$store.state.signupPage === 8) {
+
           // 관심사 pick data 생성
           this.signUpForm.interest = ""
 
           if(this.isWorkout === true) {
             this.signUpForm.interest = 
-            this.signUpForm.interest + "\"운동\""
+            this.signUpForm.interest + "운동,"
+          } if(this.isTravel === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "여행,"
           } if(this.isCulture === true) {
             this.signUpForm.interest = 
-            this.signUpForm.interest + "\"문화\""
+            this.signUpForm.interest + "문화,"
           } if(this.isMusic === true) {
             this.signUpForm.interest = 
-            this.signUpForm.interest + "\"음악\""
-          } if(this.isCamping === true) {
+            this.signUpForm.interest + "음악,"
+          } if(this.isCreate === true) {
             this.signUpForm.interest = 
-            this.signUpForm.interest + "\"캠핑\""
+            this.signUpForm.interest + "창작,"
+          } if(this.isGrowth === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "성장,"
+          } if(this.isVolunteer === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "봉사,"
           } if(this.isCook === true) {
             this.signUpForm.interest = 
-            this.signUpForm.interest + "\"요리\""
-          } if(this.isArt === true) {
-            this.signUpForm.interest = 
-            this.signUpForm.interest + "\"예술\""
+            this.signUpForm.interest + "요리,"
           }
 
           // 관심사 등록 API
@@ -521,12 +544,16 @@ import BackButton from '../components/common/BackButton.vue'
         photo_path : "",
         interest : ""
       },
-      isWorkout : false,
-      isCulture : false,
-      isMusic : false,
-      isCamping : false,
-      isCook : false,
-      isArt : false,
+
+      isWorkout: false,
+      isTravel: false,
+      isCulture: false,
+      isMusic: false,
+      isCreate: false,
+      isGrowth: false,
+      isVolunteer: false,
+      isCook: false,
+
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
       ],
