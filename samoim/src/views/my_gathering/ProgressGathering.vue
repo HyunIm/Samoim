@@ -14,7 +14,7 @@
             tile
             size="80"
           >
-            <img :src="item.photoPath">
+            <img src="Todo">
           </v-list-item-avatar>
           <v-list-item-content>
             <div class="text-overline">

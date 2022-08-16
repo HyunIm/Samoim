@@ -118,7 +118,7 @@ export default {
     classData: [
       {
         id: 12,
-        name: "api 못 불러옴",
+        name: "api Test",
         largeCategory: "요리",
         smallCategory: "디저트",
         city: "서울",
