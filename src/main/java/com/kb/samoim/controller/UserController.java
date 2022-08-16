@@ -117,4 +117,12 @@ public class UserController {
 		logger.info("가입 가능");
 		return ResponseEntity.ok(flag);
 	}
+	
+	@ApiOperation("유저 정보 get API")
+	@GetMapping("/info/{email}")
+	public ResponseEntity<?> getUserInfo(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.userService.getUserInfo(email));
+	}
 }
