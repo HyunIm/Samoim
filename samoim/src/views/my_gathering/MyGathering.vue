@@ -1,20 +1,34 @@
 <template>
   <div>
-    <h2>&nbsp;내 모임</h2>
+    <v-row>
+      <v-col>
+        <BackButton/>
+      </v-col>
+      <v-col class="mt-3">
+        <h3>
+          <center>
+              내 모임
+          </center>
+        </h3>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
     <br>
     <GatheringBar
       @waitClick="waitClick"
       @partClick="partClick"
       @progClick="progClick"
       @wishClick="wishClick"
-      />
+    />
+    <br>
     <WaitGathering v-if="waitTab"/>
     <WaitGathering v-if="waitTab"/>
     <WaitGathering v-if="waitTab"/>
     <ParticipateGathering v-if="paricipateTab"/>
     <ProgressGathering v-if="progressTab"/>
-    <ProgressGathering v-if="progressTab"/>
     <WishGathering v-if="wishTab"/>
+
+    <br><br><br><br>
     <BottomBar/>
   </div>
 </template>
@@ -26,6 +40,7 @@ import WaitGathering from './WaitGathering.vue'
 import ParticipateGathering from './ParticipateGathering.vue'
 import ProgressGathering from './ProgressGathering.vue'
 import WishGathering from './WishGathering.vue'
+import BackButton from '../../components/common/BackButton.vue'
 export default {
   data: () => ({
     waitTab: true,
@@ -40,6 +55,7 @@ export default {
     ParticipateGathering,
     ProgressGathering,
     WishGathering,
+    BackButton,
   },
   methods: {
     waitClick() {

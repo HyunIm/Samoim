@@ -740,7 +740,7 @@ export default {
       if (category === 'isClimbing') {
         this.isClimbing = true
         this.makeClassForm.small_category = "클라이밍"
-        this.makeClassForm.photo_path="0_climbing.png"
+        this.makeClassForm.photo_path="../../assets/small_category_img/0_climbing.png"
       } else if (category === 'isGolf') {
         this.isGolf = true
         this.makeClassForm.small_category = "골프"
