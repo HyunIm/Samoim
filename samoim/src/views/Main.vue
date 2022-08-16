@@ -40,7 +40,7 @@
           >
           <router-link
             style="text-decoration: none; color: inherit;" 
-            to="/gatheringinformation" 
+            :to="{name: 'GatheringInformation', params: {classId: item.id}}"
           >
 
           <v-col cols="12">

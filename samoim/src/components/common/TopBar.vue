@@ -30,15 +30,6 @@
         mdi-magnify
       </v-icon>
 
-      <!-- fillter dialog -->
-      <!--
-      <v-dialog
-        fullscreen
-        hide-overlay
-        transition="dialog-top-transition"
-        v-model="fillterDialog"
-      >
-      -->
       <v-bottom-sheet v-model="fillterDialog">
         <v-card>
           <v-card-title>
@@ -66,21 +57,29 @@
                   :label=item.name
                   color="primary"
                   hide-details
+                  v-model="category"
+                  :value=item.name
                 ></v-checkbox>
               </v-col>
             </v-row>
           </v-card-text>
 
+          <v-divider></v-divider>
+
           <v-card-subtitle class="mt-3">
             <h2>지역</h2>
           </v-card-subtitle>
           <v-card-text>
-            <v-list-item
-              v-for="(item, index) in locationData"
-              :key="index"
-              >
-              {{ item.CITY }} - {{ item.ADDRESS }}
-            </v-list-item>
+            <v-row>
+              <v-radio-group v-model="address" row>
+                    <v-radio
+                      v-for="(item, index) in locationData"
+                      :key="index"
+                      :label="item.ADDRESS"
+                      :value="item.ADDRESS"
+                    ></v-radio>
+              </v-radio-group>
+            </v-row>
           </v-card-text>
 
           <v-card-actions>
@@ -91,6 +90,7 @@
               dark
               block
               rounded
+              @click="fillterClass()"
             >
               <h3 class="font-weight-black">검색</h3>
             </v-btn>
@@ -165,7 +165,9 @@ import Logo from '../../assets/samoimLogo.png';
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
       ],
-      testData: []
+      testData: [],
+      address: undefined,
+      category: [],
     }),
 
     mounted() {
@@ -210,6 +212,12 @@ import Logo from '../../assets/samoimLogo.png';
       },
       openFillterDialog() {
         this.fillterDialog = true;
+      },
+      fillterClass() {
+        console.log(this.address);
+        console.log(this.category);
+
+        //필터 검색 API 호출
       }
     }
   }
