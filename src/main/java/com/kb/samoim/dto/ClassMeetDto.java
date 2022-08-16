@@ -4,19 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class class_meetDto {
+public class ClassMeetDto {
 	
-	private Long id;
+	private int id;
 	private int class_id;
-	private String state;
-	private String price;
+	private int state;
+	private int price;
 	private String date;
 	
 }

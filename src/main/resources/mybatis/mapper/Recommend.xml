@@ -3,8 +3,8 @@
 
 <mapper namespace="com.kb.samoim.dao.RecommendDao">
 
-    <select id="getRecommendData" parameterType="String" resultType="com.kb.samoim.dto.SCategoryDto">
-        SELECT *
+    <select id="getRecommendInterest" parameterType="int" resultType="com.kb.samoim.dto.SCategoryDto">
+        SELECT NAME,PHOTO_PATH
         FROM RECOMMEND 
         WHERE ID = #{id}
     </select>
