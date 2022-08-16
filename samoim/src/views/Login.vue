@@ -60,22 +60,23 @@
 
       <v-row class="justify-center mx-1 mt-4">
         <v-col>
+          <!--
           <router-link
             to="/main"
             style="text-decoration: none; color: inherit;"  
           >
-            <v-btn
-              class="mr-4"
-              x-large
-              color="primary"
-              dark
-              @click="login()"
-              block
-              rounded
-            >
-              <h3 class="font-weight-black">로그인</h3>
-            </v-btn>
-          </router-link>
+          -->
+          <v-btn
+            class="mr-4"
+            x-large
+            color="primary"
+            dark
+            @click="login()"
+            block
+            rounded
+          >
+            <h3 class="font-weight-black">로그인</h3>
+          </v-btn>
         </v-col>
       </v-row>
     </form>
@@ -114,10 +115,26 @@ import Logo from '../assets/samoimLogo.png';
         // 로그인 api 호출
         this.$axios.post('/api/login', this.loginForm)
           .then((res) => {
-            console.log(res);
+            if(res.data) {
+              // 로그인 성공
+              this.$store.state.loginUser = this.loginForm.email;
 
-            // 회원가입 성공시 전역변수에 login 정보 저장
-            this.$store.state.loginUser = this.loginForm.email;
+              //메인페이지로 이동
+              this.$router.replace('/main')
+
+            } else {
+              // 로그인 실패 
+              this.loginForm.email = "";
+              this.loginForm.password = "";
+
+              //로그인 실패 팝업 제공
+              this.$swal({
+                title: '로그인 실패',
+                text: 'email 또는 password를 다시 확인해 주세요',
+                icon: 'warning',
+                confirmButtonText: '확인'
+              });
+            }
 
           })
           .catch((error) => {
