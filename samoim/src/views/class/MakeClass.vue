@@ -723,83 +723,83 @@ export default {
       if (category === 'isClimbing') {
         this.isClimbing = true
         this.makeClassForm.small_category = "클라이밍"
-        this.photo_path="0_climbing.png"
+        this.makeClassForm.photo_path="0_climbing.png"
       } else if (category === 'isGolf') {
         this.isGolf = true
         this.makeClassForm.small_category = "골프"
-        this.photo_path="1_golf.png"
+        this.makeClassForm.photo_path="1_golf.png"
       } else if (category === 'isTennis') {
         this.isTennis = true
         this.makeClassForm.small_category = "테니스"
-        this.photo_path="2_tennis.png"
+        this.makeClassForm.photo_path="2_tennis.png"
       } else if (category === 'isDrive') {
         this.isDrive = true
         this.makeClassForm.small_category = "드라이브"
-        this.photo_path="3_drive.png"
+        this.makeClassForm.photo_path="3_drive.png"
       } else if (category === 'isCamping') {
         this.isCamping = true
         this.makeClassForm.small_category = "캠핑"
-        this.photo_path="4_camping.png"
+        this.makeClassForm.photo_path="4_camping.png"
       } else if (category === 'isConcert') {
         this.isConcert = true
         this.makeClassForm.small_category = "콘서트"
-        this.photo_path="5_concert.png"
+        this.makeClassForm.photo_path="5_concert.png"
       } else if (category === 'isMusical') {
         this.isMusical = true
         this.makeClassForm.small_category = "뮤지컬"
-        this.photo_path="6_musical.png"
+        this.makeClassForm.photo_path="6_musical.png"
       } else if (category === 'isExhibition') {
         this.isExhibition = true
         this.makeClassForm.small_category = "전시"
-        this.photo_path="7_exhibition.png"
+        this.makeClassForm.photo_path="7_exhibition.png"
       } else if (category === 'isBand') {
         this.isBand = true
         this.makeClassForm.small_category = "밴드"
-        this.photo_path="8_band.png"
+        this.makeClassForm.photo_path="8_band.png"
       } else if (category === 'isComposition') {
         this.isComposition = true
         this.makeClassForm.small_category = "작곡"
-        this.photo_path="9_composition.png"
+        this.makeClassForm.photo_path="9_composition.png"
       } else if (category === 'isDrawing') {
         this.isDrawing = true
         this.makeClassForm.small_category = "드로잉"
-        this.photo_path="10_drawing.png"
+        this.makeClassForm.photo_path="10_drawing.png"
       } else if (category === 'isWriting') {
         this.isWriting = true
         this.makeClassForm.small_category = "글쓰기"
-        this.photo_path="11_writing.png"
+        this.makeClassForm.photo_path="11_writing.png"
       } else if (category === 'isReading') {
         this.isReading = true
         this.makeClassForm.small_category = "독서"
-        this.photo_path="12_reading.png"
+        this.makeClassForm.photo_path="12_reading.png"
       } else if (category === 'isStudy') {
         this.isStudy = true
         this.makeClassForm.small_category = "스터디"
-        this.photo_path="13_study.png"
+        this.makeClassForm.photo_path="13_study.png"
       } else if (category === 'isForeign') {
         this.isForeign = true
         this.makeClassForm.small_category = "외국어"
-        this.photo_path="14_foreign.png"
+        this.makeClassForm.photo_path="14_foreign.png"
       } else if (category === 'isDog') {
         this.isDog = true
         this.makeClassForm.small_category = "유기견봉사"
-        this.photo_path="15_dog.png"
+        this.makeClassForm.photo_path="15_dog.png"
       } else if (category === 'isDonation') {
         this.isDonation = true
         this.makeClassForm.small_category = "재능기부"
-        this.photo_path="16_donation.png"
+        this.makeClassForm.photo_path="16_donation.png"
       } else if (category === 'isCooking') {
         this.isCooking = true
         this.makeClassForm.small_category = "요리"
-        this.photo_path="17_cooking.png"
+        this.makeClassForm.photo_path="17_cooking.png"
       } else if (category === 'isDessert') {
         this.isDessert = true
         this.makeClassForm.small_category = "디저트"
-        this.photo_path="18_dessert.png"
+        this.makeClassForm.photo_path="18_dessert.png"
       } else if (category === 'isSoju') {
         this.isSoju = true
         this.makeClassForm.small_category = "전통주"
-        this.photo_path="19_soju.png"
+        this.makeClassForm.photo_path="19_soju.png"
       }
 
       this.nextCheck = false
