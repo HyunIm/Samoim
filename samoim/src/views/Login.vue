@@ -27,7 +27,7 @@
           label="이메일을 입력해 주세요."
           persistent-hint
           solo
-          v-model="email"
+          v-model="loginForm.email"
           :counter="20"
           :rules="emailRules"
           required
@@ -46,7 +46,7 @@
           label="비밀번호를 입력해 주세요."
           persistent-hint
           solo
-          v-model="password"
+          v-model="loginForm.password"
           :counter="20"
           required
           flat
@@ -112,20 +112,31 @@ import Logo from '../assets/samoimLogo.png';
     methods: {
       login(){
         // 로그인 api 호출
+        this.$axios.post('/api/login', this.loginForm)
+          .then((res) => {
+            console.log(res);
 
-        // 로그인 성공시 전역변수에 login 정보 저장
-        this.$store.state.loginUser = this.email;
+            // 회원가입 성공시 전역변수에 login 정보 저장
+            this.$store.state.loginUser = this.loginForm.email;
+
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        
       }
     },
 
     data: () => ({
       samoimLogo: Logo,
-      email: '',
       emailRules: [
         v => !!v || '이메일을 입력해주세요',
         v => /.+@.+/.test(v) || '유효한 이메일 주소가 아닙니다',
       ],
-      password: '',
+      loginForm: {
+        email: '',
+        password: '',
+      },
       show: false
     }),
   }

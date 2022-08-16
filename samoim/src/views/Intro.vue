@@ -27,22 +27,6 @@
           </v-btn>
         </router-link>
       </v-row>
-
-      <v-row class="justify-center">
-        <router-link
-          to="/signup" 
-        >
-          <v-btn
-            x-large
-            min-width="350"
-            plain
-            text
-            dark
-          >
-            회원 가입 후 시작하기
-          </v-btn>
-        </router-link>
-      </v-row>
     </template>
 
   </v-container>

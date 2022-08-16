@@ -23,6 +23,11 @@
       </v-carousel>
     </v-row>
 
+    <!-- 로그인 사용자 정보 -->
+    <v-row>
+      임시로 표시 : {{ this.$store.state.loginUser }}
+    </v-row>
+
     <!-- 모임 리스트 -->
     <v-row class="mx-3 mt-5">
       <h2>내 주변 사모임</h2>

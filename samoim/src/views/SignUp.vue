@@ -378,14 +378,30 @@ import BackButton from '../components/common/BackButton.vue'
       nextPage() {
         if(this.$store.state.signupPage === 8) {
           // 관심사 pick data 생성
-          this.interest = "운동, 문화, 음악"
+          this.signUpForm.interest = ""
 
-          this.$router.replace('/main')
+          if(this.isWorkout === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"운동\""
+          } if(this.isCulture === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"문화\""
+          } if(this.isMusic === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"음악\""
+          } if(this.isCamping === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"캠핑\""
+          } if(this.isCook === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"요리\""
+          } if(this.isArt === true) {
+            this.signUpForm.interest = 
+            this.signUpForm.interest + "\"예술\""
+          }
 
           // 관심사 등록 API
-          /*
-          this.$axios.put('/api/user/' + this.signUpForm.email,
-          this.interest)
+          this.$axios.put('/api/user/interest', this.signUpForm)
           .then((res) => {
             console.log(res);
 
@@ -395,7 +411,6 @@ import BackButton from '../components/common/BackButton.vue'
           .catch((error) => {
             console.log(error);
           });
-          */
         } else if(this.$store.state.signupPage === 6) {
           // 회원가입 API 호출
           this.$axios.post('/api/signUp', this.signUpForm)
@@ -480,9 +495,9 @@ import BackButton from '../components/common/BackButton.vue'
         address : "",
         name : "",
         phone : "",
-        photo_path : ""
+        photo_path : "",
+        interest : ""
       },
-      interest: "",
       isWorkout : false,
       isCulture : false,
       isMusic : false,
