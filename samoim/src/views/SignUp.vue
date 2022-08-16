@@ -199,6 +199,7 @@
         모임 추천 서비스를 위해 필요한 정보입니다.
       </v-row>
 
+      <!-- 생년월일 -->
       <v-row class="mt-15 mx-3">
         <v-menu
           ref="menu"
@@ -233,6 +234,7 @@
       </v-row>
     </div>
 
+    <!-- 지역 선택-->
     <div v-if="this.$store.getters.getSignUpPage === 6">
       <v-row class="mt-1">
         <template>
@@ -263,7 +265,74 @@
       </v-row>
     </div>
 
+    <!-- 프로필 선택 -->
     <div v-if="this.$store.getters.getSignUpPage === 7">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>사용할 프로필을 선택해주세요</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        모임원들에게 보여지는 프로필 사진 정보입니다.
+      </v-row>
+
+      <v-list-item
+        class="ml-3 mt-8"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/starfriends/bb.png" :class="{ choice : isBb }" @click="selectProfile('isBb')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/starfriends/coli.png" :class="{ choice : isColi }" @click="selectProfile('isColi')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+
+      <v-list-item
+        class="ml-3 mt-8"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/starfriends/force.png" :class="{ choice : isForce }" @click="selectProfile('isForce')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/starfriends/kiki.png" :class="{ choice : isKiki }" @click="selectProfile('isKiki')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+
+      <v-list-item
+        class="ml-3 mt-8"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/starfriends/ramu.png" :class="{ choice : isRamu }" @click="selectProfile('isRamu')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+    </div>
+
+    <!-- 가입완료 확인 -->
+    <div v-if="this.$store.getters.getSignUpPage === 8">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -282,7 +351,8 @@
       <h1><center>가입 완료</center></h1>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 8">
+    <!-- 관심사 선택 -->
+    <div v-if="this.$store.getters.getSignUpPage === 9">
     <h1>
       <center>
           관심사가 무엇인가요?
@@ -401,7 +471,7 @@ import BackButton from '../components/common/BackButton.vue'
       },
 
       nextPage() {
-        if(this.$store.state.signupPage === 8) {
+        if(this.$store.state.signupPage === 9) {
 
           // 관심사 pick data 생성
           this.signUpForm.interest = ""
@@ -443,9 +513,11 @@ import BackButton from '../components/common/BackButton.vue'
           .catch((error) => {
             console.log(error);
           });
-        } else if(this.$store.state.signupPage === 6) {
+        } else if(this.$store.state.signupPage === 7) {
           // 회원가입 API 호출
           this.signUpForm.city = "서울";
+
+          console.log(this.signUpForm);
           
           this.$axios.post('/api/signUp', this.signUpForm)
           .then((res) => {
@@ -481,6 +553,30 @@ import BackButton from '../components/common/BackButton.vue'
       save (date) {
         this.$refs.menu.save(date)
       },
+      selectProfile(item) {
+        this.isBb = false;
+        this.isColi = false;
+        this.isForce = false;
+        this.isKiki = false;
+        this.isRamu = false;
+
+        if(item === 'isBb') {
+          this.isBb = true;
+          this.signUpForm.photoPath = 'bb';
+        } else if(item === 'isColi') {
+          this.isColi = true;
+          this.signUpForm.photoPath = 'coli';
+        } else if(item === 'isForce') {
+          this.isForce = true;
+          this.signUpForm.photoPath = 'force';
+        } else if(item === 'isKiki') {
+          this.isKiki = true;
+          this.signUpForm.photoPath = 'kiki';
+        } else if(item === 'isRamu') {
+          this.isRamu = true;
+          this.signUpForm.photoPath = 'ramu';
+        }
+      }
     },
 
     computed: {
@@ -541,7 +637,7 @@ import BackButton from '../components/common/BackButton.vue'
         address : "",
         name : "",
         phone : "",
-        photo_path : "",
+        photoPath : "",
         interest : ""
       },
 
@@ -553,6 +649,12 @@ import BackButton from '../components/common/BackButton.vue'
       isGrowth: false,
       isVolunteer: false,
       isCook: false,
+
+      isBb: false,
+      isColi: false,
+      isForce: false,
+      isKiki: false,
+      isRamu: false,
 
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
