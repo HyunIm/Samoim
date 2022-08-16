@@ -181,6 +181,7 @@
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
             v-model="makeClassForm.open_date"
+            ref="makeClassForm.open_date"
             label="모임 날짜"
             prepend-icon="mdi-calendar"
             readonly
@@ -190,6 +191,7 @@
         </template>
         <v-date-picker
           v-model="makeClassForm.open_date"
+          ref="makeClassForm.open_date"
           :active-picker.sync="activePicker"
           :min="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
           @change="save"
@@ -322,10 +324,9 @@ export default {
       max_member: 3,
       name: "",
       open_date: null,
-      owener_id: "string",
-      owner_id: "string",
+      owner_id: "",
       photo_path: "string",
-      // small_category: "string",
+      small_category: "string",
     },
     
     isWorkout: false,
@@ -390,7 +391,7 @@ export default {
     nextPage() {
       if(this.makeStep === 7) {
         this.$router.replace('/main')
-        this.$axios.post('/api/create/hyun', this.makeClassForm)
+        this.$axios.post('/api/create/' + this.$store.state.loginUser, this.makeClassForm)
         .then((res) => {
           console.log(res);
         })
@@ -405,8 +406,8 @@ export default {
       this.nextCheck = true
     },
 
-    save (open_data) {
-      this.$refs.menu.save(open_data)
+    save (open_date) {
+      this.$refs.menu.save(open_date)
     },
 
     interestPick(interest) {
@@ -419,22 +420,22 @@ export default {
 
       if (interest === 'isWorkout') {
         this.isWorkout = true
-        this.makeClassForm.large_category = "isWorkout"
+        this.makeClassForm.large_category = "운동"
       } else if (interest === 'isCulture') {
         this.isCulture = true
-        this.makeClassForm.large_category = "isCulture"
+        this.makeClassForm.large_category = "문화"
       } else if (interest === 'isMusic') {
         this.isMusic = true
-        this.makeClassForm.large_category = "isMusic"
+        this.makeClassForm.large_category = "음악"
       } else if (interest === 'isCamping') {
         this.isCamping = true
-        this.makeClassForm.large_category = "isCamping"
+        this.makeClassForm.large_category = "캠핑"
       } else if (interest === 'isCook') {
         this.isCook = true
-        this.makeClassForm.large_category = "isCook"
+        this.makeClassForm.large_category = "요리"
       } else if (interest === 'isArt') {
         this.isArt = true
-        this.makeClassForm.large_category = "isArt"
+        this.makeClassForm.large_category = "예술"
       }
 
       this.nextCheck = false
