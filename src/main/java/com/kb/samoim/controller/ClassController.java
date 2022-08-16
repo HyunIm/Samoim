@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -76,7 +77,7 @@ public class ClassController {
 	}
 
 	@ApiOperation(value = "카테고리/지역 필터링에 따른 모임 목록 가져오기")
-	@PostMapping(value = "/classes")
+	@PostMapping(value = "/classes", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Class>> getClassByFilter(@RequestBody HashMap<String, List<String>> params) {
 		List<Class> list = null;
 		try {
@@ -89,7 +90,7 @@ public class ClassController {
 	}
 
 	@ApiOperation(value = "모임 참가")
-	@PostMapping(value = "/join")
+	@PostMapping(value = "/join", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> insertClassJoin(@RequestBody ClassJoin classJoin) {
 		int rc = 0;
 		String msg = null;
@@ -108,7 +109,7 @@ public class ClassController {
 	}
 
 	@ApiOperation(value = "모임 찜 등록")
-	@PostMapping(value = "/like")
+	@PostMapping(value = "/like", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> insertClassLike(@RequestBody ClassLike classLike) {
 		int rc = 0;
 		String msg = null;
@@ -127,7 +128,7 @@ public class ClassController {
 	}
 
 	@ApiOperation(value = "모임 찜 해제")
-	@PostMapping(value = "/like/delete")
+	@PostMapping(value = "/like/delete", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<String> deleteClassLike(@RequestBody ClassLike classLike) {
 		int rc = 0;
 		String msg = null;
@@ -159,7 +160,7 @@ public class ClassController {
 	}
 	
 	@ApiOperation("모임(Class) 생성 API")
-	@PostMapping("/create/{user_id}")
+	@PostMapping(value="/create/{user_id}", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createClass(
 			@PathVariable String user_id,
 			@RequestBody ClassDto classDto
