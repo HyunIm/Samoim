@@ -36,18 +36,28 @@
 	<!--현재 Open_Date는 제외-->
 	<insert id="createClass" parameterType="com.kb.samoim.dto.ClassDto">
         INSERT INTO CLASS
-        (ID, NAME, LARGE_CATEGORY, SMALL_CATEGORY, CITY, ADDRESS, MAX_MEMBER, OWNER_ID, DETAIL_CONTENTS, PHOTO_PATH)
+        (ID, NAME, LARGE_CATEGORY, SMALL_CATEGORY, CITY, ADDRESS, MAX_MEMBER, OWNER_ID, OPEN_DATE, DETAIL_CONTENTS, PHOTO_PATH)
         VALUES
-        (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{detail_contents},#{photo_path});	
+        (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{open_date},#{detail_contents},#{photo_path});	
 	</insert>
 
 	<!--모임 참석 완료 Query-->
 	<select id="completedClass" parameterType="string" resultType="com.kb.samoim.dto.ClassCompleteDto">
 		SELECT CLS.NAME, CLS.CITY, CLS.ADDRESS, USR.POINT
-		FROM CLASS CLS, CLASS_JOIN CJ, USER USR
-		WHERE CJ.USER_ID = #{email}
-		AND CJ.CLASS_ID = CLS.ID
+		FROM CLASS CLS, CLASS_JOIN CLJ, USER USR
+		WHERE CLJ.USER_ID = #{email}
+		AND CLJ.CLASS_ID = CLS.ID
 		AND USR.EMAIL = #{email}
+	</select>
+
+	<!--날짜별 모임 참석 리스트 조회 ing-->
+	<select id="selectClassByDate" parameterType="string" resultType="java.util.List" >
+		SELECT CLS.NAME
+		FROM CLASS_JOIN CLJ, CLASS CLS, USER USR
+		WHERE CLJ.USER_ID = #{email}
+		AND CLJ.CLASS_ID = CLS.ID
+		AND USR.EMAIL = #{email}
+		AND CLS.OPEN_DATE = #{date} 
 	</select>
 
 </mapper>
