@@ -33,13 +33,12 @@ public class RecommendController {
 	//이거는 ML 서버랑 통신하려고 만든 API
 	@ApiOperation("추천 생성 API (ML서버랑 통신)")
 	@GetMapping("/recommend/{email}")
-	public ResponseEntity<Integer> createRecommend(
+	public ResponseEntity<?> createRecommend(
 			@PathVariable String email
 	){
 		try {
 			System.out.println("시작");
 			this.recommendService.createRecommend(email);	
-			
 		}
 		catch (Exception e) {
 			logger.info("연결 실패");
