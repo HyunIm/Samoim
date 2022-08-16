@@ -205,7 +205,7 @@
       <v-row class="mt-15 mx-3">
         <v-card
           class="mx-auto"
-          max-width="344"
+          width="350"
           outlined
         >
           <v-list-item three-line>
@@ -213,10 +213,10 @@
               <v-list-item-title class="text-h5 mb-1">
                 신청 내역
               </v-list-item-title>
-              일정 : 8월 6일 (토) 14:00 ~ 15:00 <br>
-              장소 : 볼더프렌즈 클라이밍(홍대입구역) <br>
-              금액 : ₩ 50,000 <br>
-              잔여 포인트 : 58,750 P
+              일정 : 날짜 바인딩 필요 <br>
+              장소 : 장소 바인딩 필요 <br>
+              금액 : {{ this.price }} P<br>
+              잔여 포인트 : {{ this.userPoint - this.price }} P
             </v-list-item-content>
           </v-list-item>
         </v-card>
