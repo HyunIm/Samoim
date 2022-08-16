@@ -115,14 +115,14 @@ export default {
     classData: [
       {
         id: 12,
-        name: "저녁 모임",
+        name: "api 못 불러옴",
         largeCategory: "요리",
         smallCategory: "디저트",
         city: "서울",
         address: "성북구",
         maxMember: 4,
         ownerId: "null",
-        openDate: "2022-08-26",
+        openDate: "08-26",
         detailContents: "나는 아무거나",
         photoPath: "18_dessert.png"
       },
@@ -135,7 +135,7 @@ export default {
 
   methods: {
     getClassList() {
-      this.$axios.get('/api/classes')
+      this.$axios.get('/api/myClass/' + this.$store.state.loginUser)
       .then((res) => {
         this.classData = res.data;
         
