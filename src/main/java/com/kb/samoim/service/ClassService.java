@@ -9,9 +9,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
 import com.kb.samoim.dao.UserDao;
-import com.kb.samoim.dto.CalendarDto;
 import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
+import com.kb.samoim.dto.ClassMeetDto;
 import com.kb.samoim.dto.UserDto;
 
 @Service
@@ -82,20 +82,32 @@ public class ClassService {
 		}
 	}
 	
-	public CalendarDto selectClassByDate(String email,String date) {
-		CalendarDto resultDto = new CalendarDto();
-		CalendarDto findDto = this.classDao.selectClassByDate(email, date);
-		if(findDto == null) {
-			logger.info("해당 날짜에는 데이터가 없는 것");
-			return null;
-		}
-		
-		resultDto.setClassName(findDto.getClassName());
-		resultDto.setDate(findDto.getDate());
-		resultDto.setCity(findDto.getCity());
-		resultDto.setAddress(findDto.getAddress());
+	public ClassMeetDto createClassMeet(String email, ClassMeetDto classMeetDto) {
+		UserDto findUser = this.userDao.findByEmail(email);
+		if(findUser == null)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			
+		ClassMeetDto newClassMeetDto = new ClassMeetDto();
 		
 		
-		return resultDto;
+		
+		return newClassMeetDto;
 	}
+	
+//	public CalendarDto selectClassByDate(String email,String date) {
+//		CalendarDto resultDto = new CalendarDto();
+//		CalendarDto findDto = this.classDao.selectClassByDate(email, date);
+//		if(findDto == null) {
+//			logger.info("해당 날짜에는 데이터가 없는 것");
+//			return null;
+//		}
+//		
+//		resultDto.setClassName(findDto.getClassName());
+//		resultDto.setDate(findDto.getDate());
+//		resultDto.setCity(findDto.getCity());
+//		resultDto.setAddress(findDto.getAddress());
+//		
+//		
+//		return resultDto;
+//	}
 }

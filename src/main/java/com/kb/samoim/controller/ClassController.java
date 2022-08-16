@@ -159,14 +159,17 @@ public class ClassController {
 		return new ResponseEntity<List<Class>>(list, HttpStatus.OK);
 	}
 	
+
 	@ApiOperation("모임(Class) 생성 API")
 	@PostMapping(value="/create/{user_id}", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createClass(
-			@PathVariable String user_id,
+			@PathVariable String email,
 			@RequestBody ClassDto classDto
 	){
 		logger.info("새 클래스 생성완료");
-		return ResponseEntity.ok(this.classService.createClass(user_id, classDto));
+		this.classService.createClass(email, classDto);
+//		this.classService.createClassMeet(email, classDto); //보류
+		return ResponseEntity.ok(null);
 	}
 	
 	//상세 정보는 어떤게 들어갈지 수정 필요
@@ -186,13 +189,13 @@ public class ClassController {
 		return ResponseEntity.ok(this.classService.getMyCreateClass(email));
 	}
 	
-	@ApiOperation("날짜별 모임 참석 리스트 조회")
-	@GetMapping("/dateFilter/{email}")
-	public ResponseEntity<?> selectClassByDate(
-			@PathVariable String email,
-			@RequestBody String date
-	){
-		return ResponseEntity.ok(this.classService.selectClassByDate(email, date));
-	}
+//	@ApiOperation("날짜별 모임 참석 리스트 조회")
+//	@GetMapping("/dateFilter/{email}")
+//	public ResponseEntity<?> selectClassByDate(
+//			@PathVariable String email,
+//			@RequestBody String date
+//	){
+//		return ResponseEntity.ok(this.classService.selectClassByDate(email, date));
+//	}
 	
 }

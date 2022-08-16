@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.kb.samoim.dto.CalendarDto;
 import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
+import com.kb.samoim.dto.ClassMeetDto;
 import com.kb.samoim.model.Class;
 
 @Mapper
@@ -24,7 +25,9 @@ public interface ClassDao {
 	//내가 개설한 모임
 	ClassDto getMyCreateClass(String email);
 	
+	//모임 상태 체크
+	ClassMeetDto createClassMeet(ClassMeetDto classMeetDto);
+	
 	//나중에
 	CalendarDto selectClassByDate(String email,String date);
-	
 }

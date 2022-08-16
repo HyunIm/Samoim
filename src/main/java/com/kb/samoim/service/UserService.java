@@ -126,6 +126,7 @@ public class UserService {
 		}
 		
 		return true;
+
 	}
 
 	public UserDto getUserInfo(String email) {
@@ -136,4 +137,7 @@ public class UserService {
 		
 		return findUser;
 	}
+	
+	
+	
 }
