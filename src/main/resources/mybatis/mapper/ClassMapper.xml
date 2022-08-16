@@ -41,6 +41,15 @@
         (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{open_date},#{detail_contents},#{photo_path});	
 	</insert>
 
+	<!--모임 개설할때 모임 만나는 정보도 같이 INSERT-->
+	<insert id="createClassMeet" parameterType="com.kb.samoim.dto.ClassMeetDto">
+		INSERT INTO CLASS_MEET
+		(CLASS_ID,STATE,PRICE,DATE);
+		VALUES
+		(#{class_id},#{state},#{price},#{date})
+	</insert>
+
+
 	<!--모임 참석 완료 Query-->
 	<select id="completedClass" parameterType="string" resultType="com.kb.samoim.dto.ClassCompleteDto">
 		SELECT CLS.NAME, CLS.CITY, CLS.ADDRESS, USR.POINT
@@ -48,6 +57,15 @@
 		WHERE CLJ.USER_ID = #{email}
 		AND CLJ.CLASS_ID = CLS.ID
 		AND USR.EMAIL = #{email}
+	</select>
+
+	<!--내가 만든 클래스 조회-->
+	<select id="getMyCreateClass" parameterType="string" resultType="com.kb.samoim.dto.ClassDto">
+		SELECT *
+		FROM CLASS, USER
+		WHERE USER.EMAIL = #{email}
+		AND CLASS.OWNER_ID = #{email}
+		AND USER.EMAIL = CLASS.OWNER_ID
 	</select>
 
 	<!--날짜별 모임 참석 리스트 조회 ing-->
