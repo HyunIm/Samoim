@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.kb.samoim.dto.CalendarDto;
 import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.model.Class;
@@ -18,6 +19,8 @@ public interface ClassDao {
 	
 	boolean createClass(ClassDto classDto); //모임 생성 API
 	
-	ClassCompleteDto completedClass(String email);
+	ClassCompleteDto completedClass(String email); 
+	
+	CalendarDto selectClassByDate(String email,String date);
 	
 }

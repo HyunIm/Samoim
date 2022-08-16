@@ -44,6 +44,28 @@ public class UserController {
 		return ResponseEntity.ok(null);
 	}
 	
+	@ApiOperation("로그인 페이지")
+	@GetMapping("/login")
+	public String login() {
+		return "login"; 
+	}
+	
+	@ApiOperation("로그인 API")
+	@PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public String loginUser(
+			@RequestBody UserDto loginData
+	){
+		boolean flag = this.userService.loginUser(loginData);
+		if(flag) {
+			logger.info("로그인 성공");
+			return "redirect:/";
+		}
+		
+		//실패하면 다시 로그인 페이지로 보냄
+		logger.info("로그인 실패");
+		return "login";
+	}
+	
 	@ApiOperation("Email로 User찾기 API")
 	@GetMapping("/user/{email}")
 	public ResponseEntity<UserDto> findByEmail(

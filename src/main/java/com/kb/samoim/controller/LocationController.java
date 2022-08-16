@@ -11,14 +11,14 @@ import com.kb.samoim.model.*;
 import io.swagger.annotations.ApiOperation;
 import java.util.List;
 
-@RestController("location")
+@RestController()
 public class LocationController {
 	
 	@Autowired
 	private LocationDao locationDao;
 	
 	@ApiOperation("Location 전체 호출 API")
-	@GetMapping("")
+	@GetMapping("/location")
 	public ResponseEntity<List<Location>> getAddressList(){
 		List<Location> locationList = locationDao.getLocationList();
 		return ResponseEntity.ok(locationList);
