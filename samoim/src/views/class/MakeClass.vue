@@ -441,19 +441,17 @@
 
       <v-row class="mt-15"/>
 
-      <v-text-field
-        ref="makeClassForm.address"
+      <v-radio-group 
         v-model="makeClassForm.address"
-        outlined
-        label="서울 영등포구"
-        persistent-hint
-        solo
-        :counter="80"
-        required
-        flat
-        dense
-      >
-      </v-text-field>
+        ref="makeClassForm.address"
+        row>
+        <v-radio
+          v-for="(item, index) in locationData"
+          :key="index"
+          :label="item.ADDRESS"
+          :value="item.ADDRESS"
+        ></v-radio>
+      </v-radio-group>
     </div>
 
 
@@ -554,6 +552,10 @@ export default {
       photo_path: "",
       small_category: "",
     },
+
+    locationData: [
+      { CITY: '서울', ADDRESS: '강남구' },
+    ],
     
     isWorkout: false,
     isTravel: false,
@@ -588,6 +590,10 @@ export default {
     activePicker: null,
     menu: false,
   }),
+
+  mounted() {
+    this.getLocation();
+  },
 
   watch: {
     menu(val) {
@@ -657,6 +663,17 @@ export default {
 
     save (open_date) {
       this.$refs.menu.save(open_date)
+    },
+
+    getLocation() {
+      this.$axios.get('/api/location')
+      .then((res) => {
+        this.locationData = res.data;
+        console.log(this.locationData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
 
     largeCategorySelect(category) {
