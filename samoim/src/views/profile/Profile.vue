@@ -11,6 +11,7 @@
       outlined
     >
       <v-list-item three-line>
+        <!--
         <v-badge
           bordered
           bottom
@@ -19,13 +20,13 @@
           offset-x="35"
           offset-y="35"
         >
+        -->
           <v-list-item-avatar
             tile
             size="80"
           >
-            <img src="../../assets/wyw.png">
+            <img :src="photoPath">
           </v-list-item-avatar>
-        </v-badge>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
             {{ this.name }}
@@ -70,6 +71,12 @@
 </template>
 
 <script>
+import coli from '@/assets/starfriends/coli.png';
+import bb from '@/assets/starfriends/bb.png';
+import force from '@/assets/starfriends/force.png';
+import kiki from '@/assets/starfriends/kiki.png';
+import ramu from '@/assets/starfriends/ramu.png';
+
   export default {
     name: 'Profile',
 
@@ -78,7 +85,13 @@
       values: [],
       interest: "",
       name: undefined,
-      updateInfo: {}
+      updateInfo: {},
+      photoPath: undefined,
+      coli: coli,
+      bb: bb,
+      force: force,
+      kiki: kiki,
+      ramu: ramu,
     }),
 
     mounted() {
@@ -94,6 +107,21 @@
 
           // interest
           this.values = res.data.interest.split(',');
+
+          //photo
+          this.photoPath = res.data.photoPath;
+          if(this.photoPath === "coli") {
+            this.photoPath = this.coli
+          } else if(this.photoPath === "bb") {
+            this.photoPath = this.bb
+          } else if(this.photoPath === "force") {
+            this.photoPath = this.force
+          } else if(this.photoPath === "kiki") {
+            this.photoPath = this.kiki
+          } else if(this.photoPath === "ramu") {
+            this.photoPath = this.ramu
+          }
+
         })
         .catch((error) => {
           console.log(error);
