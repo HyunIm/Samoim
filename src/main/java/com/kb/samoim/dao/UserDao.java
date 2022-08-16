@@ -14,6 +14,6 @@ public interface UserDao {
 	UserDto getUserPoint(String email); //유저 정보 + 포인트 조회	
 	boolean updatePoint(String email, int point); //정산 및 포인트 처리 	
 	
-	int emailCheck(String email); //이미 가입되어 있는지 이메일 체크
+	int emailCheck(String email); //이메일 중복체크
 	
 }

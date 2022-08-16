@@ -168,12 +168,22 @@ public class ClassController {
 		return ResponseEntity.ok(this.classService.createClass(user_id, classDto));
 	}
 	
+	//상세 정보는 어떤게 들어갈지 수정 필요
 	@ApiOperation("모임 참석 완료 조회 API")
 	@GetMapping("/completed/{email}")
 	public ResponseEntity<ClassCompleteDto> completedClass(
 			@PathVariable String email
 	){
 		return ResponseEntity.ok(this.classService.completedClass(email));
+	}
+	
+	@ApiOperation("날짜별 모임 참석 리스트 조회")
+	@GetMapping("/dateFilter/{email}")
+	public ResponseEntity<?> selectClassByDate(
+			@PathVariable String email,
+			@RequestBody String date
+	){
+		return ResponseEntity.ok(this.classService.selectClassByDate(email, date));
 	}
 	
 	
