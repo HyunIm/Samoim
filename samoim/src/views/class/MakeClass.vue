@@ -100,27 +100,215 @@
     </div>
 
     <div v-if="makeStep === 2">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>어떤 모임을 열어볼까요?</h2>
+      </v-row>
+
+      <v-row class="mt-15 mx-3"/>
+
       <div v-if="isWorkout">
-        <img
-          height="100"
-          width="300"
-          src="../../assets/large_category/7_cook.png" 
-          :class="{ choice : isCook }" 
-          @click="largeCategorySelect('isCook')">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/0_climbing.png" 
+            :class="{ choice : isClimbing }" 
+            @click="smallCategorySelect('isClimbing')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/1_golf.png" 
+            :class="{ choice : isGolf }" 
+            @click="smallCategorySelect('isGolf')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/2_tennis.png" 
+            :class="{ choice : isTennis }" 
+            @click="smallCategorySelect('isTennis')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isTravel">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/3_drive.png" 
+            :class="{ choice : isDrive }" 
+            @click="smallCategorySelect('isDrive')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/4_camping.png" 
+            :class="{ choice : isCamping }" 
+            @click="smallCategorySelect('isCamping')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isCulture">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/5_concert.png" 
+            :class="{ choice : isConcert }" 
+            @click="smallCategorySelect('isConcert')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/6_musical.png" 
+            :class="{ choice : isMusical }" 
+            @click="smallCategorySelect('isMusical')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/7_exhibition.png" 
+            :class="{ choice : isExhibition }" 
+            @click="smallCategorySelect('isExhibition')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isMusic">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/8_band.png" 
+            :class="{ choice : isBand }" 
+            @click="smallCategorySelect('isBand')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/9_composition.png" 
+            :class="{ choice : isComposition }" 
+            @click="smallCategorySelect('isComposition')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isCreate">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/10_drawing.png" 
+            :class="{ choice : isDrawing }" 
+            @click="smallCategorySelect('isDrawing')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/11_writing.png" 
+            :class="{ choice : isWriting }" 
+            @click="smallCategorySelect('isWriting')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isGrowth">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/12_reading.png" 
+            :class="{ choice : isReading }" 
+            @click="smallCategorySelect('isReading')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/13_study.png" 
+            :class="{ choice : isStudy }" 
+            @click="smallCategorySelect('isStudy')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/14_foreign.png" 
+            :class="{ choice : isForeign }" 
+            @click="smallCategorySelect('isForeign')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isVolunteer">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/15_dog.png" 
+            :class="{ choice : isDog }" 
+            @click="smallCategorySelect('isDog')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/16_donation.png" 
+            :class="{ choice : isDonation }" 
+            @click="smallCategorySelect('isDonation')"
+          >
+        </center>
       </div>
+
+
       <div v-if="isCook">
+        <center>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/17_cooking.png" 
+            :class="{ choice : isCooking }" 
+            @click="smallCategorySelect('isCooking')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/18_dessert.png" 
+            :class="{ choice : isDessert }" 
+            @click="smallCategorySelect('isDessert')"
+          >
+          <br>
+          <img
+            height="180"
+            width="338"
+            src="../../assets/small_category/19_soju.png" 
+            :class="{ choice : isSoju }" 
+            @click="smallCategorySelect('isSoju')"
+          >
+        </center>
       </div>
     </div>
 
@@ -358,13 +546,13 @@ export default {
       city: "서울",
       detail_contents: "",
       id: 0,
-      large_category: "string",
+      large_category: "",
       max_member: 3,
       name: "",
       open_date: null,
       owner_id: "",
       photo_path: "string",
-      small_category: "string",
+      small_category: "",
     },
     
     isWorkout: false,
@@ -375,6 +563,27 @@ export default {
     isGrowth: false,
     isVolunteer: false,
     isCook: false,
+
+    isClimbing: false,
+    isGolf: false,
+    isTennis: false,
+    isDrive: false,
+    isCamping: false,
+    isConcert: false,
+    isMusical: false,
+    isExhibition: false,
+    isBand: false,
+    isComposition: false,
+    isDrawing: false,
+    isWriting: false,
+    isReading: false,
+    isStudy: false,
+    isForeign: false,
+    isDog: false,
+    isDonation: false,
+    isCooking: false,
+    isDessert: false,
+    isSoju: false,
 
     activePicker: null,
     menu: false,
@@ -490,39 +699,87 @@ export default {
     },
 
     smallCategorySelect(category) {
-      this.isWorkout =  false
-      this.isTravel = false
-      this.isCulture = false
-      this.isMusic = false
-      this.isCreate = false
-      this.isGrowth = false
-      this.isVolunteer = false
-      this.isCook = false
+      this.isClimbing = false
+      this.isGolf = false
+      this.isTennis = false
+      this.isDrive = false
+      this.isCamping = false
+      this.isConcert = false
+      this.isMusical = false
+      this.isExhibition = false
+      this.isBand = false
+      this.isComposition = false
+      this.isDrawing = false
+      this.isWriting = false
+      this.isReading = false
+      this.isStudy = false
+      this.isForeign = false
+      this.isDog = false
+      this.isDonation = false
+      this.isCooking = false
+      this.isDessert = false
+      this.isSoju = false
 
-      if (category === 'isWorkout') {
-        this.isWorkout = true
-        this.makeClassForm.large_category = "운동"
-      } else if (category === 'isTravel') {
-        this.isTravel = true
-        this.makeClassForm.large_category = "여행"
-      } else if (category === 'isCulture') {
-        this.isCulture = true
-        this.makeClassForm.large_category = "문화"
-      } else if (category === 'isMusic') {
-        this.isMusic = true
-        this.makeClassForm.large_category = "음악"
-      } else if (category === 'isCreate') {
-        this.isCreate = true
-        this.makeClassForm.large_category = "창작"
-      } else if (category === 'isGrowth') {
-        this.isGrowth = true
-        this.makeClassForm.large_category = "성장"
-      } else if (category === 'isVolunteer') {
-        this.isVolunteer = true
-        this.makeClassForm.large_category = "봉사"
-      } else if (category === 'isCook') {
-        this.isCook = true
-        this.makeClassForm.large_category = "요리"
+      if (category === 'isClimbing') {
+        this.isClimbing = true
+        this.makeClassForm.small_category = "클라이밍"
+      } else if (category === 'isGolf') {
+        this.isGolf = true
+        this.makeClassForm.small_category = "골프"
+      } else if (category === 'isTennis') {
+        this.isTennis = true
+        this.makeClassForm.small_category = "테니스"
+      } else if (category === 'isDrive') {
+        this.isDrive = true
+        this.makeClassForm.small_category = "드라이브"
+      } else if (category === 'isCamping') {
+        this.isCamping = true
+        this.makeClassForm.small_category = "캠핑"
+      } else if (category === 'isConcert') {
+        this.isConcert = true
+        this.makeClassForm.small_category = "콘서트"
+      } else if (category === 'isMusical') {
+        this.isMusical = true
+        this.makeClassForm.small_category = "뮤지컬"
+      } else if (category === 'isExhibition') {
+        this.isExhibition = true
+        this.makeClassForm.small_category = "전시"
+      } else if (category === 'isBand') {
+        this.isBand = true
+        this.makeClassForm.small_category = "밴드"
+      } else if (category === 'isComposition') {
+        this.isComposition = true
+        this.makeClassForm.small_category = "작곡"
+      } else if (category === 'isDrawing') {
+        this.isDrawing = true
+        this.makeClassForm.small_category = "드로잉"
+      } else if (category === 'isWriting') {
+        this.isWriting = true
+        this.makeClassForm.small_category = "글쓰기"
+      } else if (category === 'isReading') {
+        this.isReading = true
+        this.makeClassForm.small_category = "독서"
+      } else if (category === 'isStudy') {
+        this.isStudy = true
+        this.makeClassForm.small_category = "스터디"
+      } else if (category === 'isForeign') {
+        this.isForeign = true
+        this.makeClassForm.small_category = "외국어"
+      } else if (category === 'isDog') {
+        this.isDog = true
+        this.makeClassForm.small_category = "유기견봉사"
+      } else if (category === 'isDonation') {
+        this.isDonation = true
+        this.makeClassForm.small_category = "재능기부"
+      } else if (category === 'isCooking') {
+        this.isCooking = true
+        this.makeClassForm.small_category = "요리"
+      } else if (category === 'isDessert') {
+        this.isDessert = true
+        this.makeClassForm.small_category = "디저트"
+      } else if (category === 'isSoju') {
+        this.isSoju = true
+        this.makeClassForm.small_category = "전통주"
       }
 
       this.nextCheck = false
