@@ -88,7 +88,7 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit;" 
-          to="/gatheringjoin"
+          :to="{name: 'GatheringJoin', params: {classId: this.classId}}"
         >
         <v-btn
           align="end"
@@ -110,6 +110,8 @@
 export default {
   mounted() {
     this.classId = this.$route.params.classId;
+
+    // 모임 상세정보 얻어오기
     this.getClassInfo(this.classId);
   },
 
@@ -138,6 +140,7 @@ export default {
         create_date: null
       },
     ],
+    likeReq: {},
     favorite : false,
     classId: undefined
   }),
@@ -150,7 +153,23 @@ export default {
         this.classInfoData.openDate 
         = this.classInfoData.openDate.split("T")[0].toString()
         + " " + this.classInfoData.openDate.split("T")[1].substr(0, 5).toString();
-        console.log(this.classInfoData);
+        
+        // 찜 여부 확인
+        this.$axios.get('/api/like/'+ this.$store.state.loginUser)
+        .then((res) => {
+          console.log(res);
+
+          res.data.forEach((array) => {
+            if(array.id === classId) {
+              this.favorite = true;
+            }
+          })
+
+
+        }).catch((error) => {
+          console.log(error);
+
+        })
       })
       .catch((error) => {
         console.log(error);
@@ -166,7 +185,31 @@ export default {
       });
     },
     changeFavorite() {
+      this.likeReq = {
+        classId: this.classId,
+        userId: this.$store.state.loginUser
+      };
+
       // 찜 API 호출
+      if(this.favorite === false) {
+        this.$axios.post('/api/like', this.likeReq)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      } else {
+        this.$axios.post('/api/like/delete', this.likeReq)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+      
+
 
       // 하트 색깔 변경
       this.favorite = !this.favorite;

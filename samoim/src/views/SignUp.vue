@@ -247,23 +247,15 @@
         모임 추천 서비스를 위해 필요한 정보입니다.
       </v-row>
 
-      <v-row class="mt-15">
-        <v-col
-          cols="12"
-          sm="6"
-          md="6"
-        >
-          <v-radio-group
-            v-model="signupForm.address"
-          >
-            <v-radio
-              :v-for="(item, index) in locationData"
-              label="red"
-              color="red"
-              :value="item.address"
-            ></v-radio>
-          </v-radio-group>
-        </v-col>
+      <v-row>
+        <v-radio-group v-model="signUpForm.address" row>
+              <v-radio
+                v-for="(item, index) in locationData"
+                :key="index"
+                :label="item.ADDRESS"
+                :value="item.ADDRESS"
+              ></v-radio>
+        </v-radio-group>
       </v-row>
 
       <v-row class="mx-3 mt-15">
@@ -430,6 +422,8 @@ import BackButton from '../components/common/BackButton.vue'
           });
         } else if(this.$store.state.signupPage === 6) {
           // 회원가입 API 호출
+          this.signUpForm.city = "서울";
+          
           this.$axios.post('/api/signUp', this.signUpForm)
           .then((res) => {
             console.log(res);
