@@ -126,6 +126,14 @@ public class UserService {
 		}
 		
 		return true;
+	}
+
+	public UserDto getUserInfo(String email) {
+		UserDto findUser = new UserDto();
 		
+		findUser = this.userDao.findByEmail(email);	
+		if(findUser == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		return findUser;
 	}
 }
