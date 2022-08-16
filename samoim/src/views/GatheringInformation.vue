@@ -109,7 +109,8 @@
 <script>
 export default {
   mounted() {
-    this.getClassInfo();
+    this.classId = this.$route.params.classId;
+    this.getClassInfo(this.classId);
   },
 
   data: () => ({
@@ -137,12 +138,13 @@ export default {
         create_date: null
       },
     ],
-    favorite : false
+    favorite : false,
+    classId: undefined
   }),
 
   methods: {
-    getClassInfo() {
-      this.$axios.get('/api/classes/1')
+    getClassInfo(classId) {
+      this.$axios.get('/api/classes/'+ classId)
       .then((res) => {
         this.classInfoData = res.data;
         this.classInfoData.openDate 
@@ -154,7 +156,7 @@ export default {
         console.log(error);
       });
 
-      this.$axios.get('/api/review/1')
+      this.$axios.get('/api/review/' + classId)
       .then((res) => {
         this.reviewData = res.data;
         console.log(this.reviewData);

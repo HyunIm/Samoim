@@ -65,7 +65,9 @@ export default new VueRouter({
     },
     {
       path: '/gatheringinformation',
-      component: GatheringInformation
+      component: GatheringInformation,
+      name: 'GatheringInformation',
+      props: true
     },
     {
       path: '/login',
