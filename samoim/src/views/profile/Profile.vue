@@ -1,7 +1,10 @@
 <template>
   <div>
-    <h2>&nbsp;프로필</h2>
+    <h2 class="ml-3 mt-3">
+      <center>프로필 수정</center>
+    </h2>
     <br> <br>
+
     <v-card
       class="mx-auto"
       max-width="344"
@@ -25,32 +28,44 @@
         </v-badge>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
-            &nbsp;우영우
+            {{ this.name }}
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-      제 이름은 똑바로 읽어도 거꾸로 읽어도 우영우입니다. <br>
-      기러기, 토마토, 스위스, 인도인, 별똥별, 우영우. <br>
-      ...역삼역?
     </v-card>
 
-    <br><br>
-    <v-img
-      src="../../assets/temperature.png">
-    </v-img>
+    <v-row>
+      <v-img
+        class="mx-10 mt-10"
+        src="../../assets/temperature.png">
+      </v-img>
+    </v-row>
 
+    <v-row class="mx-8 mt-10">
+      <v-autocomplete
+        v-model="values"
+        :items="items"
+        outlined
+        dense
+        chips
+        small-chips
+        label="관심사"
+        multiple
+      ></v-autocomplete>
+    </v-row>
 
-    <br><br>
-    <v-autocomplete
-      v-model="values"
-      :items="items"
-      outlined
-      dense
-      chips
-      small-chips
-      label="관심사"
-      multiple
-    ></v-autocomplete>
+    <v-row class="mx-8 mt-10">
+      <v-btn
+        x-large
+        color="primary"
+        dark
+        @click="updateUserInfo()"
+        block
+        rounded
+      >
+        <h3 class="font-weight-black">수정하기</h3>
+      </v-btn>
+    </v-row>
   </div>
 </template>
 
@@ -59,9 +74,50 @@
     name: 'Profile',
 
     data: () => ({
-      items: ['운동', '여행', '문화', '음악', '창작', '성장', '봉사', '요리'],
-      values: ['운동', '음악'],
-      value: null,
+      items: ["운동", "여행", "문화", "음악", "창작", "성장", "봉사", "요리"],
+      values: [],
+      interest: "",
+      name: undefined,
+      updateInfo: {}
     }),
+
+    mounted() {
+      this.getUserInfo();
+    },
+
+    methods: {
+      getUserInfo() {
+        this.$axios.get('/api/info/' + this.$store.state.loginUser)
+        .then((res) => {
+          // name
+          this.name = res.data.name;
+
+          // interest
+          this.values = res.data.interest.split(',');
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      updateUserInfo() {
+
+        //interest string화
+        this.values.forEach(element => {
+          this.interest = this.interest + element + ","
+        });
+
+        this.updateInfo = {email : this.$store.state.loginUser, interest: this.interest}
+
+        this.$axios.put('/api/user/interest', this.updateInfo)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      }
+    },
+
+
   }
 </script>
