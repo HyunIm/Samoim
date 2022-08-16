@@ -33,32 +33,14 @@
           tile
           size="150"
         >
-          <img src="../../assets/interest/workout.png" :class="{ choice : isWorkout }" @click="isWorkout = !isWorkout">
+          <img src="../../assets/interest/workout.png" :class="{ choice : isWorkout }" @click="interestPick('isWorkout')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../../assets/interest/culture.png" :class="{ choice : isCulture }" @click="isCulture = !isCulture">
-        </v-list-item-avatar>
-      </v-list-item>
-
-      <v-list-item
-        class="ma-6"
-      >
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../../assets/interest/music.png" :class="{ choice : isMusic }" @click="isMusic = !isMusic">
-        </v-list-item-avatar>
-
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../../assets/interest/camping.png" :class="{ choice : isCamping }" @click="isCamping = !isCamping">
+          <img src="../../assets/interest/culture.png" :class="{ choice : isCulture }" @click="interestPick('isCulture')">
         </v-list-item-avatar>
       </v-list-item>
 
@@ -69,14 +51,32 @@
           tile
           size="150"
         >
-          <img src="../../assets/interest/art.png" :class="{ choice : isArt }" @click="isArt = !isArt">
+          <img src="../../assets/interest/music.png" :class="{ choice : isMusic }" @click="interestPick('isMusic')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../../assets/interest/cook.png" :class="{ choice : isCook }" @click="isCook = !isCook">
+          <img src="../../assets/interest/camping.png" :class="{ choice : isCamping }" @click="interestPick('isCamping')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+        class="ma-6"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/interest/art.png" :class="{ choice : isArt }" @click="interestPick('isArt')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/interest/cook.png" :class="{ choice : isCook }" @click="interestPick('isCook')">
         </v-list-item-avatar>
       </v-list-item>
     </div>
@@ -285,10 +285,10 @@
         class="mr-4"
         x-large
         color="primary"
-        dark
         @click="nextPage()"
         block
         rounded
+        :disabled="nextCheck"
       >
         <h3 class="font-weight-black">다음</h3>
       </v-btn>
@@ -306,6 +306,7 @@ export default {
   data: () => ({
     makeStep: 1,
     progress: 100/7,
+    nextCheck: true,
     isWorkout: false,
     isCulture: false,
     isMusic: false,
@@ -332,10 +333,35 @@ export default {
         this.makeStep += 1
         this.progress += 100/7
       }
-      
+
+      this.nextCheck = true
     },
     save (date) {
       this.$refs.menu.save(date)
+    },
+    interestPick(interest) {
+      this.isWorkout =  false
+      this.isCulture = false
+      this.isMusic = false
+      this.isCamping = false
+      this.isCook = false
+      this.isArt = false
+
+      if (interest === 'isWorkout') {
+        this.isWorkout = true
+      } else if (interest === 'isCulture') {
+        this.isCulture = true
+      } else if (interest === 'isMusic') {
+        this.isMusic = true
+      } else if (interest === 'isCamping') {
+        this.isCamping = true
+      } else if (interest === 'isCook') {
+        this.isCook = true
+      } else if (interest === 'isArt') {
+        this.isArt = true
+      }
+
+      this.nextCheck = false
     },
   },
 }
