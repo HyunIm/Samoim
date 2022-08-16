@@ -35,8 +35,8 @@ public class RecommendService {
 	}
 	
 	public void createRecommend(String email) throws IOException {
-		UserDto findUser = this.userDao.findByEmail(email);
-		System.out.println(findUser.toString());
+//		UserDto findUser = this.userDao.findByEmail(email);
+//		System.out.println(findUser.toString());
 		
         String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,0,3,7,1], [26,0,1,4,6,6]]}]}";
 		MLfunction(payload);
