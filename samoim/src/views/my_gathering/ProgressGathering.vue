@@ -61,10 +61,10 @@
                   </small>
                 </v-chip>
               </v-row>
-            <v-list-item-subtitle>
+            <!-- <v-list-item-subtitle>
               <v-row>
                 &nbsp;
-                <!-- <v-chip
+                <v-chip
                   class="ma-2 text-center"
                   outlined
                   small
@@ -82,9 +82,9 @@
                     mdi-account-group
                   </v-icon>
                   1/4
-                </v-chip> -->
+                </v-chip>
               </v-row>
-            </v-list-item-subtitle>
+            </v-list-item-subtitle> -->
           </v-list-item-content>
         </v-list-item>
 
@@ -147,7 +147,7 @@ export default {
         console.log(error);
       });
     },
-  }
+  },
 }
 </script>
 
