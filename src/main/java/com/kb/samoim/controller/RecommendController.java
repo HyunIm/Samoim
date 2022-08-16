@@ -48,13 +48,12 @@ public class RecommendController {
 	}
 	
 	
-	@ApiOperation("추천 항목 데이터 불러오기 API")
-	@GetMapping("/recommend")
-	public ResponseEntity<SCategoryDto> getRecommendData(
-			@RequestBody int code
-			//@PathVarialbe int code
-	){
-		return ResponseEntity.ok(this.recommendService.getRecommendData(code));
-	}
+//	@ApiOperation("추천 항목 데이터 불러오기 API")
+//	@GetMapping("/recommend")
+//	public ResponseEntity<SCategoryDto> getRecommendData(
+//			@RequestBody int code
+//	){
+//		return ResponseEntity.ok(this.recommendService.getRecommendData(code));
+//	}
 
 }

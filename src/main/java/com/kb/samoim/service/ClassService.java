@@ -8,20 +8,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
+import com.kb.samoim.dao.UserDao;
 import com.kb.samoim.dto.CalendarDto;
 import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
+import com.kb.samoim.dto.UserDto;
 
 @Service
 public class ClassService {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ClassService.class);
 	private ClassDao classDao;
+	private UserDao userDao;
 	public ClassService(
 			@Autowired
-			ClassDao classDao
+			ClassDao classDao,
+			UserDao userDao
 	) {
 		this.classDao = classDao;
+		this.userDao = userDao;
 	}
 	
 	
@@ -59,6 +64,22 @@ public class ClassService {
 		resultDto.setPoint(findClass.getPoint());
 		
 		return resultDto;
+	}
+	
+	public ClassDto getMyCreateClass(String email) {
+		UserDto findUser = this.userDao.findByEmail(email);
+		if(findUser == null)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		
+		ClassDto myClass = this.classDao.getMyCreateClass(email);
+		ClassDto emptyClass = new ClassDto();
+		if(myClass == null) {
+			logger.info("내가 만든 모임이 없는 경우");
+			return emptyClass;
+		}
+		else {
+			return myClass;
+		}
 	}
 	
 	public CalendarDto selectClassByDate(String email,String date) {

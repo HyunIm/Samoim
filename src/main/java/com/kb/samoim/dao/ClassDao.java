@@ -21,6 +21,10 @@ public interface ClassDao {
 	
 	ClassCompleteDto completedClass(String email); 
 	
+	//내가 개설한 모임
+	ClassDto getMyCreateClass(String email);
+	
+	//나중에
 	CalendarDto selectClassByDate(String email,String date);
 	
 }
