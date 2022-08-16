@@ -101,6 +101,7 @@
                 width="160"
                 outlined
                 text
+                @click="wishCancle(item.id)"
               >
                 찜 취소
               </v-btn>
@@ -130,6 +131,7 @@ export default {
         photoPath: "18_dessert.png"
       },
     ],
+    likeReq: {},
   }),
 
   mounted() {
@@ -147,6 +149,20 @@ export default {
         }
 
         console.log(this.classData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+
+    wishCancle(selectId) {
+      this.likeReq = {
+        classId: selectId,
+        userId: this.$store.state.loginUser,
+      }
+      this.$axios.post('/api/like/delete', this.likeReq)
+      .then((res) => {
+        console.log(res);
       })
       .catch((error) => {
         console.log(error);
