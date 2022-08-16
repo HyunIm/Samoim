@@ -27,7 +27,7 @@
       </v-row>
 
       <v-list-item
-        class="ma-6"
+        class="ml-3"
       >
         <v-list-item-avatar
           tile
@@ -45,7 +45,7 @@
       </v-list-item>
 
       <v-list-item
-        class="ma-6"
+        class="ml-3"
       >
         <v-list-item-avatar
           tile
@@ -63,7 +63,7 @@
       </v-list-item>
 
       <v-list-item
-        class="ma-6"
+        class="ml-3"
       >
         <v-list-item-avatar
           tile
@@ -81,7 +81,7 @@
       </v-list-item>
 
       <v-list-item
-        class="ma-6"
+        class="ml-3"
       >
         <v-list-item-avatar
           tile
