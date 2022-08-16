@@ -11,12 +11,10 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class class_meetDto {
+public class SCategoryDto {
 	
-	private Long id;
-	private int class_id;
-	private String state;
-	private String price;
-	private String date;
-	
+	private int id;
+	private String name;
+	private String photo_path;
+
 }

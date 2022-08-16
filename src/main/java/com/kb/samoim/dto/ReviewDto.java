@@ -2,6 +2,7 @@ package com.kb.samoim.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,11 +10,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
+
 public class ReviewDto {
-	
-	public ReviewDto() {
-		
-	}
 	
 	private int class_id; //클래스 id
 	private String user_id; //유저 email

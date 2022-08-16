@@ -2,6 +2,7 @@ package com.kb.samoim.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,11 +10,9 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
+
 public class CalendarDto {
-	
-	public CalendarDto(){
-		
-	}
 	
 	private int id; //Auto Increment
 	private String userName; //유저이름

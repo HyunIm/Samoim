@@ -2,6 +2,7 @@ package com.kb.samoim.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -9,11 +10,8 @@ import lombok.ToString;
 @Setter
 @ToString
 @AllArgsConstructor
+@NoArgsConstructor
 public class ClassCompleteDto {
-	
-	public ClassCompleteDto() {
-		
-	}
 	
 	private String name;
 	private String city;
