@@ -33,32 +33,14 @@
           tile
           size="150"
         >
-          <img src="../../assets/interest/workout.png" :class="{ choice : isWorkout }" @click="interestPick('isWorkout')">
+          <img src="../../assets/large_category/0_workout.png" :class="{ choice : isWorkout }" @click="largeCategorySelect('isWorkout')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../../assets/interest/culture.png" :class="{ choice : isCulture }" @click="interestPick('isCulture')">
-        </v-list-item-avatar>
-      </v-list-item>
-
-      <v-list-item
-        class="ma-6"
-      >
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../../assets/interest/music.png" :class="{ choice : isMusic }" @click="interestPick('isMusic')">
-        </v-list-item-avatar>
-
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../../assets/interest/camping.png" :class="{ choice : isCamping }" @click="interestPick('isCamping')">
+          <img src="../../assets/large_category/1_travel.png" :class="{ choice : isTravel }" @click="largeCategorySelect('isTravel')">
         </v-list-item-avatar>
       </v-list-item>
 
@@ -69,20 +51,81 @@
           tile
           size="150"
         >
-          <img src="../../assets/interest/art.png" :class="{ choice : isArt }" @click="interestPick('isArt')">
+          <img src="../../assets/large_category/2_culture.png" :class="{ choice : isCulture }" @click="largeCategorySelect('isCulture')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../../assets/interest/cook.png" :class="{ choice : isCook }" @click="interestPick('isCook')">
+          <img src="../../assets/large_category/3_music.png" :class="{ choice : isMusic }" @click="largeCategorySelect('isMusic')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+        class="ma-6"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/large_category/4_create.png" :class="{ choice : isCreate }" @click="largeCategorySelect('isCreate')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/large_category/5_growth.png" :class="{ choice : isGrowth }" @click="largeCategorySelect('isGrowth')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+        class="ma-6"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/large_category/6_volunteer.png" :class="{ choice : isVolunteer }" @click="largeCategorySelect('isVolunteer')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../../assets/large_category/7_cook.png" :class="{ choice : isCook }" @click="largeCategorySelect('isCook')">
         </v-list-item-avatar>
       </v-list-item>
     </div>
 
-
     <div v-if="makeStep === 2">
+      <div v-if="isWorkout">
+        <img
+          height="100"
+          width="300"
+          src="../../assets/large_category/7_cook.png" 
+          :class="{ choice : isCook }" 
+          @click="largeCategorySelect('isCook')">
+      </div>
+      <div v-if="isTravel">
+      </div>
+      <div v-if="isCulture">
+      </div>
+      <div v-if="isMusic">
+      </div>
+      <div v-if="isCreate">
+      </div>
+      <div v-if="isGrowth">
+      </div>
+      <div v-if="isVolunteer">
+      </div>
+      <div v-if="isCook">
+      </div>
+    </div>
+
+
+    <div v-if="makeStep === 3">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -116,7 +159,7 @@
     </div>
 
 
-    <div v-if="makeStep === 3">
+    <div v-if="makeStep === 4">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -131,12 +174,6 @@
       </v-row>
 
       <v-row class="mt-15"/>
-
-      <v-file-input
-        label="사진 추가"
-        filled
-        prepend-icon="mdi-camera"
-      ></v-file-input>
 
       <v-text-field 
         outlined
@@ -154,7 +191,7 @@
     </div>
 
 
-    <div v-if="makeStep === 4">
+    <div v-if="makeStep === 5">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -200,7 +237,7 @@
     </div>
 
 
-    <div v-if="makeStep === 5">
+    <div v-if="makeStep === 6">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -232,7 +269,7 @@
     </div>
 
 
-    <div v-if="makeStep === 6">
+    <div v-if="makeStep === 7">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -269,7 +306,7 @@
     </div>
 
 
-    <div v-if="makeStep === 7">
+    <div v-if="makeStep === 8">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -301,6 +338,7 @@
       >
         <h3 class="font-weight-black">다음</h3>
       </v-btn>
+      <br><br><br>
     </v-footer>
   </v-container>
 </template>
@@ -312,7 +350,7 @@ export default {
 
   data: () => ({
     makeStep: 1,
-    progress: 100/7,
+    progress: 100/8,
     nextCheck: true,
 
     makeClassForm: {
@@ -330,11 +368,13 @@ export default {
     },
     
     isWorkout: false,
+    isTravel: false,
     isCulture: false,
     isMusic: false,
-    isCamping: false,
+    isCreate: false,
+    isGrowth: false,
+    isVolunteer: false,
     isCook: false,
-    isArt: false,
 
     activePicker: null,
     menu: false,
@@ -346,40 +386,40 @@ export default {
     },
 
     makeStep: function() {
-      if (this.makeStep === 7) {
+      if (this.makeStep === 8) {
         this.nextCheck = false
-      } else if (this.makeStep === 6) {
+      } else if (this.makeStep === 7) {
         this.nextCheck = false
       }
     },
 
     makeClassForm: {
-      handler(val) {
-        if (this.makeStep === 2) {
+      handler() {
+        if (this.makeStep === 3) {
           if (this.makeClassForm.name.length >= 1) {
             this.nextCheck = false
           } else {
             this.nextCheck = true
           }
-        } else if (this.makeStep === 3) {
+        } else if (this.makeStep === 4) {
           if (this.makeClassForm.detail_contents.length >= 1) {
             this.nextCheck = false
           } else {
             this.nextCheck = true
           }
-        } else if (this.makeStep === 4) {
+        } else if (this.makeStep === 5) {
           if (this.makeClassForm.open_date.length >= 1) {
             this.nextCheck = false
           } else {
             this.nextCheck = true
           }
-        } else if (this.makeStep === 5) {
+        } else if (this.makeStep === 6) {
           if (this.makeClassForm.address.length >= 1) {
             this.nextCheck = false
           } else {
             this.nextCheck = true
           }
-        } else if (this.makeStep === 6) {
+        } else if (this.makeStep === 7) {
           this.nextCheck = false
         }
       },
@@ -389,7 +429,7 @@ export default {
 
   methods: {
     nextPage() {
-      if(this.makeStep === 7) {
+      if(this.makeStep === 8) {
         this.$router.replace('/main')
         this.$axios.post('/api/create/' + this.$store.state.loginUser, this.makeClassForm)
         .then((res) => {
@@ -400,7 +440,7 @@ export default {
         });
       } else {
         this.makeStep += 1
-        this.progress += 100/7
+        this.progress += 100/8
       }
 
       this.nextCheck = true
@@ -410,32 +450,79 @@ export default {
       this.$refs.menu.save(open_date)
     },
 
-    interestPick(interest) {
+    largeCategorySelect(category) {
       this.isWorkout =  false
+      this.isTravel = false
       this.isCulture = false
       this.isMusic = false
-      this.isCamping = false
+      this.isCreate = false
+      this.isGrowth = false
+      this.isVolunteer = false
       this.isCook = false
-      this.isArt = false
 
-      if (interest === 'isWorkout') {
+      if (category === 'isWorkout') {
         this.isWorkout = true
         this.makeClassForm.large_category = "운동"
-      } else if (interest === 'isCulture') {
+      } else if (category === 'isTravel') {
+        this.isTravel = true
+        this.makeClassForm.large_category = "여행"
+      } else if (category === 'isCulture') {
         this.isCulture = true
         this.makeClassForm.large_category = "문화"
-      } else if (interest === 'isMusic') {
+      } else if (category === 'isMusic') {
         this.isMusic = true
         this.makeClassForm.large_category = "음악"
-      } else if (interest === 'isCamping') {
-        this.isCamping = true
-        this.makeClassForm.large_category = "캠핑"
-      } else if (interest === 'isCook') {
+      } else if (category === 'isCreate') {
+        this.isCreate = true
+        this.makeClassForm.large_category = "창작"
+      } else if (category === 'isGrowth') {
+        this.isGrowth = true
+        this.makeClassForm.large_category = "성장"
+      } else if (category === 'isVolunteer') {
+        this.isVolunteer = true
+        this.makeClassForm.large_category = "봉사"
+      } else if (category === 'isCook') {
         this.isCook = true
         this.makeClassForm.large_category = "요리"
-      } else if (interest === 'isArt') {
-        this.isArt = true
-        this.makeClassForm.large_category = "예술"
+      }
+
+      this.nextCheck = false
+    },
+
+    smallCategorySelect(category) {
+      this.isWorkout =  false
+      this.isTravel = false
+      this.isCulture = false
+      this.isMusic = false
+      this.isCreate = false
+      this.isGrowth = false
+      this.isVolunteer = false
+      this.isCook = false
+
+      if (category === 'isWorkout') {
+        this.isWorkout = true
+        this.makeClassForm.large_category = "운동"
+      } else if (category === 'isTravel') {
+        this.isTravel = true
+        this.makeClassForm.large_category = "여행"
+      } else if (category === 'isCulture') {
+        this.isCulture = true
+        this.makeClassForm.large_category = "문화"
+      } else if (category === 'isMusic') {
+        this.isMusic = true
+        this.makeClassForm.large_category = "음악"
+      } else if (category === 'isCreate') {
+        this.isCreate = true
+        this.makeClassForm.large_category = "창작"
+      } else if (category === 'isGrowth') {
+        this.isGrowth = true
+        this.makeClassForm.large_category = "성장"
+      } else if (category === 'isVolunteer') {
+        this.isVolunteer = true
+        this.makeClassForm.large_category = "봉사"
+      } else if (category === 'isCook') {
+        this.isCook = true
+        this.makeClassForm.large_category = "요리"
       }
 
       this.nextCheck = false
