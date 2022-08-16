@@ -56,21 +56,15 @@ public class UserController {
 	}
 
 	@ApiOperation("관심사(INTEREST) 수정(등록)하기 API")
-	@PutMapping("/user/{email}")
-	public ResponseEntity<?> updateInterest(
-			@PathVariable String email,
-			@RequestBody String interest
-	){
-		return ResponseEntity.ok(this.userService.updateInterest(email, interest));
+	@PutMapping(value="/user/interest", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> updateInterest(@RequestBody UserDto userDto){
+		return ResponseEntity.ok(this.userService.updateInterest(userDto.getEmail(), userDto.getInterest()));
 	}
 	
 	@ApiOperation("마이페이지 회원 정보 수정 API")
-	@PutMapping("/myPage/{email}")
-	public ResponseEntity<?> updateUser(
-			@PathVariable String email,
-			@RequestBody UserDto userDto
-	){
-		return ResponseEntity.ok(this.userService.updateUser(email, userDto));
+	@PutMapping(value="/myPage/modify", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> updateUser(@RequestBody UserDto userDto){
+		return ResponseEntity.ok(this.userService.updateUser(userDto.getEmail(), userDto));
 	}
 	
 	@ApiOperation("유저 포인트 및 정보 함께 조회 API")
@@ -82,12 +76,9 @@ public class UserController {
 	}
 	
 	@ApiOperation("포인트 업데이트 API")
-	@PutMapping("/balance/update/{email}")
-	public ResponseEntity<?> pointUpdate(
-			@PathVariable String email,
-			@RequestBody int price // 가격 
-	){
-		boolean flag = this.userService.updatePoint(email, price);
+	@PutMapping(value="/balance/update", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<?> pointUpdate(@RequestBody UserDto userDto){
+		boolean flag = this.userService.updatePoint(userDto.getEmail(), userDto.getPoint());
 		if(!flag) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
 		return ResponseEntity.ok(flag);
