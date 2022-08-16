@@ -11,12 +11,12 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class class_meetDto {
+
+public class RecommendDto {
 	
-	private Long id;
-	private int class_id;
-	private String state;
-	private String price;
-	private String date;
+	int age;
+	int gender;
+	String interest;
+	int activity;
 	
 }

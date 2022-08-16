@@ -187,5 +187,4 @@ public class ClassController {
 		return ResponseEntity.ok(this.classService.selectClassByDate(email, date));
 	}
 	
-	
 }
