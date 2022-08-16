@@ -35,6 +35,7 @@ public class ClassService {
 		newClass.setAddress(classDto.getAddress());
 		newClass.setMax_member(classDto.getMax_member());
 		newClass.setOwner_id(user_id);
+		newClass.setOpen_date(classDto.getOpen_date());
 		newClass.setDetail_contents(classDto.getDetail_contents());
 		newClass.setPhoto_path(classDto.getPhoto_path());
 		this.classDao.createClass(newClass);

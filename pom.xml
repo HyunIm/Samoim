@@ -64,6 +64,14 @@
 			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!--기본 org.json  -->
+		<dependency>
+		    <groupId>org.json</groupId>
+		    <artifactId>json</artifactId>
+		    <version>20180813</version>
+		</dependency>
+		
 	</dependencies>
 
 	<build>
