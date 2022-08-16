@@ -6,6 +6,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -28,41 +31,77 @@ public class RecommendService {
 	private UserDao userDao;
 	
 	public RecommendService(
-			@Autowired RecommendDao recommendDao,
-			@Autowired UserDao userDao
+			@Autowired UserDao userDao,
+			@Autowired RecommendDao recommendDao
 	) {
 		this.recommendDao = recommendDao;
+		this.userDao = userDao;
 	}
 	
 	public void createRecommend(String email) throws IOException {
-//		UserDto findUser = this.userDao.findByEmail(email);
-//		System.out.println(findUser.toString());
+		UserDto findUser = this.userDao.findByEmail(email);		
+		if(findUser == null)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		int age = 2022 - Integer.valueOf(findUser.getBirth().substring(2,4)); //
+		int gender = 0;
+		if(findUser.getGender().contains("여")) gender = 1;
 		
-        String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,0,3,7,1], [26,0,1,4,6,6]]}]}";
-		MLfunction(payload);
-	}
-	
-	//행사에 해당하는 code로 불러오기
-	public SCategoryDto getRecommendData(int code) {
-		SCategoryDto result = new SCategoryDto();
-		SCategoryDto findCategory = this.recommendDao.getRecommendData(code);
-		if(findCategory == null ) {
-			throw new ResponseStatusException(HttpStatus.NO_CONTENT);
+		List<String> interestList = new ArrayList<>();
+		String [] interestArray = findUser.getInterest().split(",");
+		for(String str : interestArray) {
+			if(str.equals("운동")) interestList.add("0");
+			if(str.equals("여행")) interestList.add("1");
+			if(str.equals("문화")) interestList.add("2");
+			if(str.equals("음악")) interestList.add("3");
+			if(str.equals("창작")) interestList.add("4");
+			if(str.equals("성장")) interestList.add("5");
+			if(str.equals("봉사")) interestList.add("6");
+			if(str.equals("요리")) interestList.add("7");
 		}
 		
-		result.setName(findCategory.getName());
-		result.setPhoto_path(findCategory.getPhoto_path());
+		String newPayload = null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("\"{\\\"input_data\\\": [{\\\"fields\\\": [\\\"나이\\\", \\\"성별\\\", \\\"관심사1\\\",\\\"관심사2\\\", \\\"관심사3\\\", \\\"활동\\\"], \\\"values\\\": [[");
+		sb.append(Integer.toString(age)+",");
+		sb.append(Integer.toString(gender)+",");
 		
-		return result;
+		
+		Collections.shuffle(interestList);
+		
+		if(interestList.size()>=3) {
+			for(int i=0;i<3;i++) {
+				sb.append(interestList.get(i)+",");
+			}
+			sb.delete(sb.length()-1, sb.length());
+		}
+		else {
+			for(int i=0;i<interestList.size();i++) {
+				sb.append("-1,");
+			}
+			sb.delete(sb.length()-1, sb.length());
+		}
+		sb.append("]]}]}");
+
+		newPayload = sb.toString();
+		
+        String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,0,3,7,1]]}]}";
+		
+        String result = MLfunction(newPayload);
+        int code = Integer.parseInt(result);
+        this.recommendDao.getRecommendInterest(code);
+        
 	}
 	
-	public void MLfunction(String newPayload) throws IOException {
+	
+	//서비스 아니고 그냥 머신러닝 메소드
+	public String MLfunction(String newPayload) throws IOException {
 		String API_KEY = "nbaWdZ6hp9LfNnq9J83w7x5lzzSZw8uY-wrZfJ8uHsiD";
 
         HttpURLConnection tokenConnection = null;
         HttpURLConnection scoringConnection = null;
         BufferedReader tokenBuffer = null;
         BufferedReader scoringBuffer = null;
+        String activity = null;
         try {
             // Getting IAM token
             URL tokenUrl = new URL("https://iam.cloud.ibm.com/identity/token?grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + API_KEY);
@@ -110,11 +149,14 @@ public class RecommendService {
             String predicArray = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).toString();
             System.out.println("2. predict array: "+ predicArray);
 
-            String activity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).get(0).toString();
+            activity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).get(0).toString();
             System.out.println("3. activity result: " + activity);
+            
 
             String activitySimilarity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).getJSONArray(1).get(0).toString();
             System.out.println("4. activity similarity result: " + activitySimilarity);
+            
+            return activity;
         } catch (IOException e) {
             System.out.println("The URL is not valid.");
             System.out.println(e.getMessage());
@@ -133,6 +175,7 @@ public class RecommendService {
                 scoringBuffer.close();
             }
         }
+        return activity;
 	}
 	
 }

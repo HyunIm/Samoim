@@ -8,6 +8,6 @@ import com.kb.samoim.dto.SCategoryDto;
 public interface RecommendDao {
 	
 	int createRecommend(String email); //추천 return
-	SCategoryDto getRecommendData(int code);
+	SCategoryDto getRecommendInterest(int code);
 	
 }

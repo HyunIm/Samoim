@@ -178,6 +178,14 @@ public class ClassController {
 		return ResponseEntity.ok(this.classService.completedClass(email));
 	}
 	
+	@ApiOperation("내가 만든 모임 조회 API")
+	@GetMapping("/myClass/{email}")
+	public ResponseEntity<ClassDto> getMyCreateClass(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.classService.getMyCreateClass(email));
+	}
+	
 	@ApiOperation("날짜별 모임 참석 리스트 조회")
 	@GetMapping("/dateFilter/{email}")
 	public ResponseEntity<?> selectClassByDate(
