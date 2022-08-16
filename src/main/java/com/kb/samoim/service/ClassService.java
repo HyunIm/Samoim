@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
+import com.kb.samoim.dto.CalendarDto;
 import com.kb.samoim.dto.ClassCompleteDto;
 import com.kb.samoim.dto.ClassDto;
 
@@ -59,4 +60,20 @@ public class ClassService {
 		return resultDto;
 	}
 	
+	public CalendarDto selectClassByDate(String email,String date) {
+		CalendarDto resultDto = new CalendarDto();
+		CalendarDto findDto = this.classDao.selectClassByDate(email, date);
+		if(findDto == null) {
+			logger.info("해당 날짜에는 데이터가 없는 것");
+			return null;
+		}
+		
+		resultDto.setClassName(findDto.getClassName());
+		resultDto.setDate(findDto.getDate());
+		resultDto.setCity(findDto.getCity());
+		resultDto.setAddress(findDto.getAddress());
+		
+		
+		return resultDto;
+	}
 }

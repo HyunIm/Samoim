@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,6 +42,28 @@ public class UserController {
 	public ResponseEntity<UserDto> saveUser(UserDto userDto) {
 		userService.saveUser(userDto);
 		return ResponseEntity.ok(null);
+	}
+	
+	@ApiOperation("로그인 페이지")
+	@GetMapping("/login")
+	public String login() {
+		return "login"; 
+	}
+	
+	@ApiOperation("로그인 API")
+	@PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	public String loginUser(
+			@RequestBody UserDto loginData
+	){
+		boolean flag = this.userService.loginUser(loginData);
+		if(flag) {
+			logger.info("로그인 성공");
+			return "redirect:/";
+		}
+		
+		//실패하면 다시 로그인 페이지로 보냄
+		logger.info("로그인 실패");
+		return "login";
 	}
 	
 	@ApiOperation("Email로 User찾기 API")
