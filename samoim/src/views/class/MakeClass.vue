@@ -108,6 +108,8 @@
           required
           flat
           dense
+          ref="name"
+          v-model="name"
         >
         </v-text-field>
       </v-row>
@@ -138,13 +140,15 @@
 
       <v-text-field 
         outlined
-        label="내용을 입력해 주세요. (선택)"
+        label="내용을 입력해 주세요."
         persistent-hint
         solo
         :counter="80"
         required
         flat
         dense
+        ref="detail_contents"
+        v-model="detail_contents"
       >
       </v-text-field>
     </div>
@@ -176,7 +180,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="date"
+            v-model="open_date"
             label="모임 날짜"
             prepend-icon="mdi-calendar"
             readonly
@@ -185,7 +189,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="date"
+          v-model="open_date"
           :active-picker.sync="activePicker"
           :min="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
           @change="save"
@@ -210,9 +214,11 @@
 
       <v-row class="mt-15"/>
 
-      <v-text-field 
+      <v-text-field
+        ref="city"
+        v-model="city"
         outlined
-        label="서울특별시 영등포구"
+        label="서울 영등포구"
         persistent-hint
         solo
         :counter="80"
@@ -241,14 +247,15 @@
       <v-row class="mt-15"/>
 
       <v-row class="mt-5 mx-3">
-        참여 인원 : {{people}} 명
+        참여 인원 : {{ max_member }} 명
       </v-row>
       <v-row class="mt-15"/>
 
       <v-card>
         <v-card-text>
           <v-slider
-            v-model="people"
+            ref="max_member"
+            v-model="max_member"
             step=1
             thumb-label
             ticks
@@ -307,21 +314,70 @@ export default {
     makeStep: 1,
     progress: 100/7,
     nextCheck: true,
+
+    address: "string",
+    city: "",
+    detail_contents: "",
+    id: 0,
+    large_category: "string",
+    max_member: 3,
+    name: "",
+    open_date: null,
+    owener_id: "string",
+    owner_id: "string",
+    photo_path: "string",
+    // small_category: "string",
+
     isWorkout: false,
     isCulture: false,
     isMusic: false,
     isCamping: false,
     isCook: false,
     isArt: false,
+
     activePicker: null,
-    date: null,
     menu: false,
-    people: 3,
   }),
 
   watch: {
-    menu (val) {
+    menu(val) {
       val && setTimeout(() => (this.activePicker = 'DATE'))
+    },
+
+    name: function() {
+      if (this.name.length >= 1) {
+        this.nextCheck = false
+      } else {
+        this.nextCheck = true
+      }
+    },
+
+    detail_contents: function() {
+      if (this.detail_contents.length >= 1) {
+        this.nextCheck = false
+      } else {
+        this.nextCheck = true
+      }
+    },
+
+    open_date: function() {
+      if (this.open_date.length >= 1) {
+        this.nextCheck = false
+      } else {
+        this.nextCheck = true
+      }
+    },
+
+    city: function() {
+      if (this.city.length >= 1) {
+        this.nextCheck = false
+      } else {
+        this.nextCheck = true
+      }
+    },
+
+    max_member: function() {
+      this.nextCheck = false
     },
   },
 
@@ -336,9 +392,11 @@ export default {
 
       this.nextCheck = true
     },
-    save (date) {
-      this.$refs.menu.save(date)
+
+    save (open_data) {
+      this.$refs.menu.save(open_data)
     },
+
     interestPick(interest) {
       this.isWorkout =  false
       this.isCulture = false
@@ -349,16 +407,22 @@ export default {
 
       if (interest === 'isWorkout') {
         this.isWorkout = true
+        this.large_category = "isWorkout"
       } else if (interest === 'isCulture') {
         this.isCulture = true
+        this.large_category = "isCulture"
       } else if (interest === 'isMusic') {
         this.isMusic = true
+        this.large_category = "isMusic"
       } else if (interest === 'isCamping') {
         this.isCamping = true
+        this.large_category = "isCamping"
       } else if (interest === 'isCook') {
         this.isCook = true
+        this.large_category = "isCook"
       } else if (interest === 'isArt') {
         this.isArt = true
+        this.large_category = "isArt"
       }
 
       this.nextCheck = false
