@@ -35,7 +35,7 @@ public class UserService {
 		newUser.setCity(userDto.getCity());
 		newUser.setAddress(userDto.getAddress());
 		newUser.setInterest(userDto.getInterest());
-		newUser.setPoint(userDto.getPoint());
+		newUser.setPoint(100000);
 		newUser.setPhoto_path(userDto.getPhoto_path());
 		
 		this.userDao.saveUser(newUser);
@@ -112,6 +112,22 @@ public class UserService {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean loginUser(UserDto loginData) {
+		UserDto findUser = this.userDao.findByEmail(loginData.getEmail());
+		if(findUser == null) {
+			logger.info("해당 이메일 없는 경우");
+			return false;
+		}
+		
+		if(!loginData.getPassword().equals(findUser.getPassword())) {
+			logger.info("비밀번호 불일치");
+			return false;
+		}
+		
+		return true;
+
 	}
 	
 	public UserDto getUserInfo(String email) {
