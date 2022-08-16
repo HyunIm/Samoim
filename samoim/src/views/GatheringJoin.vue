@@ -125,12 +125,12 @@
       <v-row class="mt-15 mx-3">
         <h1>결제 금액</h1>
       </v-row>
-        <h1 align="right">50,000원</h1>
+        <h1 align="right">{{ this.price }} P</h1>
       <v-divider></v-divider>
       <v-row class="mt-15 mx-3">
       <h1>보유 포인트</h1>
       </v-row>
-      <h1 align="right">108,750원</h1>
+      <h1 align="right">{{ this.userPoint }} P</h1>
       <v-divider></v-divider>
       <br>
 
@@ -150,8 +150,9 @@
                 rounded
                 v-bind="attrs"
                 v-on="on"
+                @click="payment()"
               >
-                <h3>50,000원 결제하기</h3>
+                <h3>결제하기</h3>
               </v-btn>
           </template>
           <v-card>
@@ -250,7 +251,18 @@ export default {
     progress: 100/3,
     e6: 1,
     dialog: false,
+    userPoint: undefined,
+    price: 30000,
+    payInfo: undefined,
+    joinInfo: undefined,
+    classId: undefined
   }),
+
+  mounted() {
+    this.getPoint();
+
+    this.classId = this.$route.params.classId;
+  },
 
   methods: {
     nextPage() {
@@ -265,6 +277,47 @@ export default {
       window.open('https://m.kbinsure.co.kr:8543/MG302030001.ec', '_blank')
       this.nextPage()
     },
+    getPoint() {
+      this.$axios.get('/api/balance/' + this.$store.state.loginUser)
+      .then((res) => {
+        console.log(res);
+
+        this.userPoint = res.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    payment() {
+      this.payInfo = {
+        email: this.$store.state.loginUser,
+        point: this.price
+      };
+
+      this.$axios.put('/api/balance/update', this.payInfo)
+      .then((res) => {
+        console.log(res);
+
+        //모임 참석 API 호출
+        this.joinInfo = {classId : this.classId, userId : this.$store.state.loginUser};
+
+        this.$axios.post('/api/join', this.joinInfo)
+        .then((res) => {
+          console.log(res);
+
+          // 신청완료 Data 생성
+          
+
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   },
 }
 </script>

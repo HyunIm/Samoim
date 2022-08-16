@@ -69,7 +69,9 @@ export default new VueRouter({
     },
     {
       path: '/gatheringjoin',
-      component: GatheringJoin
+      component: GatheringJoin,
+      name: 'GatheringJoin',
+      props: true
     },
   ]
 });
