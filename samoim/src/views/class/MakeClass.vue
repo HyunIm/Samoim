@@ -108,8 +108,8 @@
           required
           flat
           dense
-          ref="name"
-          v-model="name"
+          ref="makeClassForm.name"
+          v-model="makeClassForm.name"
         >
         </v-text-field>
       </v-row>
@@ -147,8 +147,8 @@
         required
         flat
         dense
-        ref="detail_contents"
-        v-model="detail_contents"
+        ref="makeClassForm.detail_contents"
+        v-model="makeClassForm.detail_contents"
       >
       </v-text-field>
     </div>
@@ -180,7 +180,7 @@
       >
         <template v-slot:activator="{ on, attrs }">
           <v-text-field
-            v-model="open_date"
+            v-model="makeClassForm.open_date"
             label="모임 날짜"
             prepend-icon="mdi-calendar"
             readonly
@@ -189,7 +189,7 @@
           ></v-text-field>
         </template>
         <v-date-picker
-          v-model="open_date"
+          v-model="makeClassForm.open_date"
           :active-picker.sync="activePicker"
           :min="(new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)"
           @change="save"
@@ -215,8 +215,8 @@
       <v-row class="mt-15"/>
 
       <v-text-field
-        ref="city"
-        v-model="city"
+        ref="makeClassForm.address"
+        v-model="makeClassForm.address"
         outlined
         label="서울 영등포구"
         persistent-hint
@@ -247,15 +247,15 @@
       <v-row class="mt-15"/>
 
       <v-row class="mt-5 mx-3">
-        참여 인원 : {{ max_member }} 명
+        참여 인원 : {{ makeClassForm.max_member }} 명
       </v-row>
       <v-row class="mt-15"/>
 
       <v-card>
         <v-card-text>
           <v-slider
-            ref="max_member"
-            v-model="max_member"
+            ref="makeClassForm.max_member"
+            v-model="makeClassForm.max_member"
             step=1
             thumb-label
             ticks
@@ -308,26 +308,26 @@ import BackButton from '../../components/common/BackButton.vue'
 export default {
   components: { BackButton },
 
-  name: 'MakeClass',
-
   data: () => ({
     makeStep: 1,
     progress: 100/7,
     nextCheck: true,
 
-    address: "string",
-    city: "",
-    detail_contents: "",
-    id: 0,
-    large_category: "string",
-    max_member: 3,
-    name: "",
-    open_date: null,
-    owener_id: "string",
-    owner_id: "string",
-    photo_path: "string",
-    // small_category: "string",
-
+    makeClassForm: {
+      address: "",
+      city: "서울",
+      detail_contents: "",
+      id: 0,
+      large_category: "string",
+      max_member: 3,
+      name: "",
+      open_date: null,
+      owener_id: "string",
+      owner_id: "string",
+      photo_path: "string",
+      // small_category: "string",
+    },
+    
     isWorkout: false,
     isCulture: false,
     isMusic: false,
@@ -344,40 +344,45 @@ export default {
       val && setTimeout(() => (this.activePicker = 'DATE'))
     },
 
-    name: function() {
-      if (this.name.length >= 1) {
+    makeStep: function() {
+      if (this.makeStep === 7) {
         this.nextCheck = false
-      } else {
-        this.nextCheck = true
+      } else if (this.makeStep === 6) {
+        this.nextCheck = false
       }
     },
 
-    detail_contents: function() {
-      if (this.detail_contents.length >= 1) {
-        this.nextCheck = false
-      } else {
-        this.nextCheck = true
-      }
-    },
-
-    open_date: function() {
-      if (this.open_date.length >= 1) {
-        this.nextCheck = false
-      } else {
-        this.nextCheck = true
-      }
-    },
-
-    city: function() {
-      if (this.city.length >= 1) {
-        this.nextCheck = false
-      } else {
-        this.nextCheck = true
-      }
-    },
-
-    max_member: function() {
-      this.nextCheck = false
+    makeClassForm: {
+      handler(val) {
+        if (this.makeStep === 2) {
+          if (this.makeClassForm.name.length >= 1) {
+            this.nextCheck = false
+          } else {
+            this.nextCheck = true
+          }
+        } else if (this.makeStep === 3) {
+          if (this.makeClassForm.detail_contents.length >= 1) {
+            this.nextCheck = false
+          } else {
+            this.nextCheck = true
+          }
+        } else if (this.makeStep === 4) {
+          if (this.makeClassForm.open_date.length >= 1) {
+            this.nextCheck = false
+          } else {
+            this.nextCheck = true
+          }
+        } else if (this.makeStep === 5) {
+          if (this.makeClassForm.address.length >= 1) {
+            this.nextCheck = false
+          } else {
+            this.nextCheck = true
+          }
+        } else if (this.makeStep === 6) {
+          this.nextCheck = false
+        }
+      },
+      deep: true,
     },
   },
 
@@ -385,6 +390,13 @@ export default {
     nextPage() {
       if(this.makeStep === 7) {
         this.$router.replace('/main')
+        this.$axios.post('/api/create/hyun', this.makeClassForm)
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       } else {
         this.makeStep += 1
         this.progress += 100/7
@@ -407,22 +419,22 @@ export default {
 
       if (interest === 'isWorkout') {
         this.isWorkout = true
-        this.large_category = "isWorkout"
+        this.makeClassForm.large_category = "isWorkout"
       } else if (interest === 'isCulture') {
         this.isCulture = true
-        this.large_category = "isCulture"
+        this.makeClassForm.large_category = "isCulture"
       } else if (interest === 'isMusic') {
         this.isMusic = true
-        this.large_category = "isMusic"
+        this.makeClassForm.large_category = "isMusic"
       } else if (interest === 'isCamping') {
         this.isCamping = true
-        this.large_category = "isCamping"
+        this.makeClassForm.large_category = "isCamping"
       } else if (interest === 'isCook') {
         this.isCook = true
-        this.large_category = "isCook"
+        this.makeClassForm.large_category = "isCook"
       } else if (interest === 'isArt') {
         this.isArt = true
-        this.large_category = "isArt"
+        this.makeClassForm.large_category = "isArt"
       }
 
       this.nextCheck = false
