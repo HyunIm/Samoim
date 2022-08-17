@@ -150,16 +150,13 @@ export default {
       this.$axios.get('/api/classes/'+ classId)
       .then((res) => {
         this.classInfoData = res.data;
-        this.classInfoData.openDate 
-        = this.classInfoData.openDate.split("T")[0].toString()
-        + " " + this.classInfoData.openDate.split("T")[1].substr(0, 5).toString();
         
         // 찜 여부 확인
         this.$axios.get('/api/like/'+ this.$store.state.loginUser)
         .then((res) => {
-          console.log(res);
 
           res.data.forEach((array) => {
+
             if(array.id === classId) {
               this.favorite = true;
             }
@@ -178,7 +175,6 @@ export default {
       this.$axios.get('/api/review/' + classId)
       .then((res) => {
         this.reviewData = res.data;
-        console.log(this.reviewData);
       })
       .catch((error) => {
         console.log(error);
