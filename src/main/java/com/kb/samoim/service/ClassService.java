@@ -92,9 +92,7 @@ public class ClassService {
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			
 		ClassMeetDto newClassMeetDto = new ClassMeetDto();
-		
-		
-		
+	
 		return newClassMeetDto;
 	}
 	
