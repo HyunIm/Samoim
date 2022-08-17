@@ -132,7 +132,7 @@ import Logo from '../assets/samoimLogo.png';
               //로그인 실패 팝업 제공
               this.$swal({
                 title: '로그인 실패',
-                text: 'email 또는 password를 다시 확인해 주세요',
+                text: '이메일 또는 비밀번호를 다시 확인해 주세요',
                 icon: 'warning',
                 confirmButtonText: '확인'
               }).then(() => {

@@ -22,8 +22,6 @@
     />
     <br>
     <WaitGathering v-if="waitTab"/>
-    <WaitGathering v-if="waitTab"/>
-    <WaitGathering v-if="waitTab"/>
     <ParticipateGathering v-if="paricipateTab"/>
     <ProgressGathering v-if="progressTab"/>
     <WishGathering v-if="wishTab"/>
