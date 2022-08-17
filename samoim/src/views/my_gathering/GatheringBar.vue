@@ -6,13 +6,13 @@
         color="black"
       >
         <v-col cols="4">
-          <v-tab @click="partClick">참여</v-tab>
+          <v-tab @click="partClick">신청한 모임</v-tab>
         </v-col>
         <v-col cols="4">
-          <v-tab @click="progClick">진행</v-tab>
+          <v-tab @click="progClick">개설한 모임</v-tab>
         </v-col>
         <v-col cols="4">
-          <v-tab @click="wishClick">찜</v-tab>
+          <v-tab @click="wishClick">찜한 모임</v-tab>
         </v-col>
       </v-tabs>
     </v-row>

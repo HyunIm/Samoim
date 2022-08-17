@@ -18,7 +18,7 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <div class="text-overline">
-              { 정원 마감 }
+              {{ item.largeCategory }} > {{ item.smallCategory }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
               {{ item.name }}
@@ -35,7 +35,7 @@
                     mdi-map-marker-outline
                   </v-icon>
                   <small>
-                    {{ item.address }}∙{{ item.openDate }}
+                    {{ item.city }} {{ item.address }}
                   </small>
                 </v-chip>
 
@@ -49,7 +49,7 @@
                     mdi-account-group
                   </v-icon>
                   <small>
-                    { 1 }/{{ item.maxMember }}
+                    현재원/{{ item.maxMember }}
                   </small>
                 </v-chip>
               </v-row>
@@ -81,32 +81,18 @@
         </v-list-item>
 
         <v-card-actions>
-          <v-row>
-            <v-col cols="6">
+            <v-btn
+              block
+              outlined
+              text
+            >
               <router-link
                 style="text-decoration: none; color: inherit;" 
                 :to="{name: 'GatheringInformation', params: {classId: item.id}}"
               >
-                <v-btn
-                  width="160"
-                  outlined
-                  text
-                >
-                  참여 신청
-                </v-btn>
+              상세 보기
               </router-link>
-            </v-col>
-            <v-col cols="6">
-              <v-btn
-                width="160"
-                outlined
-                text
-                @click="wishCancle(item.id)"
-              >
-                찜 취소
-              </v-btn>
-            </v-col>
-          </v-row>
+            </v-btn>
         </v-card-actions>
       </v-card>
     </v-list-item>
@@ -142,6 +128,8 @@ export default {
     getClassList() {
       this.$axios.get('/api/like/' + this.$store.state.loginUser)
       .then((res) => {
+        console.log(res);
+
         this.classData = res.data;
         
         for(let i = 0; i < res.data.length; i++) {
