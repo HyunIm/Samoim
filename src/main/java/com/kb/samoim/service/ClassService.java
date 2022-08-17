@@ -1,5 +1,8 @@
 package com.kb.samoim.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,13 +69,14 @@ public class ClassService {
 		return resultDto;
 	}
 	
-	public ClassDto getMyCreateClass(String email) {
+	public List<ClassDto> getMyCreateClass(String email) {
 		UserDto findUser = this.userDao.findByEmail(email);
 		if(findUser == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
-		ClassDto myClass = this.classDao.getMyCreateClass(email);
-		ClassDto emptyClass = new ClassDto();
+		List<ClassDto> myClass = this.classDao.getMyCreateClass(email);
+		
+		List<ClassDto> emptyClass = new ArrayList<>();
 		if(myClass == null) {
 			logger.info("내가 만든 모임이 없는 경우");
 			return emptyClass;

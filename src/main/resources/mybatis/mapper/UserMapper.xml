@@ -47,10 +47,10 @@
     </select>
 
     <!--내가 가입한 모임 목록 체크-->
-    <select id="getMyJoinClass" parameterType="string" resultType="List">
+    <select id="getMyJoinClass" parameterType="string" resultType="map">
         SELECT *
-        FROM CLASS CLS, CLASS_JOIN CLJ
-        WHERE CLJ.USER_ID =  #{email}
+        FROM CLASS CLS, CLASS_JOIN CLJ 
+        WHERE CLJ.USER_ID =  #{user_id}
         AND CLS.ID = CLJ.CLASS_ID
     </select>
 
