@@ -1,29 +1,25 @@
-package com.kb.samoim.model;
+package com.kb.samoim.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
-public class Class {
+public class ClassDetailDto {
 	
-	private long id;
+	private int id;
 	private String name;
-	private String largeCategory;
-	private String smallCategory;
 	private String city;
 	private String address;
-	private long maxMember;
-	private String ownerId;
 	private String openDate;
-	private String detailContents;
+	private int person;
+	private int maxMember;
 	private String photoPath;
-	private int price;
-	private int currentMember;
 	
 }
-

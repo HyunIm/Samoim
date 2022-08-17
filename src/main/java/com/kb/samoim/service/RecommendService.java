@@ -37,7 +37,6 @@ public class RecommendService {
 		this.recommendDao = recommendDao;
 		this.userDao = userDao;
 	}
-	
 	public List<SCategoryDto> createRecommend(String email) throws IOException {
 		UserDto findUser = this.userDao.findByEmail(email);		
 		if(findUser == null)

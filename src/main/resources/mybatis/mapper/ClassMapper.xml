@@ -41,14 +41,13 @@
         (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{open_date},#{detail_contents},#{photo_path});	
 	</insert>
 
-	<!--모임 개설할때 모임 만나는 정보도 같이 INSERT-->
+	<!--이거 아직 미완료 ! 모임 개설할때 모임 만나는 정보도 같이 INSERT-->
 	<insert id="createClassMeet" parameterType="com.kb.samoim.dto.ClassMeetDto">
 		INSERT INTO CLASS_MEET
 		(CLASS_ID,STATE,PRICE,DATE);
 		VALUES
 		(#{class_id},#{state},#{price},#{date})
 	</insert>
-
 
 	<!--모임 참석 완료 Query-->
 	<select id="completedClass" parameterType="string" resultType="com.kb.samoim.dto.ClassCompleteDto">
@@ -68,10 +67,21 @@
 		AND USER.EMAIL = CLASS.OWNER_ID
 	</select>
 
-	<select id="presentMember" parameterType="string" resultType="boolean">
-		SELECT COUNT(*)
-		FROM CLASS AS CLS INNER JOIN CLASS_JOIN AS CLJ ON CLS.ID = CLJ.CLASS_ID
+	<!--현재 몇명 참석했는지 조회 쿼리-->
+	<select id="getPresentJoinMember" parameterType="int" resultType="int">
+		SELECT COUNT(DISTINCT(CLJ.USER_ID))
+		FROM CLASS CLS, CLASS_JOIN CLJ
+		WHERE CLS.ID = #{class_id}
+		AND CLS.ID = CLJ.CLASS_ID
 	</select>
+
+	<!--모임에 참여할때 현재 멤버 1명 추가 쿼리 -->
+	<update id="addCurrentMember" parameterType="long">
+		UPDATE CLASS
+		SET CURRENTMEMBER = CURRENTMEMBER + 1
+		WHERE CLASS.ID = #{class_id}
+		AND MAX_MEMBER > CURRENTMEMBER		
+	</update>
 
 	<!--날짜별 모임 참석 리스트 조회 ing-->
 	<select id="selectClassByDate" parameterType="string" resultType="java.util.List" >

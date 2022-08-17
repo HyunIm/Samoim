@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.ClassDao;
 import com.kb.samoim.dao.ClassJoinDao;
@@ -94,9 +95,19 @@ public class ClassController {
 	public ResponseEntity<String> insertClassJoin(@RequestBody ClassJoin classJoin) {
 		int rc = 0;
 		String msg = null;
-
+		
+		long class_id = classJoin.getClassId();
+		
 		try {
-			rc = classJoinDao.insertClassJoin(classJoin);
+			int flag = this.classDao.addCurrentMember(class_id);
+			if(flag==0) {
+				logger.info("모임 인원수가 꽉 찬 경우");
+				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			}
+			else {
+				logger.info("모임 인원 추가 성공");
+				rc = classJoinDao.insertClassJoin(classJoin);
+			}
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
@@ -188,6 +199,15 @@ public class ClassController {
 	){
 		return ResponseEntity.ok(this.classService.getMyCreateClass(email));
 	}
+	
+	@ApiOperation("클래스 참여 인원수 조회 API")
+	@GetMapping("/getPresentJoinMember/{class_id}")
+	public ResponseEntity<?> getPresentJoinMember(
+			@PathVariable int class_id
+	){
+		return ResponseEntity.ok(this.classService.getPresentJoinMember(class_id));
+	}
+
 	
 //	@ApiOperation("날짜별 모임 참석 리스트 조회")
 //	@GetMapping("/dateFilter/{email}")
