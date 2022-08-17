@@ -15,7 +15,7 @@
       <v-col></v-col>
     </v-row>
 
-    <div v-if="this.$store.getters.getSignUpPage === 1">
+    <div v-if="this.signupPage === 1">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- password 입력 -->
-    <div v-if="this.$store.getters.getSignUpPage === 2">
+    <div v-if="this.signupPage === 2">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -114,7 +114,7 @@
       </v-row>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 3">
+    <div v-if="this.signupPage === 3">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -148,7 +148,7 @@
       </v-row>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 4">
+    <div v-if="this.signupPage === 4">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -192,7 +192,7 @@
       </v-row>
     </div>
 
-    <div v-if="this.$store.getters.getSignUpPage === 5">
+    <div v-if="this.signupPage === 5">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -242,7 +242,7 @@
     </div>
 
     <!-- 지역 선택-->
-    <div v-if="this.$store.getters.getSignUpPage === 6">
+    <div v-if="this.signupPage === 6">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -278,7 +278,7 @@
     </div>
 
     <!-- 프로필 선택 -->
-    <div v-if="this.$store.getters.getSignUpPage === 7">
+    <div v-if="this.signupPage === 7">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -344,7 +344,7 @@
     </div>
 
     <!-- 가입완료 확인 -->
-    <div v-if="this.$store.getters.getSignUpPage === 8">
+    <div v-if="this.signupPage === 8">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -364,7 +364,7 @@
     </div>
 
     <!-- 관심사 선택 -->
-    <div v-if="this.$store.getters.getSignUpPage === 9">
+    <div v-if="this.signupPage === 9">
     <h1>
       <center>
           관심사가 무엇인가요?
@@ -487,7 +487,7 @@ import BackButton from '../components/common/BackButton.vue'
       nextPage() {
         this.nextButtonActive = false;
 
-        if(this.$store.state.signupPage === 2) {
+        if(this.signupPage === 2) {
           if(this.signUpForm.password !== this.passwordCheck) {
             
             //password가 일치 하지 않을 경우 메시지 출력 
@@ -503,10 +503,10 @@ import BackButton from '../components/common/BackButton.vue'
           } else {
             this.passwordCheck = "";
 
-            this.$store.commit('changePage');
+            this.changePage();
 
           }
-        } else if(this.$store.state.signupPage === 9) {
+        } else if(this.signupPage === 9) {
 
           // 관심사 pick data 생성
           this.signUpForm.interest = ""
@@ -548,7 +548,7 @@ import BackButton from '../components/common/BackButton.vue'
           .catch((error) => {
             console.log(error);
           });
-        } else if(this.$store.state.signupPage === 7) {
+        } else if(this.signupPage === 7) {
           // 회원가입 API 호출
           this.signUpForm.city = "서울";
 
@@ -573,9 +573,9 @@ import BackButton from '../components/common/BackButton.vue'
           });
 
           // response 200이면
-          this.$store.commit('changePage');
+          this.changePage();
         } else {
-          this.$store.commit('changePage');
+          this.changePage();
         }
         
       },
@@ -696,19 +696,14 @@ import BackButton from '../components/common/BackButton.vue'
         } else {
           this.nextButtonActive = false;
         }
-      }
-    },
-
-    computed: {
+      },
       changePage() {
-        return this.$store.state.signupPage
+        this.signupPage = this.signupPage + 1;
+        this.progress = (100 / 9) * this.signupPage;
       }
     },
 
     watch: {
-      changePage() {
-        this.progress = 17 * this.$store.state.signupPage
-      },
       menu (val) {
         val && setTimeout(() => (this.activePicker = 'YEAR'))
       },
@@ -717,7 +712,7 @@ import BackButton from '../components/common/BackButton.vue'
     data: () => ({
       man: false,
       woman: false,
-      progress: 20,
+      progress: 11,
       valid: false,
       passwordShow: false,
       passwordCheckShow: false,
@@ -782,6 +777,7 @@ import BackButton from '../components/common/BackButton.vue'
       ],
 
       nextButtonActive: false,
+      signupPage: 1,
     }),
   }
 </script>
