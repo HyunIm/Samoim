@@ -33,6 +33,7 @@
           required
           flat
           dense
+          @input="loginChange()"
         >
         </v-text-field>
       </v-row>
@@ -54,6 +55,7 @@
           :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
           :type="show ? 'text' : 'password'"
           @click:append="show = !show"
+          @input="loginChange()"
         >
         </v-text-field>
       </v-row>
@@ -70,10 +72,10 @@
             class="mr-4"
             x-large
             color="primary"
-            dark
             @click="login()"
             block
             rounded
+            :disabled="!buttonActive"
           >
             <h3 class="font-weight-black">로그인</h3>
           </v-btn>
@@ -92,7 +94,7 @@
         text
         color="grey"
       >
-        <h5 class="font-weight-black">회원가입하기</h5>
+        <h4 class="font-weight-black">회원가입하기</h4>
       </v-btn>
       </router-link>
     </v-row>
@@ -125,8 +127,7 @@ import Logo from '../assets/samoimLogo.png';
 
             } else {
               // 로그인 실패 
-              this.loginForm.email = "";
-              this.loginForm.password = "";
+              
 
               //로그인 실패 팝업 제공
               this.$swal({
@@ -134,6 +135,10 @@ import Logo from '../assets/samoimLogo.png';
                 text: 'email 또는 password를 다시 확인해 주세요',
                 icon: 'warning',
                 confirmButtonText: '확인'
+              }).then(() => {
+                this.loginForm.email = "";
+                this.loginForm.password = "";
+                this.buttonActive = false;
               });
             }
 
@@ -142,6 +147,13 @@ import Logo from '../assets/samoimLogo.png';
             console.log(error);
           });
         
+      },
+      loginChange() {
+        if(this.loginForm.email == "" || this.loginForm.password == "") {
+          this.buttonActive = false;
+        } else {
+          this.buttonActive = true;
+        }
       }
     },
 
@@ -155,7 +167,8 @@ import Logo from '../assets/samoimLogo.png';
         email: '',
         password: '',
       },
-      show: false
+      show: false,
+      buttonActive: false,
     }),
   }
 </script>
