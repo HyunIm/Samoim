@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.kb.samoim.dao.ClassDao;
 import com.kb.samoim.dao.UserDao;
 import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.dto.UserDto;
@@ -21,7 +22,7 @@ public class UserService {
 	private UserDao userDao;
 	
 	public UserService(
-			@Autowired UserDao userDao		
+			@Autowired UserDao userDao
 	) {
 		this.userDao = userDao;
 	}
@@ -147,7 +148,7 @@ public class UserService {
 	//내가 가입한 모임 목록
 	public List<ClassDto> getMyJoinClass(String email) {
 		List<ClassDto> emptyClass = new ArrayList<>();
-		List<ClassDto> myJoinClass = this.getMyJoinClass(email);
+		List<ClassDto> myJoinClass = this.userDao.getMyJoinClass(email);
 		
 		if(myJoinClass == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
@@ -157,5 +158,4 @@ public class UserService {
 		}
 		return myJoinClass;
 	}
-	
 }

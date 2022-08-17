@@ -23,7 +23,7 @@ public interface ClassDao {
 	ClassCompleteDto completedClass(String email); 
 	
 	//내가 개설한 모임
-	ClassDto getMyCreateClass(String email);
+	List<ClassDto> getMyCreateClass(String email);
 	
 	//모임 상태 체크
 	ClassMeetDto createClassMeet(ClassMeetDto classMeetDto);
