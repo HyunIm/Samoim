@@ -22,6 +22,7 @@
       >
         mdi-filter-menu-outline
       </v-icon>
+      <!--
       <v-icon
         color="black darken-2"
         class="ml-2"
@@ -29,6 +30,7 @@
       >
         mdi-magnify
       </v-icon>
+      -->
 
       <v-bottom-sheet v-model="fillterDialog">
         <v-card>
@@ -157,9 +159,7 @@ import Logo from '../../assets/samoimLogo.png';
       samoimLogo: Logo,
       fillterDialog: false,
       searchDialog: false,
-      categoriesData: [
-        { id: '1', name: '문화/예술' },
-      ],
+      categoriesData: [],
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
         { CITY: '서울', ADDRESS: '영등포구' }
@@ -167,6 +167,8 @@ import Logo from '../../assets/samoimLogo.png';
       testData: [],
       address: undefined,
       category: [],
+      fillterData: {},
+      classData: []
     }),
 
     mounted() {
@@ -213,10 +215,30 @@ import Logo from '../../assets/samoimLogo.png';
         this.fillterDialog = true;
       },
       fillterClass() {
-        console.log(this.address);
-        console.log(this.category);
+        
+        var categoryList = [];
+        for(var i=0; i<this.category.length; i++) {
+          categoryList.push(this.category[i]);
+        }
 
+        var addressList = [];
+        addressList.push(this.address);
+
+        this.fillterData = {"category": categoryList, "area": addressList}
+        
         //필터 검색 API 호출
+        this.$axios.post('/api/classes', this.fillterData)
+        .then((res) => {
+          this.classData = res.data;
+
+          //리스트 목록 표시에 표시
+          this.fillterDialog = false;
+          this.$emit("fillterData", this.classData);
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       }
     }
   }

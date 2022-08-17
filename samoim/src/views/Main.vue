@@ -2,12 +2,14 @@
   <v-container>
 
     <!-- TopBar -->
-    <TopBar></TopBar>
+    <v-row>
+      <TopBar @fillterData="fillterData"></TopBar>
+    </v-row>
 
     <!-- 추천 모임 -->
-    <v-row>
+    <v-row v-if="this.suggestion" class="mt-15">
       <v-carousel 
-        height="300" 
+        height="210" 
         cycle 
         show-arrows-on-hover
         delimiter-icon="mdi-minus"
@@ -25,12 +27,12 @@
 
     <!-- 로그인 사용자 정보 -->
     <v-row>
-      임시로 표시 : {{ this.$store.state.loginUser }}
+      - 로그인 email(임시표시) : {{ this.$store.state.loginUser }}
     </v-row>
 
     <!-- 모임 리스트 -->
-    <v-row class="mx-3 mt-5">
-      <h2>내 주변 사모임</h2>
+    <v-row class="mx-3 mt-10">
+      <h2>{{ title }}</h2>
     </v-row>
 
     <v-row>
@@ -83,10 +85,28 @@
 <script>
 import TopBar from '../components/common/TopBar.vue'
 
-import football from '../assets/main/football.jpg';
-import band from '../assets/main/band.jpg';
-import surfing from '../assets/main/surfing.jpg';
-import camping from '../assets/main/camping.jpg';
+import climbing from '@/assets/small_category/0_climbing.png';
+import golf from '@/assets/small_category/1_golf.png';
+import tennis from '@/assets/small_category/2_tennis.png';
+import drive from '@/assets/small_category/3_drive.png';
+import camping from '@/assets/small_category/4_camping.png';
+import concert from '@/assets/small_category/5_concert.png';
+import musical from '@/assets/small_category/6_musical.png';
+import exhibition from '@/assets/small_category/7_exhibition.png';
+import band from '@/assets/small_category/8_band.png';
+import composition from '@/assets/small_category/9_composition.png';
+import drawing from '@/assets/small_category/10_drawing.png';
+import writing from '@/assets/small_category/11_writing.png';
+import reading from '@/assets/small_category/12_reading.png';
+import study from '@/assets/small_category/13_study.png';
+import foreign from '@/assets/small_category/14_foreign.png';
+import dog from '@/assets/small_category/15_dog.png';
+import donation from '@/assets/small_category/16_donation.png';
+import cooking from '@/assets/small_category/17_cooking.png';
+import dessert from '@/assets/small_category/18_dessert.png';
+import soju from '@/assets/small_category/19_soju.png';
+
+
 
 export default {
   name: 'Main',
@@ -98,24 +118,33 @@ export default {
 
   mounted() {
       this.getClassList();
+      this.suggestionCategory();
     },
 
   data: () => ({
     test: 'SAMOIM MAIN PAGE',
     suggestionItems: [
-      {
-        src: football,
-      },
-      {
-        src: band,
-      },
-      {
-        src: surfing,
-      },
-      {
-        src: camping,
-      },
     ],
+    climbing : climbing,
+    golf : golf,
+    tennis : tennis,
+    drive : drive,
+    camping : camping,
+    concert : concert,
+    musical : musical,
+    exhibition : exhibition,
+    band : band,
+    composition : composition,
+    drawing : drawing,
+    writing : writing,
+    reading : reading,
+    study : study,
+    foreign : foreign,
+    dog : dog,
+    donation : donation,
+    cooking : cooking,
+    dessert : dessert,
+    soju : soju,
     classData: [
       {
         id: 16,
@@ -130,7 +159,10 @@ export default {
         detailContents: "클라이밍에 처음이신 분들 추천합니다!",
         photoPath: "/photo/path"
       },
-    ]
+    ],
+    title: "내 주변 사모임",
+    suggestion: true,
+    recommendData: undefined
   }),
 
   methods: {
@@ -144,6 +176,69 @@ export default {
           console.log(error);
         });
       },
+      fillterData(value) {
+        this.classData = value;
+        this.title = "필터링한 사모임"
+        this.suggestion = false;
+      },
+      suggestionCategory() {
+        this.$axios.get('/api/recommend/' + this.$store.state.loginUser)
+        .then((res) => {
+          this.recommendData = res.data;
+          console.log(this.recommendData);
+
+          for(var i=0; i<res.data.length; i++) {
+            this.suggestionItems.push({"src" : this.imgObjectReturn(res.data[i].PHOTO_PATH)});
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+      imgObjectReturn(item){
+
+        if(item === "climbing") {
+          return this.climbing;
+        } else if(item === "golf") {
+          return this.golf;
+        } else if(item === "tennis") {
+          return this.tennis;
+        } else if(item === "drive") {
+          return this.drive;
+        } else if(item === "camping") {
+          return this.camping;
+        } else if(item === "concert") {
+          return this.concert;
+        } else if(item === "musical") {
+          return this.musical;
+        } else if(item === "exhibition") {
+          return this.exhibition;
+        } else if(item === "band") {
+          return this.band;
+        } else if(item === "composition") {
+          return this.composition;
+        } else if(item === "drawing") {
+          return this.drawing;
+        } else if(item === "writing") {
+          return this.writing;
+        } else if(item === "reading") {
+          return this.reading;
+        } else if(item === "study") {
+          return this.study;
+        } else if(item === "foreign") {
+          return this.foreign;
+        } else if(item === "dog") {
+          return this.dog;
+        } else if(item === "donation") {
+          return this.donation;
+        } else if(item === "cooking") {
+          return this.cooking;
+        } else if(item === "dessert") {
+          return this.dessert;
+        } else if(item === "soju") {
+          return this.soju;
+        }
+      }
     }
 }
 </script>
