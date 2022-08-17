@@ -60,7 +60,7 @@
 	</select>
 
 	<!--내가 만든 클래스 조회-->
-	<select id="getMyCreateClass" parameterType="string" resultType="java.util.List">
+	<select id="getMyCreateClass" parameterType="string" resultType="map">
 		SELECT *
 		FROM CLASS, USER
 		WHERE USER.EMAIL = #{email}
