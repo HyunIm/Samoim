@@ -249,14 +249,15 @@
         모임 추천 서비스를 위해 필요한 정보입니다.
       </v-row>
 
-      <v-row>
+      <v-row class="mt-15 ml-15">
         <v-radio-group v-model="signUpForm.address" row>
-              <v-radio
-                v-for="(item, index) in locationData"
-                :key="index"
-                :label="item.ADDRESS"
-                :value="item.ADDRESS"
-              ></v-radio>
+          <v-radio
+            v-for="(item, index) in locationData"
+            :key="index"
+            :label="item.ADDRESS"
+            :value="item.ADDRESS"
+            class="ml-4"
+          ></v-radio>
         </v-radio-group>
       </v-row>
 
@@ -533,18 +534,6 @@ import BackButton from '../components/common/BackButton.vue'
 
           // response 200이면
           this.$store.commit('changePage');
-        } else if(this.$store.state.signupPage === 5) {
-          // loaction API 호출
-          this.$axios.get('/api/location')
-          .then((res) => {
-            this.locationData = res.data;
-            console.log(this.locationData);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-
-          this.$store.commit('changePage');
         } else {
           this.$store.commit('changePage');
         }
@@ -658,6 +647,7 @@ import BackButton from '../components/common/BackButton.vue'
 
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
+        { CITY: '서울', ADDRESS: '영등포구' }
       ],
     }),
   }
