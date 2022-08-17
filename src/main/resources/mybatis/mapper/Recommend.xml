@@ -3,10 +3,13 @@
 
 <mapper namespace="com.kb.samoim.dao.RecommendDao">
 
-    <select id="getRecommendInterest" parameterType="int" resultType="com.kb.samoim.dto.SCategoryDto">
+    <select id="getRecommendInterest" parameterType="int" resultType="map">
         SELECT NAME,PHOTO_PATH
-        FROM RECOMMEND 
-        WHERE ID = #{id}
+        FROM SCategory
+        WHERE ID IN
+        <foreach item="item" index="index" collection="list" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
     </select>
 
 </mapper>
