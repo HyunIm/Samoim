@@ -18,10 +18,10 @@
           </v-list-item-avatar>
           <v-list-item-content>
             <div class="text-overline">
-              { 모집 중 }
+              {{ item.LARGE_CATEGORY }} > {{ item.SMALL_CATEGORY }}
             </div>
             <v-list-item-title class="text-h5 mb-1">
-              {{ item.name }}
+              {{ item.NAME }}
             </v-list-item-title>
               <v-row>
                 &nbsp;
@@ -43,7 +43,7 @@
                     mdi-map-marker-outline
                   </v-icon>
                   <small>
-                    {{ item.address }}∙{{ item.openDate }}
+                    {{ item.CITY }} {{ item.ADDRESS }} 
                   </small>
                 </v-chip>
 
@@ -57,51 +57,35 @@
                     mdi-account-group
                   </v-icon>
                   <small>
-                    { 1 }/{{ item.maxMember }}
+                    현재원/{{ item.MAX_MEMBER }}
                   </small>
                 </v-chip>
               </v-row>
-            <!-- <v-list-item-subtitle>
-              <v-row>
-                &nbsp;
-                <v-chip
-                  class="ma-2 text-center"
-                  outlined
-                  small
-                  text-color="grey darken-2"
-                >
-                  8.12(금) 오픈
-                </v-chip> -->
-                <!-- <v-chip
-                  class="ma-2 text-center"
-                  outlined
-                  small
-                  text-color="grey darken-2"
-                >
-                  <v-icon left>
-                    mdi-account-group
-                  </v-icon>
-                  1/4
-                </v-chip>
-              </v-row>
-            </v-list-item-subtitle> -->
           </v-list-item-content>
         </v-list-item>
 
         <v-card-actions>
+          <!--
           <v-btn
             outlined
             text
             width="48%"
           >
-            채팅방 입장 {채팅}
+            채팅방 입장(연동 필요)
           </v-btn>
+          -->
           <v-btn
+            block
             outlined
             text
             width="48%"
           >
-            모임 취소 {삭제}
+            <router-link
+              style="text-decoration: none; color: inherit;" 
+              :to="{name: 'GatheringInformation', params: {classId: item.CLASS_ID}}"
+            >
+            상세보기
+            </router-link>
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -137,11 +121,14 @@ export default {
     getClassList() {
       this.$axios.get('/api/myClass/' + this.$store.state.loginUser)
       .then((res) => {
+        console.log(res);
         this.classData = res.data;
         
+        /*
         for(let i = 0; i < res.data.length; i++) {
           this.classData[i].openDate = this.classData[i].openDate.toString().substr(5,5);
         }
+        */
       })
       .catch((error) => {
         console.log(error);

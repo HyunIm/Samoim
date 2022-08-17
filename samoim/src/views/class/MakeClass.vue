@@ -442,10 +442,12 @@
       <v-row class="mt-15"/>
 
       <v-radio-group 
+        class="ml-15"
         v-model="makeClassForm.address"
         ref="makeClassForm.address"
         row>
         <v-radio
+          class="ml-5"
           v-for="(item, index) in locationData"
           :key="index"
           :label="item.ADDRESS"
@@ -555,6 +557,7 @@ export default {
 
     locationData: [
       { CITY: '서울', ADDRESS: '강남구' },
+      { CITY: '서울', ADDRESS: '영등포구' },
     ],
     
     isWorkout: false,
@@ -592,7 +595,7 @@ export default {
   }),
 
   mounted() {
-    this.getLocation();
+    //this.getLocation();
   },
 
   watch: {

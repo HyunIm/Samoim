@@ -70,16 +70,14 @@
             <h2>지역</h2>
           </v-card-subtitle>
           <v-card-text>
-            <v-row>
-              <v-radio-group v-model="address" row>
-                    <v-radio
-                      v-for="(item, index) in locationData"
-                      :key="index"
-                      :label="item.ADDRESS"
-                      :value="item.ADDRESS"
-                    ></v-radio>
-              </v-radio-group>
-            </v-row>
+            <v-radio-group v-model="address" row>
+              <v-radio
+                v-for="(item, index) in locationData"
+                :key="index"
+                :label="item.ADDRESS"
+                :value="item.ADDRESS"
+              ></v-radio>
+            </v-radio-group>
           </v-card-text>
 
           <v-card-actions>
@@ -164,6 +162,7 @@ import Logo from '../../assets/samoimLogo.png';
       ],
       locationData: [
         { CITY: '서울', ADDRESS: '강남구' },
+        { CITY: '서울', ADDRESS: '영등포구' }
       ],
       testData: [],
       address: undefined,
@@ -172,7 +171,7 @@ import Logo from '../../assets/samoimLogo.png';
 
     mounted() {
       this.getCategory();
-      this.getLocation();
+      //this.getLocation();
 
       console.log(this.$store.state.loginUser);
     },
