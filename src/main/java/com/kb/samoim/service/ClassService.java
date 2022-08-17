@@ -86,15 +86,30 @@ public class ClassService {
 		}
 	}
 	
-	public ClassMeetDto createClassMeet(String email, ClassMeetDto classMeetDto) {
-		UserDto findUser = this.userDao.findByEmail(email);
-		if(findUser == null)
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-			
-		ClassMeetDto newClassMeetDto = new ClassMeetDto();
-	
-		return newClassMeetDto;
+	//현재 참석 인원 명수 조회
+	public int getPresentJoinMember(int class_id) {
+		return this.classDao.getPresentJoinMember(class_id);
 	}
+
+	//현재 모임 인원 +1 하기 
+	public int addCurrentMember(long class_id){
+		
+		int flag = this.classDao.addCurrentMember(class_id);
+		if(flag==1){
+			logger.info("모임 인원 추가 성공"); 
+		}
+		else{
+			logger.info("모임 인원 꽉차서 실패하는 경우");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		}
+		return flag;
+	}
+
+	// public ClassMeetDto createClassMeet(ClassMeetDto classMeetDto){
+	// 	ClassMeetDto findClassMeet = new ClassMeetDto();
+
+	// }
+	
 	
 //	public CalendarDto selectClassByDate(String email,String date) {
 //		CalendarDto resultDto = new CalendarDto();
