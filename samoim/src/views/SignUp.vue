@@ -427,7 +427,7 @@
           tile
           size="150"
         >
-          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" >
+          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" @click="isCook = !isCook" >
         </v-list-item-avatar>
       </v-list-item>
     </div>
