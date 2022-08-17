@@ -43,8 +43,12 @@
           required
           flat
           dense
+          @input="inputChange(1)"
         >
         </v-text-field>
+        <v-btn class="ml-2" @click="checkEmail()">
+          중복확인
+        </v-btn>
       </v-row>
     </div>
 
@@ -82,6 +86,7 @@
           :append-icon="passwordShow ? 'mdi-eye' : 'mdi-eye-off'"
           :type="passwordShow ? 'text' : 'password'"
           @click:append="passwordShow = !passwordShow"
+          @input="inputChange(2)"
         >
         </v-text-field>
       </v-row>
@@ -103,6 +108,7 @@
           :append-icon="passwordCheckShow ? 'mdi-eye' : 'mdi-eye-off'"
           :type="passwordCheckShow ? 'text' : 'password'"
           @click:append="passwordCheckShow = !passwordCheckShow"
+          @input="inputChange(2)"
         >
         </v-text-field>
       </v-row>
@@ -136,6 +142,7 @@
           required
           flat
           dense
+          @input="inputChange(3)"
         >
         </v-text-field>
       </v-row>
@@ -250,13 +257,17 @@
       </v-row>
 
       <v-row class="mt-15 ml-15">
-        <v-radio-group v-model="signUpForm.address" row>
+        <v-radio-group 
+          v-model="signUpForm.address" 
+          row
+        >
           <v-radio
             v-for="(item, index) in locationData"
             :key="index"
             :label="item.ADDRESS"
             :value="item.ADDRESS"
             class="ml-4"
+            @click="inputChange(6)"
           ></v-radio>
         </v-radio-group>
       </v-row>
@@ -367,32 +378,14 @@
           tile
           size="150"
         >
-          <img src="../assets/large_category/0_workout.png" :class="{ choice : isWorkout }" @click="isWorkout = !isWorkout">
+          <img src="../assets/large_category/0_workout.png" :class="{ choice : isWorkout }" @click="pickInterest('isWorkout')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../assets/large_category/1_travel.png" :class="{ choice : isTravel }" @click="isTravel = !isTravel">
-        </v-list-item-avatar>
-      </v-list-item>
-
-      <v-list-item
-        class="ml-3"
-      >
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../assets/large_category/2_culture.png" :class="{ choice : isCulture }" @click="isCulture = !isCulture">
-        </v-list-item-avatar>
-
-        <v-list-item-avatar
-          tile
-          size="150"
-        >
-          <img src="../assets/large_category/3_music.png" :class="{ choice : isMusic }" @click="isMusic = !isMusic">
+          <img src="../assets/large_category/1_travel.png" :class="{ choice : isTravel }" @click="pickInterest('isTravel')">
         </v-list-item-avatar>
       </v-list-item>
 
@@ -403,14 +396,14 @@
           tile
           size="150"
         >
-          <img src="../assets/large_category/4_create.png" :class="{ choice : isCreate }" @click="isCreate = !isCreate">
+          <img src="../assets/large_category/2_culture.png" :class="{ choice : isCulture }" @click="pickInterest('isCulture')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../assets/large_category/5_growth.png" :class="{ choice : isGrowth }" @click="isGrowth = !isGrowth">
+          <img src="../assets/large_category/3_music.png" :class="{ choice : isMusic }" @click="pickInterest('isMusic')">
         </v-list-item-avatar>
       </v-list-item>
 
@@ -421,14 +414,32 @@
           tile
           size="150"
         >
-          <img src="../assets/large_category/6_volunteer.png" :class="{ choice : isVolunteer }" @click="isVolunteer = !isVolunteer">
+          <img src="../assets/large_category/4_create.png" :class="{ choice : isCreate }" @click="pickInterest('isCreate')">
         </v-list-item-avatar>
 
         <v-list-item-avatar
           tile
           size="150"
         >
-          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" @click="isCook = !isCook" >
+          <img src="../assets/large_category/5_growth.png" :class="{ choice : isGrowth }" @click="pickInterest('isGrowth')">
+        </v-list-item-avatar>
+      </v-list-item>
+
+      <v-list-item
+        class="ml-3"
+      >
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/6_volunteer.png" :class="{ choice : isVolunteer }" @click="pickInterest('isVolunteer')">
+        </v-list-item-avatar>
+
+        <v-list-item-avatar
+          tile
+          size="150"
+        >
+          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" @click="pickInterest('isCook')" >
         </v-list-item-avatar>
       </v-list-item>
     </div>
@@ -437,10 +448,10 @@
       class="mr-4 mt-10"
       x-large
       color="primary"
-      dark
       @click="nextPage()"
       block
       rounded
+      :disabled="!nextButtonActive"
     >
       <h3 class="font-weight-black">다음</h3>
     </v-btn>
@@ -463,16 +474,39 @@ import BackButton from '../components/common/BackButton.vue'
           this.woman = false;
 
           this.signUpForm.gender = "남"
+          this.nextButtonActive = true;
         } else {
           this.man = false;
           this.woman = true;
 
           this.signUpForm.gender = "여"
+          this.nextButtonActive = true;
         }
       },
 
       nextPage() {
-        if(this.$store.state.signupPage === 9) {
+        this.nextButtonActive = false;
+
+        if(this.$store.state.signupPage === 2) {
+          if(this.signUpForm.password !== this.passwordCheck) {
+            
+            //password가 일치 하지 않을 경우 메시지 출력 
+            this.$swal({
+              title: '비밀번호 불일치',
+              text: '입력하신 비밀번호가 일치하지 않습니다.',
+              icon: 'warning',
+              confirmButtonText: '확인'
+            }).then(() => {
+              this.signUpForm.password = "";
+              this.passwordCheck = "";
+            });
+          } else {
+            this.passwordCheck = "";
+
+            this.$store.commit('changePage');
+
+          }
+        } else if(this.$store.state.signupPage === 9) {
 
           // 관심사 pick data 생성
           this.signUpForm.interest = ""
@@ -528,9 +562,14 @@ import BackButton from '../components/common/BackButton.vue'
             // this.$store.state.loginUser = this.signUpForm.email;
             this.$store.commit('changeUser', this.signUpForm.email);
 
+            this.nextButtonActive = true;
+
           })
           .catch((error) => {
             console.log(error);
+
+            //실패 팝업 제공후 로그인 페이지로 이동
+            
           });
 
           // response 200이면
@@ -542,6 +581,12 @@ import BackButton from '../components/common/BackButton.vue'
       },
       save (date) {
         this.$refs.menu.save(date)
+
+        if(date !== "") {
+          this.nextButtonActive = true;
+        } else {
+          this.nextButtonActive = false;
+        }
       },
       selectProfile(item) {
         this.isBb = false;
@@ -553,18 +598,103 @@ import BackButton from '../components/common/BackButton.vue'
         if(item === 'isBb') {
           this.isBb = true;
           this.signUpForm.photoPath = 'bb';
+          this.nextButtonActive = true;
         } else if(item === 'isColi') {
           this.isColi = true;
           this.signUpForm.photoPath = 'coli';
+          this.nextButtonActive = true;
         } else if(item === 'isForce') {
           this.isForce = true;
           this.signUpForm.photoPath = 'force';
+          this.nextButtonActive = true;
         } else if(item === 'isKiki') {
           this.isKiki = true;
           this.signUpForm.photoPath = 'kiki';
+          this.nextButtonActive = true;
         } else if(item === 'isRamu') {
           this.isRamu = true;
           this.signUpForm.photoPath = 'ramu';
+          this.nextButtonActive = true;
+        } else {
+          this.nextButtonActive = false;
+        }
+      },
+      inputChange(page) {
+        if(page === 1) {
+          //email 입력 변경
+        } else if(page === 2) {
+          if(this.signUpForm.password !== ""
+          && this.passwordCheck !== ""){
+            this.nextButtonActive = true;
+          }
+        } else if(page === 3){
+          if(this.signUpForm.name !== "")
+            this.nextButtonActive = true;
+          else
+            this.nextButtonActive = false;
+        } else if(page === 6){
+          if(this.signUpForm.address !== "")
+            this.nextButtonActive = true;
+          else
+            this.nextButtonActive = false;
+        }
+      },
+      checkEmail() {
+        this.$axios.get('/api/emailCheck/' + this.signUpForm.email)
+          .then((res) => {
+            if(res.data === true) {
+              this.$swal({
+              title: '확인완료',
+              text: '입력하신 e-mail은 사용가능합니다.',
+              icon: 'success',
+              confirmButtonText: '확인'
+            }).then(() => {
+              this.nextButtonActive = true;
+            });
+            }
+          })
+          .catch(() => {
+            //중복 확인 완료 알림
+            this.$swal({
+              title: '중복 e-mail',
+              text: '입력하신 e-mail 사용자가 존재합니다',
+              icon: 'warning',
+              confirmButtonText: '확인'
+            }).then(() => {
+              this.signUpForm.email = "";
+            });
+          });
+      },
+      pickInterest(item) {
+        if(item === "isWorkout") {
+          this.isWorkout = !this.isWorkout;
+        } else if(item === "isTravel") {
+          this.isTravel = !this.isTravel;
+        } else if(item === "isCulture") {
+          this.isCulture = !this.isCulture;
+        } else if(item === "isMusic") {
+          this.isMusic = !this.isMusic;
+        } else if(item === "isCreate") {
+          this.isCreate = !this.isCreate;
+        } else if(item === "isGrowth") {
+          this.isGrowth = !this.isGrowth;
+        } else if(item === "isVolunteer") {
+          this.isVolunteer = !this.isVolunteer;
+        } else if(item === "") {
+          this.isCook = !this.isCook;
+        }
+
+        if(this.isWorkout !== false
+        || this.isTravel !== false
+        || this.isCulture !== false
+        || this.isMusic !== false
+        || this.isCreate !== false
+        || this.isGrowth !== false
+        || this.isVolunteer !== false
+        || this.isCook !== false) {
+          this.nextButtonActive = true;
+        } else {
+          this.nextButtonActive = false;
         }
       }
     },
@@ -650,6 +780,8 @@ import BackButton from '../components/common/BackButton.vue'
         { CITY: '서울', ADDRESS: '강남구' },
         { CITY: '서울', ADDRESS: '영등포구' }
       ],
+
+      nextButtonActive: false,
     }),
   }
 </script>
