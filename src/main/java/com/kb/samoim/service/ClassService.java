@@ -92,17 +92,17 @@ public class ClassService {
 	}
 
 	//현재 모임 인원 +1 하기 
-	public int addCurrentMember(long class_id){
+	public boolean addCurrentMember(long class_id){
 		
 		int flag = this.classDao.addCurrentMember(class_id);
 		if(flag==1){
-			logger.info("모임 인원 추가 성공"); 
+			logger.info("모임 인원 추가 성공");
+			return true; 
 		}
 		else{
 			logger.info("모임 인원 꽉차서 실패하는 경우");
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+			return false;
 		}
-		return flag;
 	}
 
 	// public ClassMeetDto createClassMeet(ClassMeetDto classMeetDto){

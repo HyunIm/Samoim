@@ -99,8 +99,8 @@ public class ClassController {
 		long class_id = classJoin.getClassId();
 		
 		try {
-			int flag = this.classDao.addCurrentMember(class_id);
-			if(flag==0) {
+			boolean flag = this.classService.addCurrentMember(class_id);
+			if(!flag) {
 				logger.info("모임 인원수가 꽉 찬 경우");
 				throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 			}
