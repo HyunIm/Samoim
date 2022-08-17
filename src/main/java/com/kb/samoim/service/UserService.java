@@ -1,5 +1,8 @@
 package com.kb.samoim.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.kb.samoim.dao.UserDao;
+import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.dto.UserDto;
 
 @Service
@@ -139,4 +143,19 @@ public class UserService {
 		
 		return findUser;
 	}
+	
+	//내가 가입한 모임 목록
+	public List<ClassDto> getMyJoinClass(String email) {
+		List<ClassDto> emptyClass = new ArrayList<>();
+		List<ClassDto> myJoinClass = this.getMyJoinClass(email);
+		
+		if(myJoinClass == null)
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+		if(myJoinClass.isEmpty() || myJoinClass.size()==0) {
+			logger.info("가입한 모임이 없는 경우");
+			return emptyClass;
+		}
+		return myJoinClass;
+	}
+	
 }

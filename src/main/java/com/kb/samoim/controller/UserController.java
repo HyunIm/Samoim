@@ -125,4 +125,12 @@ public class UserController {
 	){
 		return ResponseEntity.ok(this.userService.getUserInfo(email));
 	}
+	
+	@ApiOperation("내가 가입한 모임 목록 조회 API")
+	@GetMapping("/myJoinClass/{email}")
+	public ResponseEntity<?> getMyJoinClass(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.userService.getMyJoinClass(email));
+	}
 }
