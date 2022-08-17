@@ -117,7 +117,8 @@ import Logo from '../assets/samoimLogo.png';
           .then((res) => {
             if(res.data) {
               // 로그인 성공
-              this.$store.state.loginUser = this.loginForm.email;
+              // this.$store.state.loginUser = this.loginForm.email;
+              this.$store.commit('changeUser', this.loginForm.email);
 
               //메인페이지로 이동
               this.$router.replace('/main')
