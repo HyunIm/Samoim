@@ -48,7 +48,7 @@
 
     <!--내가 가입한 모임 목록 체크-->
     <select id="getMyJoinClass" parameterType="string" resultType="map">
-        SELECT *
+        SELECT CLS.LARGE_CATEGORY, CLS.CITY, CLS.ADDRESS, CLS.MAX_MEMBER, CLS.PHOTO_PATH
         FROM CLASS CLS, CLASS_JOIN CLJ 
         WHERE CLJ.USER_ID =  #{user_id}
         AND CLS.ID = CLJ.CLASS_ID
