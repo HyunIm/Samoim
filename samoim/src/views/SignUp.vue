@@ -427,7 +427,7 @@
           tile
           size="150"
         >
-          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" >
+          <img src="../assets/large_category/7_cook.png" :class="{ choice : isCook }" @click="isCook = !isCook" >
         </v-list-item-avatar>
       </v-list-item>
     </div>
@@ -524,7 +524,8 @@ import BackButton from '../components/common/BackButton.vue'
             console.log(res);
 
             // 회원가입 성공시 전역변수에 login 정보 저장
-            this.$store.state.loginUser = this.signUpForm.email;
+            // this.$store.state.loginUser = this.signUpForm.email;
+            this.$store.commit('changeUser', this.signUpForm.email);
 
           })
           .catch((error) => {
