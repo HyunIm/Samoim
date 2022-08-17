@@ -1,6 +1,5 @@
 package com.kb.samoim.model;
 
-import java.sql.Timestamp;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,7 +20,7 @@ public class Class {
 	private String address;
 	private long maxMember;
 	private String ownerId;
-	private Timestamp openDate;
+	private String openDate;
 	private String detailContents;
 	private String photoPath;
 	

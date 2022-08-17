@@ -52,18 +52,18 @@ public class UserController {
 	
 	@ApiOperation("로그인 API")
 	@PostMapping(value="/login", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-	public String loginUser(
+	public boolean loginUser(
 			@RequestBody UserDto loginData
 	){
 		boolean flag = this.userService.loginUser(loginData);
 		if(flag) {
 			logger.info("로그인 성공");
-			return "redirect:/";
+			return flag;
 		}
 		
 		//실패하면 다시 로그인 페이지로 보냄
 		logger.info("로그인 실패");
-		return "login";
+		return flag;
 	}
 	
 	@ApiOperation("Email로 User찾기 API")
@@ -124,5 +124,13 @@ public class UserController {
 			@PathVariable String email
 	){
 		return ResponseEntity.ok(this.userService.getUserInfo(email));
+	}
+	
+	@ApiOperation("내가 가입한 모임 목록 조회 API")
+	@GetMapping("/myJoinClass/{email}")
+	public ResponseEntity<?> getMyJoinClass(
+			@PathVariable String email
+	){
+		return ResponseEntity.ok(this.userService.getMyJoinClass(email));
 	}
 }
