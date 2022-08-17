@@ -38,13 +38,17 @@ public class RecommendService {
 		this.userDao = userDao;
 	}
 	
-	public void createRecommend(String email) throws IOException {
+	public List<SCategoryDto> createRecommend(String email) throws IOException {
 		UserDto findUser = this.userDao.findByEmail(email);		
 		if(findUser == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		int age = 2022 - Integer.valueOf(findUser.getBirth().substring(2,4)); //
+		int age = 2022 - Integer.parseInt(findUser.getBirth().substring(0, 4)); //
+		logger.info("나이 체크" + age);
 		int gender = 0;
+		
 		if(findUser.getGender().contains("여")) gender = 1;
+		logger.info("성별 체크" + gender);
+		
 		
 		List<String> interestList = new ArrayList<>();
 		String [] interestArray = findUser.getInterest().split(",");
@@ -59,49 +63,40 @@ public class RecommendService {
 			if(str.equals("요리")) interestList.add("7");
 		}
 		
-		String newPayload = null;
-		StringBuilder sb = new StringBuilder();
-		sb.append("\"{\\\"input_data\\\": [{\\\"fields\\\": [\\\"나이\\\", \\\"성별\\\", \\\"관심사1\\\",\\\"관심사2\\\", \\\"관심사3\\\", \\\"활동\\\"], \\\"values\\\": [[");
-		sb.append(Integer.toString(age)+",");
-		sb.append(Integer.toString(gender)+",");
-		
+		String newPayload = "";
+		newPayload += "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[";
+		newPayload += Integer.toString(age)+",";
+		newPayload += Integer.toString(gender)+",";
 		
 		Collections.shuffle(interestList);
 		
 		if(interestList.size()>=3) {
 			for(int i=0;i<3;i++) {
-				sb.append(interestList.get(i)+",");
+				newPayload += (interestList.get(i)+",");
 			}
-			sb.delete(sb.length()-1, sb.length());
 		}
 		else {
+			int diff = 3 - interestList.size();
 			for(int i=0;i<interestList.size();i++) {
-				sb.append("-1,");
+				newPayload += (interestList.get(i)+",");
 			}
-			sb.delete(sb.length()-1, sb.length());
+			for(int i=0;i<diff;i++)
+				newPayload += "-1,";
 		}
-		sb.append("]]}]}");
-
-		newPayload = sb.toString();
-		
-        String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,0,3,7,1]]}]}";
-		
-        String result = MLfunction(newPayload);
-        int code = Integer.parseInt(result);
-        this.recommendDao.getRecommendInterest(code);
-        
-	}
+		newPayload += "-1], [28,0,1,2,3,-1]]}]}";
+        List<Integer> arrlist = MLfunction(newPayload);
+        return this.recommendDao.getRecommendInterest(arrlist);
+	}	
 	
-	
-	//서비스 아니고 그냥 머신러닝 메소드
-	public String MLfunction(String newPayload) throws IOException {
-		String API_KEY = "nbaWdZ6hp9LfNnq9J83w7x5lzzSZw8uY-wrZfJ8uHsiD";
+	public List<Integer> MLfunction(String newPayload) throws IOException{
+        String API_KEY = "nbaWdZ6hp9LfNnq9J83w7x5lzzSZw8uY-wrZfJ8uHsiD";
 
         HttpURLConnection tokenConnection = null;
         HttpURLConnection scoringConnection = null;
         BufferedReader tokenBuffer = null;
         BufferedReader scoringBuffer = null;
-        String activity = null;
+        List<Integer> arrlist = new ArrayList<>();
+        
         try {
             // Getting IAM token
             URL tokenUrl = new URL("https://iam.cloud.ibm.com/identity/token?grant_type=urn:ibm:params:oauth:grant-type:apikey&apikey=" + API_KEY);
@@ -131,10 +126,9 @@ public class RecommendService {
 
             // NOTE: manually define and pass the array(s) of values to be scored in the next line
             // 데이터 2개 넣어서 한 번에 판별 시도 합니다.
-            String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,0,3,7,1], [26,0,1,4,6,6]]}]}";
-            writer.write(payload);
+            String payload = "{\"input_data\": [{\"fields\": [\"나이\", \"성별\", \"관심사1\",\"관심사2\", \"관심사3\", \"활동\"], \"values\": [[28,0,1,1,1,-1], [22,0,0,0,0,-1]]}]}";
+            writer.write(newPayload);
             writer.close();
-
 
             scoringBuffer = new BufferedReader(new InputStreamReader(scoringConnection.getInputStream()));
             StringBuffer jsonStringScoring = new StringBuffer();
@@ -149,14 +143,18 @@ public class RecommendService {
             String predicArray = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).toString();
             System.out.println("2. predict array: "+ predicArray);
 
-            activity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).get(0).toString();
+            String activity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).get(0).toString();
             System.out.println("3. activity result: " + activity);
             
-
-            String activitySimilarity = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(0).getJSONArray(1).get(0).toString();
-            System.out.println("4. activity similarity result: " + activitySimilarity);
+            String activity2 = obj.getJSONArray("predictions").getJSONObject(0).getJSONArray("values").getJSONArray(0).getJSONArray(1).get(0).toString();
+            System.out.println("5. activity2 result: " + activity2);
             
-            return activity;
+            arrlist.add(Integer.parseInt(activity));
+            System.out.println("여기서 에러?");
+            arrlist.add(Integer.parseInt(activity2));
+            System.out.println("아니면 여기 에러?");
+
+            
         } catch (IOException e) {
             System.out.println("The URL is not valid.");
             System.out.println(e.getMessage());
@@ -175,7 +173,6 @@ public class RecommendService {
                 scoringBuffer.close();
             }
         }
-        return activity;
+        return arrlist;
 	}
-	
 }
