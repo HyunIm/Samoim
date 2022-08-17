@@ -27,7 +27,7 @@ public class UserDto {
 	private String city;
 	private String address;
 	private String interest;
-	private String photo_path;
+	private String photoPath;
 	private String tag;
 	private int point;
 	

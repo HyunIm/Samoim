@@ -41,6 +41,7 @@ public class UserService {
 		newUser.setAddress(userDto.getAddress());
 		newUser.setInterest(userDto.getInterest());
 		newUser.setPoint(100000);
+		newUser.setPhotoPath(userDto.getPhotoPath());
 		
 		this.userDao.saveUser(newUser);
 	}
@@ -79,7 +80,7 @@ public class UserService {
 		
 		newUserDto.setName(userDto.getName()!=null ? findUser.getName() : userDto.getName());
 		newUserDto.setPhone(userDto.getPhone()!=null ? findUser.getPhone() : userDto.getPhone());
-		newUserDto.setPhoto_path(userDto.getPhoto_path()!=null ? findUser.getPhoto_path() : userDto.getPhoto_path());
+		newUserDto.setPhotoPath(userDto.getPhotoPath()!=null ? findUser.getPhotoPath() : userDto.getPhotoPath());
 		
 		return newUserDto;
 	}
@@ -133,11 +134,12 @@ public class UserService {
 		return true;
 
 	}
-
+	
 	public UserDto getUserInfo(String email) {
 		UserDto findUser = new UserDto();
 		
-		findUser = this.userDao.findByEmail(email);	
+		findUser = this.userDao.findByEmail(email);
+		System.out.println(findUser);
 		if(findUser == null) throw new ResponseStatusException(HttpStatus.NOT_FOUND);
 		
 		return findUser;

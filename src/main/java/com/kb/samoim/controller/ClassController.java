@@ -161,7 +161,7 @@ public class ClassController {
 	
 
 	@ApiOperation("모임(Class) 생성 API")
-	@PostMapping(value="/create/{user_id}", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value="/create/{email}", consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<?> createClass(
 			@PathVariable String email,
 			@RequestBody ClassDto classDto
