@@ -9,18 +9,19 @@
         max-width="344"
         outlined
       >
+        <v-list-item three-line>
         <v-list-item-avatar
           tile
           size="80"
+          color="grey"
         >
-          <img src="../../assets/wine.jpeg">
         </v-list-item-avatar>
         <v-list-item-content>
           <div class="text-overline">
-            {{ item.LARGE_CATEGORY }} > 
+            {{ item.LARGE_CATEGORY }} > {{ item.SMALL_CATEGORY }}
           </div>
           <v-list-item-title class="text-h5 mb-1">
-            item.name
+            {{ item.NAME }}
           </v-list-item-title>
             <v-row>
               &nbsp;
@@ -45,27 +46,40 @@
                 <v-icon left>
                   mdi-account-group
                 </v-icon>
-                현재원/item.MAX_MEMBER
+                {{ item.CURRENTMEMBER }} / {{ item.MAX_MEMBER }}
               </v-chip>
             </v-row>
         </v-list-item-content>
+      </v-list-item>
 
-        <v-card-actions>
-          <v-btn
-            outlined
-            text
-            width="48%"
-          >
-            채팅방 입장(연결 필요)
-          </v-btn>
-          <v-btn
-            outlined
-            text
-            width="48%"
-          >
-            상세보기
-          </v-btn>
-        </v-card-actions>
+      <v-list-item>
+        <v-row>
+          <v-col>
+            <v-btn
+              block
+              outlined
+              text
+            >
+              채팅방 입장(연결 필요)
+            </v-btn>
+          </v-col>
+
+          <v-col>
+            <router-link
+              style="text-decoration: none; color: inherit;" 
+              :to="{name: 'GatheringInformation', params: {classId: item.ID}}"
+            >
+            <v-btn
+              outlined
+              text
+              block
+            >
+              상세보기
+            </v-btn>
+            </router-link>
+          </v-col>
+        </v-row>
+      </v-list-item>
       </v-card>
     </v-list-item>
 

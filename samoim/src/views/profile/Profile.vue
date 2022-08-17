@@ -139,6 +139,13 @@ import ramu from '@/assets/starfriends/ramu.png';
         this.$axios.put('/api/user/interest', this.updateInfo)
         .then(() => {
           //console.log(res);
+          //수정완료 팝업 제공
+          this.$swal({
+            title: '수정 완료',
+            text: '관심사 수정이 완료되었습니다.',
+            icon: 'success',
+            confirmButtonText: '확인'
+          });
         })
         .catch((error) => {
           console.log(error);

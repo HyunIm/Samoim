@@ -69,7 +69,7 @@
                     <v-icon>mdi-map-marker</v-icon>
                     {{ item.city }} {{ item.address }}
                     <v-icon class="ml-2">mdi-account-multiple</v-icon>
-                    현재인원 / {{ item.maxMember }}
+                    {{item.currentMember}} / {{ item.maxMember }}
                   </v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
@@ -85,26 +85,26 @@
 <script>
 import TopBar from '../components/common/TopBar.vue'
 
-import climbing from '@/assets/small_category/0_climbing.png';
-import golf from '@/assets/small_category/1_golf.png';
-import tennis from '@/assets/small_category/2_tennis.png';
-import drive from '@/assets/small_category/3_drive.png';
-import camping from '@/assets/small_category/4_camping.png';
-import concert from '@/assets/small_category/5_concert.png';
-import musical from '@/assets/small_category/6_musical.png';
-import exhibition from '@/assets/small_category/7_exhibition.png';
-import band from '@/assets/small_category/8_band.png';
-import composition from '@/assets/small_category/9_composition.png';
-import drawing from '@/assets/small_category/10_drawing.png';
-import writing from '@/assets/small_category/11_writing.png';
-import reading from '@/assets/small_category/12_reading.png';
-import study from '@/assets/small_category/13_study.png';
-import foreign from '@/assets/small_category/14_foreign.png';
-import dog from '@/assets/small_category/15_dog.png';
-import donation from '@/assets/small_category/16_donation.png';
-import cooking from '@/assets/small_category/17_cooking.png';
-import dessert from '@/assets/small_category/18_dessert.png';
-import soju from '@/assets/small_category/19_soju.png';
+import climbing from '@/assets/small_category_img/0_climbing.png';
+import golf from '@/assets/small_category_img/1_golf.png';
+import tennis from '@/assets/small_category_img/2_tennis.png';
+import drive from '@/assets/small_category_img/3_drive.png';
+import camping from '@/assets/small_category_img/4_camping.png';
+import concert from '@/assets/small_category_img/5_concert.png';
+import musical from '@/assets/small_category_img/6_musical.png';
+import exhibition from '@/assets/small_category_img/7_exhibition.png';
+import band from '@/assets/small_category_img/8_band.png';
+import composition from '@/assets/small_category_img/9_composition.png';
+import drawing from '@/assets/small_category_img/10_drawing.png';
+import writing from '@/assets/small_category_img/11_writing.png';
+import reading from '@/assets/small_category_img/12_reading.png';
+import study from '@/assets/small_category_img/13_study.png';
+import foreign from '@/assets/small_category_img/14_foreign.png';
+import dog from '@/assets/small_category_img/15_dog.png';
+import donation from '@/assets/small_category_img/16_donation.png';
+import cooking from '@/assets/small_category_img/17_cooking.png';
+import dessert from '@/assets/small_category_img/18_dessert.png';
+import soju from '@/assets/small_category_img/19_soju.png';
 
 
 
