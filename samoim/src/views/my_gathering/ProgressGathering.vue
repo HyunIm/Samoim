@@ -90,27 +90,30 @@
         </v-card-actions>
       </v-card>
     </v-list-item>
+
+    <v-container v-if="isEmpty">
+      <br><br><br>
+      <center>
+        <v-img
+          max-height="400"
+          max-width="200"
+          :src="empty"
+        ></v-img>
+        <br>
+        <h2>개설하신 모임이 없네요</h2>
+      </center>
+    </v-container>
   </div>
 </template>
 
 <script>
+import Empty from '@/assets/starfriends/empty2.png';
+
 export default {
   data: () => ({
-    classData: [
-      {
-        id: 12,
-        name: "api 못 불러옴",
-        largeCategory: "요리",
-        smallCategory: "디저트",
-        city: "서울",
-        address: "성북구",
-        maxMember: 4,
-        ownerId: "null",
-        openDate: "08-26",
-        detailContents: "나는 아무거나",
-        photoPath: "18_dessert.png"
-      },
-    ],
+    classData: [],
+    empty: Empty,
+    isEmpty: false,
   }),
 
   mounted() {
@@ -121,14 +124,14 @@ export default {
     getClassList() {
       this.$axios.get('/api/myClass/' + this.$store.state.loginUser)
       .then((res) => {
-        console.log(res);
         this.classData = res.data;
-        
-        /*
-        for(let i = 0; i < res.data.length; i++) {
-          this.classData[i].openDate = this.classData[i].openDate.toString().substr(5,5);
+
+        if(this.classData.length > 0) {
+          this.isEmpty = false;
+        } else {
+          this.isEmpty = true;
         }
-        */
+
       })
       .catch((error) => {
         console.log(error);
