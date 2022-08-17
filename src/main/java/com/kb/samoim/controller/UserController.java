@@ -1,5 +1,7 @@
 package com.kb.samoim.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.kb.samoim.dto.ClassDto;
 import com.kb.samoim.dto.UserDto;
 import com.kb.samoim.service.UserService;
 
@@ -128,7 +131,7 @@ public class UserController {
 	
 	@ApiOperation("내가 가입한 모임 목록 조회 API")
 	@GetMapping("/myJoinClass/{email}")
-	public ResponseEntity<?> getMyJoinClass(
+	public ResponseEntity<List<ClassDto>> getMyJoinClass(
 			@PathVariable String email
 	){
 		return ResponseEntity.ok(this.userService.getMyJoinClass(email));

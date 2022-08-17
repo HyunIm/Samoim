@@ -183,7 +183,7 @@ public class ClassController {
 	
 	@ApiOperation("내가 만든 모임 조회 API")
 	@GetMapping("/myClass/{email}")
-	public ResponseEntity<ClassDto> getMyCreateClass(
+	public ResponseEntity<List<ClassDto>> getMyCreateClass(
 			@PathVariable String email
 	){
 		return ResponseEntity.ok(this.classService.getMyCreateClass(email));

@@ -16,7 +16,7 @@ public interface UserDao {
 	UserDto findByEmail(String email); //이메일로 유저 정보 찾기
 	UserDto getUserPoint(String email); //유저 정보 + 포인트 조회	
 	boolean updatePoint(String email, int point); //정산 및 포인트 처리 	
-	List<ClassDto> getMyJoinClass(String email);
+	List<ClassDto> getMyJoinClass(String email); //내가 가입한 모임 목록
 	
 	int emailCheck(String email); //이메일 중복체크
 	
