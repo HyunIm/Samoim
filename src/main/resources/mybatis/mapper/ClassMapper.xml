@@ -25,7 +25,7 @@
 			</foreach>
 		</if>
 		<if test="area!=null and area.size!=0">
-			and CITY in
+			and ADDRESS in
 			<foreach collection="area" item="item" index="index" open="(" close=")" separator=",">
 				#{item}
 			</foreach>
