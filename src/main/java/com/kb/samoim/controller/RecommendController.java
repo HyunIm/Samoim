@@ -1,5 +1,9 @@
 package com.kb.samoim.controller;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,11 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.kb.samoim.dto.RecommendDto;
 import com.kb.samoim.dto.SCategoryDto;
 import com.kb.samoim.service.RecommendService;
 
@@ -33,18 +35,13 @@ public class RecommendController {
 	//이거는 ML 서버랑 통신하려고 만든 API
 	@ApiOperation("추천 생성 API (ML서버랑 통신)")
 	@GetMapping("/recommend/{email}")
-	public ResponseEntity<?> createRecommend(
+	public ResponseEntity<List<SCategoryDto>> createRecommend(
 			@PathVariable String email
-	){
-		try {
-			System.out.println("시작");
-			this.recommendService.createRecommend(email);	
-		}
-		catch (Exception e) {
-			logger.info("연결 실패");
+	) throws IOException{
+		List<SCategoryDto> resultList = this.recommendService.createRecommend(email);
+		if(resultList.isEmpty() || resultList == null)
 			throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-		}
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(resultList);
 	}
 	
 	
