@@ -539,8 +539,8 @@ import BackButton from '../components/common/BackButton.vue'
 
           // 관심사 등록 API
           this.$axios.put('/api/user/interest', this.signUpForm)
-          .then((res) => {
-            console.log(res);
+          .then(() => {
+            //console.log(res);
 
             //로그인 상태로 메인 페이지로 이동
             this.$router.replace('/main')
@@ -555,8 +555,8 @@ import BackButton from '../components/common/BackButton.vue'
           console.log(this.signUpForm);
           
           this.$axios.post('/api/signUp', this.signUpForm)
-          .then((res) => {
-            console.log(res);
+          .then(() => {
+            //console.log(res);
 
             // 회원가입 성공시 전역변수에 login 정보 저장
             // this.$store.state.loginUser = this.signUpForm.email;

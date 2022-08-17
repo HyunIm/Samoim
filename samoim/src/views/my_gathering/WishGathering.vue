@@ -134,7 +134,7 @@ export default {
       .then((res) => {
         this.classData = res.data;
 
-        console.log(res.data.length);
+        //console.log(res.data.length);
         
         if(res.data.length > 0) {
           for(let i = 0; i < res.data.length; i++) {
@@ -155,8 +155,8 @@ export default {
         userId: this.$store.state.loginUser,
       }
       this.$axios.post('/api/like/delete', this.likeReq)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        //console.log(res);
       })
       .catch((error) => {
         console.log(error);

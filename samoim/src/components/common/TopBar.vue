@@ -175,7 +175,7 @@ import Logo from '../../assets/samoimLogo.png';
       this.getCategory();
       //this.getLocation();
 
-      console.log(this.$store.state.loginUser);
+      //console.log(this.$store.state.loginUser);
     },
 
     methods: {
@@ -195,7 +195,7 @@ import Logo from '../../assets/samoimLogo.png';
         this.$axios.get('/api/categories')
         .then((res) => {
           this.categoriesData = res.data;
-          console.log(this.categoriesData);
+          //console.log(this.categoriesData);
         })
         .catch((error) => {
           console.log(error);
@@ -205,7 +205,7 @@ import Logo from '../../assets/samoimLogo.png';
         this.$axios.get('/api/location')
         .then((res) => {
           this.locationData = res.data;
-          console.log(this.locationData);
+          //console.log(this.locationData);
         })
         .catch((error) => {
           console.log(error);
