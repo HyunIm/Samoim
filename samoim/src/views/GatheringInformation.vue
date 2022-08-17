@@ -189,16 +189,14 @@ export default {
       // 찜 API 호출
       if(this.favorite === false) {
         this.$axios.post('/api/like', this.likeReq)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
         })
         .catch((error) => {
           console.log(error);
         });
       } else {
         this.$axios.post('/api/like/delete', this.likeReq)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
         })
         .catch((error) => {
           console.log(error);

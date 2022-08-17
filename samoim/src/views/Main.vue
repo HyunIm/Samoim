@@ -185,7 +185,7 @@ export default {
         this.$axios.get('/api/recommend/' + this.$store.state.loginUser)
         .then((res) => {
           this.recommendData = res.data;
-          console.log(this.recommendData);
+          //console.log(this.recommendData);
 
           for(var i=0; i<res.data.length; i++) {
             this.suggestionItems.push({"src" : this.imgObjectReturn(res.data[i].PHOTO_PATH)});

@@ -650,8 +650,8 @@ export default {
       if(this.makeStep === 8) {
         this.$router.replace('/main')
         this.$axios.post('/api/create/' + this.$store.state.loginUser, this.makeClassForm)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
         })
         .catch((error) => {
           console.log(error);
@@ -672,7 +672,7 @@ export default {
       this.$axios.get('/api/location')
       .then((res) => {
         this.locationData = res.data;
-        console.log(this.locationData);
+        //console.log(this.locationData);
       })
       .catch((error) => {
         console.log(error);

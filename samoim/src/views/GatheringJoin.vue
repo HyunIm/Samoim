@@ -280,7 +280,7 @@ export default {
     getPoint() {
       this.$axios.get('/api/balance/' + this.$store.state.loginUser)
       .then((res) => {
-        console.log(res);
+        //console.log(res);
 
         this.userPoint = res.data;
       })
@@ -295,15 +295,15 @@ export default {
       };
 
       this.$axios.put('/api/balance/update', this.payInfo)
-      .then((res) => {
-        console.log(res);
+      .then(() => {
+        //console.log(res);
 
         //모임 참석 API 호출
         this.joinInfo = {classId : this.classId, userId : this.$store.state.loginUser};
 
         this.$axios.post('/api/join', this.joinInfo)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
 
           // 신청완료 Data 생성
           

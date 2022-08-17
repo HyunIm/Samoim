@@ -135,6 +135,7 @@ export default {
       })
       .catch((error) => {
         console.log(error);
+        this.isEmpty = true;
       });
     },
   },

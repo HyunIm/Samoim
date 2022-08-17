@@ -137,8 +137,8 @@ import ramu from '@/assets/starfriends/ramu.png';
         this.updateInfo = {email : this.$store.state.loginUser, interest: this.interest}
 
         this.$axios.put('/api/user/interest', this.updateInfo)
-        .then((res) => {
-          console.log(res);
+        .then(() => {
+          //console.log(res);
         })
         .catch((error) => {
           console.log(error);

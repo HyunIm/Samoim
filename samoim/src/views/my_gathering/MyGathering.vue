@@ -15,13 +15,12 @@
     </v-row>
     <br>
     <GatheringBar
-      @waitClick="waitClick"
       @partClick="partClick"
       @progClick="progClick"
       @wishClick="wishClick"
     />
     <br>
-    <WaitGathering v-if="waitTab"/>
+    <!--<WaitGathering v-if="waitTab"/>-->
     <ParticipateGathering v-if="paricipateTab"/>
     <ProgressGathering v-if="progressTab"/>
     <WishGathering v-if="wishTab"/>
@@ -34,34 +33,36 @@
 <script>
 import GatheringBar from './GatheringBar.vue'
 import BottomBar from '../../components/common/BottomBar.vue'
-import WaitGathering from './WaitGathering.vue'
+//import WaitGathering from './WaitGathering.vue'
 import ParticipateGathering from './ParticipateGathering.vue'
 import ProgressGathering from './ProgressGathering.vue'
 import WishGathering from './WishGathering.vue'
 import BackButton from '../../components/common/BackButton.vue'
 export default {
   data: () => ({
-    waitTab: true,
-    paricipateTab: false,
+    //waitTab: true,
+    paricipateTab: true,
     progressTab: false,
     wishTab: false,
   }),
   components: {
     GatheringBar,
     BottomBar,
-    WaitGathering,
+    //WaitGathering,
     ParticipateGathering,
     ProgressGathering,
     WishGathering,
     BackButton,
   },
   methods: {
+    /*
     waitClick() {
       this.waitTab = true
       this.paricipateTab = false
       this.progressTab = false
       this.wishTab = false
     },
+    */
     partClick() {
       this.waitTab = false
       this.paricipateTab = true
