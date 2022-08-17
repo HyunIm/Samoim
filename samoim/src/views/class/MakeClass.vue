@@ -363,19 +363,18 @@
 
       <v-row class="mt-15"/>
 
-      <v-text-field 
+      <v-textarea
         outlined
-        label="내용을 입력해 주세요."
-        persistent-hint
+        label="상세 모임 내용을 입력해 주세요."
         solo
         :counter="80"
         required
-        flat
         dense
         ref="makeClassForm.detail_contents"
         v-model="makeClassForm.detail_contents"
+        class="mx-3"
       >
-      </v-text-field>
+      </v-textarea>
     </div>
 
 

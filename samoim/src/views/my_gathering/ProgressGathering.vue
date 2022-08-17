@@ -13,8 +13,8 @@
           <v-list-item-avatar
             tile
             size="80"
+            color="grey"
           >
-            <img src="Todo">
           </v-list-item-avatar>
           <v-list-item-content>
             <div class="text-overline">
@@ -57,37 +57,41 @@
                     mdi-account-group
                   </v-icon>
                   <small>
-                    현재원/{{ item.MAX_MEMBER }}
+                    {{item.CURRENTMEMBER}}/{{ item.MAX_MEMBER }}
                   </small>
                 </v-chip>
               </v-row>
           </v-list-item-content>
         </v-list-item>
 
-        <v-card-actions>
-          <!--
-          <v-btn
-            outlined
-            text
-            width="48%"
-          >
-            채팅방 입장(연동 필요)
-          </v-btn>
-          -->
-          <v-btn
-            block
-            outlined
-            text
-            width="48%"
-          >
-            <router-link
-              style="text-decoration: none; color: inherit;" 
-              :to="{name: 'GatheringInformation', params: {classId: item.CLASS_ID}}"
-            >
-            상세보기
-            </router-link>
-          </v-btn>
-        </v-card-actions>
+          <v-list-item>
+          <v-row>
+            <v-col>
+              <v-btn
+                block
+                outlined
+                text
+              >
+                채팅방 입장(연결 필요)
+              </v-btn>
+            </v-col>
+
+            <v-col>
+              <router-link
+                style="text-decoration: none; color: inherit;" 
+                :to="{name: 'GatheringInformation', params: {classId: item.ID}}"
+              >
+              <v-btn
+                outlined
+                text
+                block
+              >
+                상세보기
+              </v-btn>
+              </router-link>
+            </v-col>
+          </v-row>
+        </v-list-item>
       </v-card>
     </v-list-item>
 

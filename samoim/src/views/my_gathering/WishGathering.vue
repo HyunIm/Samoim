@@ -13,8 +13,8 @@
           <v-list-item-avatar
             tile
             size="80"
+            color="grey"
           >
-            <img src="../../assets/mountaineering.jpeg">
           </v-list-item-avatar>
           <v-list-item-content>
             <div class="text-overline">
@@ -49,7 +49,7 @@
                     mdi-account-group
                   </v-icon>
                   <small>
-                    현재원/{{ item.maxMember }}
+                    {{item.currentMember}} /{{ item.maxMember }}
                   </small>
                 </v-chip>
               </v-row>
@@ -80,20 +80,18 @@
           </v-list-item-content>
         </v-list-item>
 
-        <v-card-actions>
-            <v-btn
-              block
-              outlined
-              text
-            >
-              <router-link
-                style="text-decoration: none; color: inherit;" 
-                :to="{name: 'GatheringInformation', params: {classId: item.id}}"
-              >
-              상세 보기
-              </router-link>
-            </v-btn>
-        </v-card-actions>
+        <router-link
+          style="text-decoration: none; color: inherit;" 
+          :to="{name: 'GatheringInformation', params: {classId: item.id}}"
+        >
+          <v-btn
+            outlined
+            block
+            text
+          >
+            상세 보기
+          </v-btn>
+        </router-link>
       </v-card>
     </v-list-item>
 
