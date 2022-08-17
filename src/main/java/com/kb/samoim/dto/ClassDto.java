@@ -26,5 +26,6 @@ public class ClassDto {
 	private String open_date;
 	private String detail_contents;
 	private String photo_path;
+	private String currentmember;
 	
 }
