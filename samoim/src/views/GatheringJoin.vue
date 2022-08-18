@@ -54,9 +54,6 @@
             >
               계속
             </v-btn>
-            <v-btn text>
-              취소
-            </v-btn>
           </v-stepper-content>
 
           <v-stepper-step
@@ -80,9 +77,6 @@
               @click="e6 = 3"
             >
               계속
-            </v-btn>
-            <v-btn text>
-              취소
             </v-btn>
           </v-stepper-content>
 
@@ -108,9 +102,6 @@
               @click="promiseComplete()"
             >
               확인
-            </v-btn>
-            <v-btn text>
-              취소
             </v-btn>
           </v-stepper-content>
         </v-stepper>
