@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <BackButton/>
+      </v-col>
+      <v-col class="mt-3">
+        <h3>
+          <center>
+              모임 정보
+          </center>
+        </h3>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
+
     <br>
     <v-img
       src="../assets/climbing_2.png"
@@ -11,7 +25,6 @@
       <h3 style="color:grey"># {{ classInfoData.smallCategory }}</h3>
     </center>
 
-    <br>
     <v-card
       class="mx-auto"
       max-width="344"
@@ -107,7 +120,9 @@
 </template>
 
 <script>
+import BackButton from '../components/common/BackButton.vue';
 export default {
+  components: { BackButton },
   mounted() {
     this.classId = this.$route.params.classId;
 
