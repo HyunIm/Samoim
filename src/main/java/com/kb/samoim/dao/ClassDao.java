@@ -21,7 +21,7 @@ public interface ClassDao {
 		
 	List<Class> selectClassByFilter(List<String> category, List<String> area); 	//모임 상세 정보 불러오기
 	
-	boolean createClass(ClassDto classDto); //모임 생성 API
+	Long createClass(ClassDto classDto); //모임 생성 API
 	
 	ClassCompleteDto completedClass(String email); 
 	
