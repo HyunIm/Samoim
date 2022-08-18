@@ -26,11 +26,6 @@
       </v-carousel>
     </v-row>
 
-    <!-- 로그인 사용자 정보 -->
-    <v-row>
-      - 로그인 email(임시표시) : {{ this.$store.state.loginUser }}
-    </v-row>
-
     <!-- 모임 리스트 -->
     <v-row class="mx-3 mt-10">
       <h2>{{ title }}</h2>
