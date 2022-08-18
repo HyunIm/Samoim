@@ -277,9 +277,9 @@ export default {
         this.progress += 100/3
       }
 
-      this.nextCheck = true;
+      this.nextCheck = true
       if (this.joinStep === 3) {
-        this.nextCheck = false;
+        this.nextCheck = false
       }
     },
 
