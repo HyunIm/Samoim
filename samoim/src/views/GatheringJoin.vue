@@ -256,7 +256,7 @@ export default {
     e6: 1,
     dialog: false,
     userPoint: undefined,
-    price: 30000,
+    price: 20000,
     payInfo: undefined,
     joinInfo: undefined,
     classId: undefined
@@ -277,7 +277,10 @@ export default {
         this.progress += 100/3
       }
 
-      this.nextCheck = true
+      this.nextCheck = true;
+      if (this.joinStep === 3) {
+        this.nextCheck = false;
+      }
     },
 
 
