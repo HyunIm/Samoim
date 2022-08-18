@@ -21,6 +21,7 @@
           :src="item.src"
           reverse-transition="fade-transition"
           transition="fade-transition"
+          @click="suggestionClick(item.NAME)"
         ></v-carousel-item>
       </v-carousel>
     </v-row>
@@ -119,11 +120,22 @@ export default {
   mounted() {
       this.getClassList();
       this.suggestionCategory();
+      this.getMyInfo();
     },
 
   data: () => ({
     test: 'SAMOIM MAIN PAGE',
     suggestionItems: [
+      {
+        "PHOTO_PATH": "drive",
+        "NAME": "드라이브",
+        "src": drive,
+      },
+      {
+        "PHOTO_PATH": "dog",
+        "NAME": "유기견봉사",
+        "src": dog
+      },
     ],
     climbing : climbing,
     golf : golf,
@@ -162,7 +174,21 @@ export default {
     ],
     title: "내 주변 사모임",
     suggestion: true,
-    recommendData: undefined
+    recommendData: undefined,
+    myInfo: {
+      email: "0818@",
+      name: "테스트",
+      phone: "",
+      password: "1234",
+      gender: "남",
+      birth: "2016-11-30",
+      city: "서울",
+      address: "강남구",
+      interest: "운동,문화,창작,",
+      photoPath: "force",
+      tag: null,
+      point: 100000
+    }
   }),
 
   methods: {
@@ -176,11 +202,70 @@ export default {
           console.log(error);
         });
       },
+
+
+      getMyInfo() {
+        this.$axios.get('/api/info/' + this.$store.state.loginUser)
+        .then((res) => {
+          this.myInfo = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+
       fillterData(value) {
         this.classData = value;
-        this.title = "필터링한 사모임"
+        this.title = "필터링한 사모임";
         this.suggestion = false;
       },
+
+
+      suggestionClick(value) {
+        let large = this.small2LargeCategory(value);
+        var categoryList = [];
+        categoryList.push(large);
+
+        var addressList = [];
+        addressList.push(this.myInfo.address);
+
+        var suggestionData = {"category": categoryList, "area": addressList};
+        
+        //필터 검색 API 호출
+        this.$axios.post('/api/classes', suggestionData)
+        .then((res) => {
+          this.classData = res.data;
+          this.title = value + " 사모임";
+          this.suggestion = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+
+      small2LargeCategory(ct) {
+        if (ct == "클라이밍" || ct == "골프" || ct == "테니스") {
+          return "운동";
+        } else if (ct == "드라이브" || ct == "캠핑") {
+          return "여행";
+        } else if (ct == "콘서트" || ct == "뮤지컬" || ct == "전시") {
+          return "문화";
+        } else if (ct == "밴드" || ct == "작곡") {
+          return "음악";
+        } else if (ct == "드로잉" || ct == "글쓰기") {
+          return "창작";
+        } else if (ct == "독서" || ct == "스터디" || ct == "외국어") {
+          return "성장";
+        } else if (ct == "유기견봉사" || ct == "재능기부") {
+          return "봉사";
+        } else if (ct == "유리" || ct == "디저트" || ct == "전통주") {
+          return "요리";
+        }
+      },
+
+
       suggestionCategory() {
         this.$axios.get('/api/recommend/' + this.$store.state.loginUser)
         .then((res) => {
@@ -195,6 +280,8 @@ export default {
           console.log(error);
         });
       },
+
+
       imgObjectReturn(item){
 
         if(item === "climbing") {

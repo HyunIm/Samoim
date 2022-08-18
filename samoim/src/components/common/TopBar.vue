@@ -20,7 +20,7 @@
         color="black darken-2"
         @click="openFillterDialog()"
       >
-        mdi-filter-menu-outline
+        mdi-magnify
       </v-icon>
       <!--
       <v-icon
@@ -226,6 +226,7 @@ import Logo from '../../assets/samoimLogo.png';
 
         this.fillterData = {"category": categoryList, "area": addressList}
         
+        console.log(this.fillterData);
         //필터 검색 API 호출
         this.$axios.post('/api/classes', this.fillterData)
         .then((res) => {
