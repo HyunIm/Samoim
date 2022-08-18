@@ -130,6 +130,8 @@ import ramu from '@/assets/starfriends/ramu.png';
       updateUserInfo() {
 
         //interest string화
+        this.interest = "";
+        
         this.values.forEach(element => {
           this.interest = this.interest + element + ","
         });
