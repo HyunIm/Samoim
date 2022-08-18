@@ -1,5 +1,8 @@
 <template>
-  <v-btn icon x-large>
+  <v-btn
+    icon x-large
+    @click="goBack()"
+  >
     <v-icon>
       mdi-chevron-left
     </v-icon>
@@ -13,5 +16,11 @@
     data: () => ({
       
     }),
+
+    methods: {
+      goBack() {
+        this.$router.go(-1);
+      }
+    },
   }
 </script>
