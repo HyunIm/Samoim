@@ -680,7 +680,7 @@ import BackButton from '../components/common/BackButton.vue'
           this.isGrowth = !this.isGrowth;
         } else if(item === "isVolunteer") {
           this.isVolunteer = !this.isVolunteer;
-        } else if(item === "") {
+        } else if(item === "isCook") {
           this.isCook = !this.isCook;
         }
 
