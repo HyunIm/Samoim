@@ -16,13 +16,14 @@
     </v-row>
 
     <center class="mt-15 mx-3">
-    <v-img
-        max-height="128"
-        max-width="128"
-        src="../assets/fail.png"
-    >
-    </v-img>
+      <v-img
+          max-height="150"
+          max-width="150"
+          src="../assets/fail.gif"
+      >
+      </v-img>
     </center>
+    <br>
 
     <br>
     <h1><center>신청 실패</center></h1>

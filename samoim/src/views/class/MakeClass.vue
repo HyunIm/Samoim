@@ -502,12 +502,13 @@
 
       <center class="mt-15 mx-3">
         <v-img
-          max-height="128"
-          max-width="128"
-          src="../../assets/check.png"
+          max-height="150"
+          max-width="150"
+          src="../../assets/check.gif"
         >
         </v-img>
       </center>
+      <br>
 
       <h1><center>만들기 완료</center></h1>
     </div>
