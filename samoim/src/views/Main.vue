@@ -34,6 +34,15 @@
     <!-- 모임 리스트 -->
     <v-row class="mx-3 mt-10">
       <h2>{{ title }}</h2>
+      <v-spacer></v-spacer>
+      <v-icon
+        class="mr-5"
+        x-large
+        color="black darken-2"
+        @click="openFillterDialog()"
+      >
+        mdi-magnify
+      </v-icon>
     </v-row>
 
     <v-row>
@@ -80,6 +89,73 @@
         </v-list-item>
     </v-row>
     <br><br><br><br><br>
+
+    <v-bottom-sheet v-model="fillterDialog">
+        <v-card>
+          <v-card-title>
+            <v-btn
+              icon
+              color="black"
+              @click="fillterDialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+            
+          <v-card-subtitle class="mt-3">
+            <h2>카테고리</h2>
+          </v-card-subtitle>
+
+          <v-card-text>
+            <v-row>
+              <v-col
+                cols="4"
+                v-for="(item, index) in categoriesData"
+                :key="index"
+                >
+                <v-checkbox
+                  :label=item.name
+                  color="primary"
+                  hide-details
+                  v-model="category"
+                  :value=item.name
+                ></v-checkbox>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-subtitle class="mt-3">
+            <h2>지역</h2>
+          </v-card-subtitle>
+          <v-card-text>
+            <v-radio-group v-model="address" row>
+              <v-radio
+                v-for="(item, index) in locationData"
+                :key="index"
+                :label="item.ADDRESS"
+                :value="item.ADDRESS"
+              ></v-radio>
+            </v-radio-group>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn
+              class="mb-3"
+              x-large
+              color="primary"
+              dark
+              block
+              rounded
+              @click="fillterClass()"
+            >
+              <h3 class="font-weight-black">검색</h3>
+            </v-btn>
+          </v-card-actions>
+
+        </v-card>
+      </v-bottom-sheet>
   </v-container>
 </template>
 
@@ -118,6 +194,7 @@ export default {
   },
 
   mounted() {
+      this.getCategory();
       this.getClassList();
       this.suggestionCategory();
       this.getMyInfo();
@@ -125,6 +202,7 @@ export default {
 
   data: () => ({
     test: 'SAMOIM MAIN PAGE',
+    fillterDialog: false,
     suggestionItems: [
       {
         "PHOTO_PATH": "drive",
@@ -188,7 +266,14 @@ export default {
       photoPath: "force",
       tag: null,
       point: 100000
-    }
+    },
+    categoriesData: [],
+    locationData: [
+      { CITY: '서울', ADDRESS: '강남구' },
+      { CITY: '서울', ADDRESS: '영등포구' }
+    ],
+    address: undefined,
+    category: [],
   }),
 
   methods: {
@@ -208,11 +293,25 @@ export default {
         });
       },
 
-
       getMyInfo() {
         this.$axios.get('/api/info/' + this.$store.state.loginUser)
         .then((res) => {
           this.myInfo = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+      openFillterDialog() {
+        this.fillterDialog = true;
+      },
+
+      getCategory() {
+        this.$axios.get('/api/categories')
+        .then((res) => {
+          this.categoriesData = res.data;
+          //console.log(this.categoriesData);
         })
         .catch((error) => {
           console.log(error);
@@ -224,6 +323,35 @@ export default {
         this.classData = value;
         this.title = "필터링한 사모임";
         this.suggestion = false;
+      },
+
+      fillterClass() {
+        
+        var categoryList = [];
+        for(var i=0; i<this.category.length; i++) {
+          categoryList.push(this.category[i]);
+        }
+
+        var addressList = [];
+        addressList.push(this.address);
+
+        this.fillterData = {"category": categoryList, "area": addressList}
+        
+        console.log(this.fillterData);
+        //필터 검색 API 호출
+        this.$axios.post('/api/classes', this.fillterData)
+        .then((res) => {
+          this.classData = res.data;
+
+          //리스트 목록 표시에 표시
+          this.fillterDialog = false;
+          this.title = "필터링한 사모임";
+          this.suggestion = false;
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
       },
 
 
