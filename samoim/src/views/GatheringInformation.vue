@@ -16,7 +16,7 @@
 
     <br>
     <v-img
-      src="../assets/climbing_2.png"
+      :src="classInfoData.photoPath"
     ></v-img>
 
     <br>
@@ -93,7 +93,7 @@
 
     <v-row class="mb-5 mt-1 mx-3">
       <v-col cols="2">
-        <v-btn fab class="mt-4" @click="changeFavorite()">
+        <v-btn fab class="mt-4" @click="changeFavorite(classInfoData.id)">
           <v-icon color="red" v-if="this.favorite">mdi-heart</v-icon>
           <v-icon v-if="!this.favorite">mdi-cards-heart-outline</v-icon>
         </v-btn>
@@ -120,31 +120,40 @@
 </template>
 
 <script>
+import climbingImg from '@/assets/class_img/0_climbing.png';
+import golfImg from '@/assets/class_img/1_golf.png';
+import tennisImg from '@/assets/class_img/2_tennis.png';
+import driveImg from '@/assets/class_img/3_drive.png';
+import campingImg from '@/assets/class_img/4_camping.png';
+import concertImg from '@/assets/class_img/5_concert.png';
+import musicalImg from '@/assets/class_img/6_musical.png';
+import exhibitionImg from '@/assets/class_img/7_exhibition.png';
+import bandImg from '@/assets/class_img/8_band.png';
+import compositionImg from '@/assets/class_img/9_composition.png';
+import drawingImg from '@/assets/class_img/10_drawing.png';
+import writingImg from '@/assets/class_img/11_writing.png';
+import readingImg from '@/assets/class_img/12_reading.png';
+import studyImg from '@/assets/class_img/13_study.png';
+import foreignImg from '@/assets/class_img/14_foreign.png';
+import dogImg from '@/assets/class_img/15_dog.png';
+import donationImg from '@/assets/class_img/16_donation.png';
+import cookingImg from '@/assets/class_img/17_cooking.png';
+import dessertImg from '@/assets/class_img/18_dessert.png';
+import sojuImg from '@/assets/class_img/19_soju.png';
+
 import BackButton from '../components/common/BackButton.vue';
+
 export default {
   components: { BackButton },
   mounted() {
-    this.classId = this.$route.params.classId;
+    this.classInfoData = this.$route.params.element;
 
     // 모임 상세정보 얻어오기
-    this.getClassInfo(this.classId);
+    this.getClassInfo(this.classInfoData.id);
   },
 
   data: () => ({
-    classInfoData:
-      {
-        id: 16,
-        name: "클라클라 클라이밍",
-        largeCategory: "운동·액티비티",
-        smallCategory: "클라이밍",
-        city: "서울",
-        address: "서초구",
-        maxMember: 8,
-        ownerId: "admin@kb.com",
-        openDate: "2022-08-09T00:00:00.000+00:00",
-        detailContents: "클라이밍에 처음이신 분들 추천합니다!",
-        photoPath: "/photo/path"
-      },
+    classInfoData:[],
     reviewData: [
       {
         class_id: 0,
@@ -157,36 +166,48 @@ export default {
     ],
     likeReq: {},
     favorite : false,
-    classId: undefined
+    classId: undefined,
+
+    climbingImg : climbingImg,
+    golfImg : golfImg,
+    tennisImg : tennisImg,
+    driveImg : driveImg,
+    campingImg : campingImg,
+    concertImg : concertImg,
+    musicalImg : musicalImg,
+    exhibitionImg : exhibitionImg,
+    bandImg : bandImg,
+    compositionImg : compositionImg,
+    drawingImg : drawingImg,
+    writingImg : writingImg,
+    readingImg : readingImg,
+    studyImg : studyImg,
+    foreignImg : foreignImg,
+    dogImg : dogImg,
+    donationImg : donationImg,
+    cookingImg : cookingImg,
+    dessertImg : dessertImg,
+    sojuImg : sojuImg,
   }),
 
   methods: {
     getClassInfo(classId) {
-      this.$axios.get('/api/classes/'+ classId)
+      // 찜 여부 확인
+      this.$axios.get('/api/like/'+ this.$store.state.loginUser)
       .then((res) => {
-        this.classInfoData = res.data;
-        
-        // 찜 여부 확인
-        this.$axios.get('/api/like/'+ this.$store.state.loginUser)
-        .then((res) => {
 
-          res.data.forEach((array) => {
+        res.data.forEach((array) => {
 
-            if(array.id === classId) {
-              this.favorite = true;
-            }
-          })
-
-
-        }).catch((error) => {
-          console.log(error);
-
+          if(array.id === classId) {
+            this.favorite = true;
+          }
         })
-      })
-      .catch((error) => {
+      }).catch((error) => {
         console.log(error);
-      });
 
+      })
+
+      /*
       this.$axios.get('/api/review/' + classId)
       .then((res) => {
         this.reviewData = res.data;
@@ -194,10 +215,11 @@ export default {
       .catch((error) => {
         console.log(error);
       });
+      */
     },
-    changeFavorite() {
+    changeFavorite(classId) {
       this.likeReq = {
-        classId: this.classId,
+        classId: classId,
         userId: this.$store.state.loginUser
       };
 
