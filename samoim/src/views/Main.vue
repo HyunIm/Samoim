@@ -193,10 +193,15 @@ export default {
 
   methods: {
       getClassList() {
-        this.$axios.get('/api/classes')
+        var categoryList = [];
+        var addressList = [];
+        addressList.push(this.myInfo.address);
+
+        this.classData = {"category": categoryList, "area": addressList};
+
+        this.$axios.post('/api/classes', this.classData)
         .then((res) => {
           this.classData = res.data;
-          //console.log(this.classData);
         })
         .catch((error) => {
           console.log(error);
