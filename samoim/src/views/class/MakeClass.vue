@@ -492,8 +492,41 @@
       </v-card>
     </div>
 
-
     <div v-if="makeStep === 8">
+      <v-row class="mt-1">
+        <template>
+          <v-progress-linear :value="progress"></v-progress-linear>
+        </template>
+      </v-row>
+
+      <v-row class="mt-15 mx-3">
+        <h2>리브똑똑 오픈채팅방이 있다면 
+          <br/>
+          입력해 주세요.</h2>
+      </v-row>
+      <v-row class="mt-5 mx-3">
+        * 향후 리브똑똑 오픈채팅방 자동생성 및 연결 기능 제공
+      </v-row>
+
+      <v-row class="mt-15"/>
+
+      <v-row class="mx-3 mt-15">
+        <v-text-field 
+          outlined
+          label="리브똑똑 URL!"
+          persistent-hint
+          solo
+          flat
+          dense
+          v-model="liivchatInfo.url"
+        >
+        </v-text-field>
+      </v-row>
+
+    </div>
+
+
+    <div v-if="makeStep === 9">
       <v-row class="mt-1">
         <template>
           <v-progress-linear :value="progress"></v-progress-linear>
@@ -592,6 +625,11 @@ export default {
 
     activePicker: null,
     menu: false,
+
+    liivchatInfo: {
+      classId: "",
+      url: ""
+    }
   }),
 
   mounted() {
@@ -604,9 +642,11 @@ export default {
     },
 
     makeStep: function() {
-      if (this.makeStep === 8) {
+      if (this.makeStep === 9) {
         this.nextCheck = false
-      } else if (this.makeStep === 7) {
+      } else if (this.makeStep === 8) {
+        this.nextCheck = false
+      }else if (this.makeStep === 7) {
         this.nextCheck = false
       }
     },
@@ -647,18 +687,42 @@ export default {
 
   methods: {
     nextPage() {
-      if(this.makeStep === 8) {
+      if(this.makeStep === 9) {
         this.$router.replace('/main')
 
         console.log(this.makeClassForm);
 
+      } else if(this.makeStep === 7) {
+
         this.$axios.post('/api/create/' + this.$store.state.loginUser, this.makeClassForm)
-        .then(() => {
-          //console.log(res);
+        .then((res) => {
+          console.log(res);
+          this.makeStep += 1
+          this.progress += 100/8
+
+          if(res.data !== 0) {
+            this.liivchatInfo.classId = res.data;
+          }
         })
         .catch((error) => {
           console.log(error);
         });
+
+      } else if(this.makeStep === 8) {
+
+        if(this.liivchatInfo.url !== "" && this.liivchatInfo.classId !== "") {
+          this.$axios.post('/extraservice/liivchat/save', this.liivchatInfo)
+          .then(() => {
+            this.makeStep += 1
+            this.progress += 100/8
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+        } else {
+          this.makeStep += 1
+          this.progress += 100/8
+        }
       } else {
         this.makeStep += 1
         this.progress += 100/8

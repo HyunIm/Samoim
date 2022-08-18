@@ -59,7 +59,7 @@
               block
               outlined
               text
-              :href="liiveUrl"
+              @click="openLiivChat(item.id)"
             >
               리브똑똑 채팅방
             </v-btn>
@@ -150,8 +150,6 @@ export default {
     cookingImg : cookingImg,
     dessertImg : dessertImg,
     sojuImg : sojuImg,
-
-    liiveUrl: 'https://obank.kbstar.com/quics?page=C041244&scheme=liivtalk&urlparam=channelurl:sendbird_group_channel_14714086_03402eb53c6c5b877aa211de0ccf301acd8f921f'
   }),
 
   mounted() {
@@ -220,6 +218,32 @@ export default {
         console.log(error);
       });
     },
+    openLiivChat(classId) {
+
+      this.$axios.get('/extraservice/liivchat/url', {params: {classId: classId}})
+      .then((res) => {
+        console.log(res);
+
+        if(res.data.length !== 0) {
+          //오픈채팅방 연결
+          window.open(res.data.url);
+        } else {
+          this.$swal({
+            title: '오픈 불가',
+            text: '리브똑똑 채팅방을 등록하지 않은 모임입니다.',
+            icon: 'warning',
+            confirmButtonText: '확인'
+          }).then(() => {
+            this.loginForm.email = "";
+            this.loginForm.password = "";
+            this.buttonActive = false;
+          });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    }
   },
 
 }
