@@ -105,7 +105,7 @@
             </v-card>
             <v-btn
               color="primary"
-              @click="e6 = 4"
+              @click="promiseComplete()"
             >
               확인
             </v-btn>
@@ -233,10 +233,10 @@
         class="mr-4"
         x-large
         color="primary"
-        dark
         @click="nextPage()"
         block
         rounded
+        :disabled="nextCheck"
       >
         <h3 class="font-weight-black">다음</h3>
       </v-btn>
@@ -252,6 +252,7 @@ export default {
   data: () => ({
     joinStep: 1,
     progress: 100/3,
+    nextCheck: true,
     e6: 1,
     dialog: false,
     userPoint: undefined,
@@ -275,11 +276,17 @@ export default {
         this.joinStep += 1
         this.progress += 100/3
       }
+
+      this.nextCheck = true
     },
+
+
     insurance() {
       window.open('https://m.kbinsure.co.kr:8543/MG302030001.ec', '_blank')
       this.nextPage()
     },
+
+
     getPoint() {
       this.$axios.get('/api/balance/' + this.$store.state.loginUser)
       .then((res) => {
@@ -291,6 +298,8 @@ export default {
         console.log(error);
       });
     },
+
+
     payment() {
       this.payInfo = {
         email: this.$store.state.loginUser,
@@ -320,7 +329,13 @@ export default {
       .catch((error) => {
         console.log(error);
       });
-    }
+    },
+
+
+    promiseComplete() {
+      this.e6 = 4;
+      this.nextCheck = false;
+    },
   },
 }
 </script>
