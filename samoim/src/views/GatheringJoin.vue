@@ -41,8 +41,9 @@
 
           <v-stepper-content step="1">
             <v-card
-              class="mb-12"
-              height="100px"
+              class="mb-2"
+              height="60"
+              outlined
             >
               모임 시작 전 부득이하게 참여가 어려워진 경우,
               반드시 주최자에게 미리 알려주세요.
@@ -67,8 +68,9 @@
 
           <v-stepper-content step="2">
             <v-card
-              class="mb-12"
-              height="100px"
+              class="mb-2"
+              height="60"
+              outlined
             >
               나와 다른 의견에도 귀 기울이며, 함께하는
               멤버들을 존중하는 태도로 지켜주세요.
@@ -93,8 +95,9 @@
 
           <v-stepper-content step="3">
             <v-card
-              class="mb-12"
-              height="100px"
+              class="mb-2"
+              height="90"
+              outlined
             >
               무단으로 불참하거나, 함께하는 멤버들을
               존중하지 않고 피해를 주는 경우
