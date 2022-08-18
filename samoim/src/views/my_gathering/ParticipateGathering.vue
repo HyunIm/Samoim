@@ -171,6 +171,8 @@ export default {
               this.classData[i].photoPath = this.golfImg;
             } else if(this.classData[i].photoPath === "tennisImg"){
               this.classData[i].photoPath = this.tennisImg;
+            } else if(this.classData[i].photoPath === "campingImg"){
+              this.classData[i].photoPath = this.campingImg;
             } else if(this.classData[i].photoPath === "driveImg"){
               this.classData[i].photoPath = this.driveImg;
             } else if(this.classData[i].photoPath === "concertImg"){
