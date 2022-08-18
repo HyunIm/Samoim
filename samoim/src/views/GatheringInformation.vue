@@ -63,7 +63,7 @@
           </div>
           <div class="ml-3">
             <v-icon class="mr-2">mdi-currency-krw</v-icon>
-            { 금액 }
+            20,000 P
           </div>
         </v-list-item-content>
       </v-list-item>
