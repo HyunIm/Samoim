@@ -12,6 +12,7 @@
 		select * 
 		from CLASS
 		where id = #{id}
+		order by DESC
 	</select>
 	
 	<select id="selectClassByFilter" parameterType="java.util.List" resultType="com.kb.samoim.model.Class">
