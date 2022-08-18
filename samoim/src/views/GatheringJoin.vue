@@ -149,11 +149,11 @@
                 <h3>결제하기</h3>
               </v-btn>
           </template>
-          <v-card>
+          <v-card v-if="this.recommendInsurance.isActive">
             <v-card-title class="text-h5">
               추천 보험
             </v-card-title>
-            <v-img src="../assets/insurance.png"></v-img>
+            <v-img :src="insuranceImg"></v-img>
             <v-card-actions>
               <v-spacer></v-spacer>
               <v-btn
@@ -238,6 +238,9 @@
 
 <script>
 import BackButton from '../components/common/BackButton.vue'
+import GolfInsurance from '@/assets/insurance/golf_insurance.jpeg'
+import DriveInsurance from '@/assets/insurance/driving_insurance.jpeg'
+
 export default {
   components: { BackButton },
 
@@ -251,19 +254,54 @@ export default {
     price: 20000,
     payInfo: undefined,
     joinInfo: undefined,
-    classId: undefined
+    classId: undefined,
+    smallCategory: undefined,
+
+    recommendInsurance: {
+      isActive : false,
+      url : ""
+    },
+    insuranceImg: undefined,
+    golfInsurance: GolfInsurance,
+    driveInsurance : DriveInsurance,
   }),
 
   mounted() {
     this.getPoint();
 
     this.classId = this.$route.params.classId;
+    this.smallCategory = this.$route.params.smallCategory;
   },
 
   methods: {
     nextPage() {
       if(this.joinStep === 3) {
         this.$router.replace('/main')
+      } else if(this.joinStep === 1) {
+        console.log(this.smallCategory);
+
+        this.$axios.get('/extraservice/insurance/url', {params: {category: this.smallCategory}})
+        .then((res) => {
+          console.log(res);
+
+          if(res.data.length !== 0) {
+            //보험 추천
+            this.recommendInsurance.isActive = true;
+            this.recommendInsurance.url = res.data.url;
+
+            if(this.smallCategory === "골프") {
+              this.insuranceImg = this.golfInsurance;
+            } else if(this.smallCategory === "드라이브") {
+              this.insuranceImg = this.driveInsurance;
+            }
+
+            this.joinStep += 1
+            this.progress += 100/3
+          }
+        }).catch((error) => {
+          console.log(error);
+        });
+
       } else {
         this.joinStep += 1
         this.progress += 100/3
@@ -277,7 +315,7 @@ export default {
 
 
     insurance() {
-      window.open('https://m.kbinsure.co.kr:8543/MG302030001.ec', '_blank')
+      window.open(this.recommendInsurance.url, '_blank')
       this.nextPage()
     },
 
