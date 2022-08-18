@@ -295,6 +295,10 @@ export default {
 
 
     payment() {
+      if (this.userPoint < this.price) {
+        this.$router.replace('/failjoin')
+      }
+
       this.payInfo = {
         email: this.$store.state.loginUser,
         point: this.price
