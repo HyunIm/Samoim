@@ -59,7 +59,7 @@
 	</select>
 
 	<!--내가 만든 클래스 조회-->
-	<select id="getMyCreateClass" parameterType="string" resultType="map">
+	<select id="getMyCreateClass" parameterType="string" resultType="com.kb.samoim.dto.ClassDto">
 		SELECT CLASS.ID, CLASS.NAME, CLASS.LARGE_CATEGORY, CLASS.SMALL_CATEGORY, CLASS.CITY, CLASS.ADDRESS, CLASS.CURRENTMEMBER, CLASS.MAX_MEMBER, CLASS.DETAIL_CONTENTS, CLASS.PHOTO_PATH 
 		FROM CLASS, USER
 		WHERE USER.EMAIL = #{email}

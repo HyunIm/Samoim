@@ -17,15 +17,15 @@ public class ClassDto {
 	
 	private Long id;
 	private String name;
-	private String large_category;
-	private String small_category;
+	private String largeCategory;
+	private String smallCategory;
 	private String city;
 	private String address;
-	private String max_member;
-	private String owner_id; // USER Email
-	private String open_date;
-	private String detail_contents;
-	private String photo_path;
+	private String maxMember;
+	private String ownerId; // USER Email
+	private String openDate;
+	private String detailContents;
+	private String photoPath;
 	private String currentmember;
 	
 }
