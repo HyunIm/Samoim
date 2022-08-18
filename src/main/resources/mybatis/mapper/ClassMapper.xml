@@ -38,7 +38,7 @@
         INSERT INTO CLASS
         (ID, NAME, LARGE_CATEGORY, SMALL_CATEGORY, CITY, ADDRESS, MAX_MEMBER, OWNER_ID, OPEN_DATE, DETAIL_CONTENTS, PHOTO_PATH)
         VALUES
-        (#{id},#{name},#{large_category},#{small_category},#{city},#{address},#{max_member},#{owner_id},#{open_date},#{detail_contents},#{photo_path});	
+        (#{id},#{name},#{largeCategory},#{smallCategory},#{city},#{address},#{maxMember},#{ownerId},#{openDate},#{detailContents},#{photoPath});	
 	</insert>
 
 	<!--이거 아직 미완료 ! 모임 개설할때 모임 만나는 정보도 같이 INSERT-->
