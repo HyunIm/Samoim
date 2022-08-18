@@ -38,7 +38,12 @@
           </v-list-item-avatar>
         <v-list-item-content>
           <v-list-item-title class="text-h5 mb-1">
-            {{ this.name }}
+            {{ this.name }} &nbsp;&nbsp;
+            <v-chip
+              @click="logout()"
+            >
+              로그아웃
+            </v-chip>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -163,7 +168,12 @@ import BackButton from '../../components/common/BackButton.vue';
         .catch((error) => {
           console.log(error);
         });
-      }
+      },
+
+      
+      logout() {
+        this.$router.replace('/intro')
+      },
     },
 
 

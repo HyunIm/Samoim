@@ -1,6 +1,6 @@
 <template>
   <v-container class="bg">
-    <div style="height: 700px;"></div>
+    <div style="height: 500px;"></div>
 
     <template>
       <v-row class="justify-center">
@@ -12,7 +12,6 @@
             스타뱅킹으로 5초만에 시작하기(추후 연동)
         </v-btn>
       </v-row>
-
       <v-row class="justify-center">
         <router-link
           to="/login"
