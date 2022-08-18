@@ -19,13 +19,13 @@
     <v-img
         max-height="128"
         max-width="128"
-        src="../assets/check.png"
+        src="../assets/fail.png"
     >
     </v-img>
     </center>
 
-    <h1><center>모임 참석</center></h1>
-    <h1><center>신청 완료</center></h1>
+    <br>
+    <h1><center>신청 실패</center></h1>
 
     <v-row class="mt-15 mx-3">
     <v-card
@@ -36,17 +36,27 @@
         <v-list-item three-line>
         <v-list-item-content>
             <v-list-item-title class="text-h5 mb-1">
-            신청 내역
+            금액 부족
             </v-list-item-title>
-            일정 : 날짜 바인딩 필요 <br>
-            장소 : 장소 바인딩 필요 <br>
-            금액 : {{ this.price }} P<br>
-            잔여 포인트 : {{ this.userPoint - this.price }} P
+            금액 부족으로 인한 신청 실패
         </v-list-item-content>
         </v-list-item>
     </v-card>
   </v-row>
   <br>
+
+  <v-footer class="mb-2" color="white">
+      <v-btn
+        class="mr-4"
+        x-large
+        color="primary"
+        @click="nextPage()"
+        block
+        rounded
+      >
+        <h3 class="font-weight-black">다음</h3>
+      </v-btn>
+    </v-footer>
 </div>
 </template>
 
@@ -56,6 +66,12 @@ export default {
     progress: 100,
   }),
 
+
+  methods: {
+    nextPage() {
+      this.$router.replace('/main')
+    },
+  },
 }
 </script>
 
