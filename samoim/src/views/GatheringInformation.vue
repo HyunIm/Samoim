@@ -88,7 +88,7 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit;" 
-          :to="{name: 'GatheringJoin', params: {classId: this.classId}}"
+          :to="{name: 'GatheringJoin', params: {classId: classInfoData.id}}"
         >
         <v-btn
           align="end"
