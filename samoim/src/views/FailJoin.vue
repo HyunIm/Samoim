@@ -1,17 +1,14 @@
 <template>
 <div>
   <v-row>
-      <v-col>
-      </v-col>
-      <v-col class="mt-3">
-        <h3>
-          <center>
-              모임 가입
-          </center>
-        </h3>
-      </v-col>
-      <v-col></v-col>
-    </v-row>
+    <v-col class="mt-3">
+      <h3>
+        <center>
+            모임 가입
+        </center>
+      </h3>
+    </v-col>
+  </v-row>
   <v-row class="mt-1">
     <template>
         <v-progress-linear :value="progress"></v-progress-linear>
@@ -55,6 +52,9 @@
 
 <script>
 export default {
+  data: () => ({
+    progress: 100,
+  }),
 
 }
 </script>
