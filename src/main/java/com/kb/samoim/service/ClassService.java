@@ -37,15 +37,15 @@ public class ClassService {
 		
 		ClassDto newClass = new ClassDto();
 		newClass.setName(classDto.getName());
-		newClass.setLarge_category(classDto.getLarge_category());
-		newClass.setSmall_category(classDto.getSmall_category());
+		newClass.setLargeCategory(classDto.getLargeCategory());
+		newClass.setSmallCategory(classDto.getSmallCategory());
 		newClass.setCity(classDto.getCity());
 		newClass.setAddress(classDto.getAddress());
-		newClass.setMax_member(classDto.getMax_member());
-		newClass.setOwner_id(user_id);
-		newClass.setOpen_date(classDto.getOpen_date());
-		newClass.setDetail_contents(classDto.getDetail_contents());
-		newClass.setPhoto_path(classDto.getPhoto_path());
+		newClass.setMaxMember(classDto.getMaxMember());
+		newClass.setOwnerId(user_id);
+		newClass.setOpenDate(classDto.getOpenDate());
+		newClass.setDetailContents(classDto.getDetailContents());
+		newClass.setPhotoPath(classDto.getPhotoPath());
 		this.classDao.createClass(newClass);
 		
 		return newClass;

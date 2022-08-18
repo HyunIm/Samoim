@@ -47,7 +47,7 @@
     </select>
 
     <!--내가 가입한 모임 목록 체크-->
-    <select id="getMyJoinClass" parameterType="string" resultType="map">
+    <select id="getMyJoinClass" parameterType="string" resultType="com.kb.samoim.dto.ClassDto">
         SELECT CLS.ID, CLS.NAME, CLS.LARGE_CATEGORY, CLS.SMALL_CATEGORY, CLS.CITY, CLS.ADDRESS, CLS.CURRENTMEMBER, CLS.MAX_MEMBER, CLS.PHOTO_PATH
         FROM CLASS CLS, CLASS_JOIN CLJ 
         WHERE CLJ.USER_ID =  #{user_id}
