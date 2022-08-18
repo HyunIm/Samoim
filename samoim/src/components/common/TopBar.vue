@@ -12,6 +12,7 @@
             max-height="40"
             max-width="150"
             :src="samoimLogo"
+            @click="refreshAll()"
           ></v-img>
         </div>
 
@@ -240,7 +241,10 @@ import Logo from '../../assets/samoimLogo.png';
         .catch((error) => {
           console.log(error);
         });
-      }
+      },
+      refreshAll() {
+        window.location.reload();
+      },
     }
   }
 </script>
