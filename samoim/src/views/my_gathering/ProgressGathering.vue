@@ -71,8 +71,9 @@
                 block
                 outlined
                 text
+                :href="liiveUrl"
               >
-                채팅방 입장(연결 필요)
+                리브똑똑 채팅방
               </v-btn>
             </v-col>
 
@@ -160,6 +161,8 @@ export default {
     cookingImg : cookingImg,
     dessertImg : dessertImg,
     sojuImg : sojuImg,
+
+    liiveUrl: 'https://obank.kbstar.com/quics?page=C041244&scheme=liivtalk&urlparam=channelurl:sendbird_group_channel_14714086_03402eb53c6c5b877aa211de0ccf301acd8f921f'
   }),
 
   mounted() {
@@ -182,6 +185,8 @@ export default {
               this.classData[i].photoPath = this.golfImg;
             } else if(this.classData[i].photoPath === "tennisImg"){
               this.classData[i].photoPath = this.tennisImg;
+            } else if(this.classData[i].photoPath === "campingImg"){
+              this.classData[i].photoPath = this.campingImg;
             } else if(this.classData[i].photoPath === "driveImg"){
               this.classData[i].photoPath = this.driveImg;
             } else if(this.classData[i].photoPath === "concertImg"){

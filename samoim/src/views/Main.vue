@@ -153,7 +153,22 @@
 
         </v-card>
       </v-bottom-sheet>
+
+      <v-container v-if="isEmpty">
+        <br><br><br>
+        <center>
+          <v-img
+            max-height="400"
+            max-width="200"
+            :src="empty"
+            class="ml-8"
+          ></v-img>
+          <br>
+          <h2>검색 조건에 맞는 모임이 없네요</h2>
+        </center>
+      </v-container>
   </v-container>
+
 </template>
 
 <script>
@@ -202,7 +217,7 @@ import cookingImg from '@/assets/class_img/17_cooking.png';
 import dessertImg from '@/assets/class_img/18_dessert.png';
 import sojuImg from '@/assets/class_img/19_soju.png';
 
-
+import Empty from '@/assets/starfriends/empty.png';
 
 
 export default {
@@ -316,6 +331,9 @@ export default {
     ],
     address: undefined,
     category: [],
+
+    isEmpty: false,
+    empty: Empty,
   }),
 
   methods: {
@@ -338,6 +356,8 @@ export default {
               this.classData[i].photoPath = this.golfImg;
             } else if(this.classData[i].photoPath === "tennisImg"){
               this.classData[i].photoPath = this.tennisImg;
+            } else if(this.classData[i].photoPath === "campingImg"){
+              this.classData[i].photoPath = this.campingImg;
             } else if(this.classData[i].photoPath === "driveImg"){
               this.classData[i].photoPath = this.driveImg;
             } else if(this.classData[i].photoPath === "concertImg"){
@@ -433,6 +453,12 @@ export default {
           this.title = "필터링한 사모임";
           this.suggestion = false;
 
+          if(this.classData.length === 0) {
+            this.isEmpty = true;
+          } else {
+            this.isEmpty = false;
+          }
+
           for(var i=0; i<this.classData.length; i++) {
             if(this.classData[i].photoPath === "climbingImg"){
               this.classData[i].photoPath = this.climbingImg;
@@ -440,6 +466,8 @@ export default {
               this.classData[i].photoPath = this.golfImg;
             } else if(this.classData[i].photoPath === "tennisImg"){
               this.classData[i].photoPath = this.tennisImg;
+            } else if(this.classData[i].photoPath === "campingImg"){
+              this.classData[i].photoPath = this.campingImg;
             } else if(this.classData[i].photoPath === "driveImg"){
               this.classData[i].photoPath = this.driveImg;
             } else if(this.classData[i].photoPath === "concertImg"){
@@ -498,6 +526,50 @@ export default {
           this.classData = res.data;
           this.title = value + " 사모임";
           this.suggestion = false;
+
+          for(var i=0; i<this.classData.length; i++) {
+            if(this.classData[i].photoPath === "climbingImg"){
+              this.classData[i].photoPath = this.climbingImg;
+            } else if(this.classData[i].photoPath === "golfImg"){
+              this.classData[i].photoPath = this.golfImg;
+            } else if(this.classData[i].photoPath === "tennisImg"){
+              this.classData[i].photoPath = this.tennisImg;
+            } else if(this.classData[i].photoPath === "campingImg"){
+              this.classData[i].photoPath = this.campingImg;
+            } else if(this.classData[i].photoPath === "driveImg"){
+              this.classData[i].photoPath = this.driveImg;
+            } else if(this.classData[i].photoPath === "concertImg"){
+              this.classData[i].photoPath = this.concertImg;
+            } else if(this.classData[i].photoPath === "musicalImg"){
+              this.classData[i].photoPath = this.musicalImg;
+            } else if(this.classData[i].photoPath === "exhibitionImg"){
+              this.classData[i].photoPath = this.exhibitionImg;
+            } else if(this.classData[i].photoPath === "bandImg"){
+              this.classData[i].photoPath = this.bandImg;
+            } else if(this.classData[i].photoPath === "compositionImg"){
+              this.classData[i].photoPath = this.compositionImg;
+            } else if(this.classData[i].photoPath === "drawingImg"){
+              this.classData[i].photoPath = this.drawingImg;
+            } else if(this.classData[i].photoPath === "writingImg"){
+              this.classData[i].photoPath = this.writingImg;
+            } else if(this.classData[i].photoPath === "readingImg"){
+              this.classData[i].photoPath = this.readingImg;
+            } else if(this.classData[i].photoPath === "studyImg"){
+              this.classData[i].photoPath = this.studyImg;
+            } else if(this.classData[i].photoPath === "foreignImg"){
+              this.classData[i].photoPath = this.foreignImg;
+            } else if(this.classData[i].photoPath === "dogImg"){
+              this.classData[i].photoPath = this.dogImg;
+            } else if(this.classData[i].photoPath === "donationImg"){
+              this.classData[i].photoPath = this.donationImg;
+            } else if(this.classData[i].photoPath === "cookingImg"){
+              this.classData[i].photoPath = this.cookingImg;
+            } else if(this.classData[i].photoPath === "dessertImg"){
+              this.classData[i].photoPath = this.dessertImg;
+            } else if(this.classData[i].photoPath === "sojuImg"){
+              this.classData[i].photoPath = this.sojuImg;
+            } 
+          }
         })
         .catch((error) => {
           console.log(error);
@@ -531,6 +603,12 @@ export default {
         .then((res) => {
           this.recommendData = res.data;
           //console.log(this.recommendData);
+
+          if(this.recommendData.length === 0) {
+            this.isEmpty = true;
+          } else {
+            this.isEmpty = false;
+          }
 
           for(var i=0; i<res.data.length; i++) {
             this.suggestionItems.push({"src" : this.imgObjectReturn(res.data[i].PHOTO_PATH)});
