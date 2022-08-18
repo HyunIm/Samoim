@@ -178,9 +178,8 @@ public class ClassController {
 			@RequestBody ClassDto classDto
 	){
 		logger.info("새 클래스 생성완료");
-		this.classService.createClass(email, classDto);
 //		this.classService.createClassMeet(email, classDto); //보류
-		return ResponseEntity.ok(null);
+		return ResponseEntity.ok(this.classService.createClass(email, classDto));
 	}
 	
 	//상세 정보는 어떤게 들어갈지 수정 필요

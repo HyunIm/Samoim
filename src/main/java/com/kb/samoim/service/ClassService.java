@@ -33,7 +33,7 @@ public class ClassService {
 	}
 	
 	
-	public ClassDto createClass(String user_id, ClassDto classDto) {
+	public Long createClass(String user_id, ClassDto classDto) {
 		
 		ClassDto newClass = new ClassDto();
 		newClass.setName(classDto.getName());
@@ -48,7 +48,7 @@ public class ClassService {
 		newClass.setPhotoPath(classDto.getPhotoPath());
 		this.classDao.createClass(newClass);
 		
-		return newClass;
+		return newClass.getId();
 	}
 	
 	
