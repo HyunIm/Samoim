@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-row>
+      <v-col>
+        <BackButton/>
+      </v-col>
+      <v-col class="mt-3">
+        <h3>
+          <center>
+              모임 정보
+          </center>
+        </h3>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
+
     <br>
     <v-img
       :src="classInfoData.photoPath"
@@ -11,7 +25,6 @@
       <h3 style="color:grey"># {{ classInfoData.smallCategory }}</h3>
     </center>
 
-    <br>
     <v-card
       class="mx-auto"
       max-width="344"
@@ -50,7 +63,7 @@
           </div>
           <div class="ml-3">
             <v-icon class="mr-2">mdi-currency-krw</v-icon>
-            { 금액 }
+            20,000 P
           </div>
         </v-list-item-content>
       </v-list-item>
@@ -128,8 +141,10 @@ import cookingImg from '@/assets/class_img/17_cooking.png';
 import dessertImg from '@/assets/class_img/18_dessert.png';
 import sojuImg from '@/assets/class_img/19_soju.png';
 
+import BackButton from '../components/common/BackButton.vue';
 
 export default {
+  components: { BackButton },
   mounted() {
     this.classInfoData = this.$route.params.element;
 

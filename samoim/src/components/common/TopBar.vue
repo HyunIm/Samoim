@@ -12,16 +12,30 @@
             max-height="40"
             max-width="150"
             :src="samoimLogo"
+            @click="refreshAll()"
           ></v-img>
         </div>
 
       <v-spacer></v-spacer>
-      <v-icon
+      <!-- <v-icon
+        class="mr-5"
+        x-large
         color="black darken-2"
         @click="openFillterDialog()"
       >
-        mdi-filter-menu-outline
-      </v-icon>
+        mdi-magnify
+      </v-icon> -->
+      <router-link 
+        style="text-decoration: none; color: inherit;" 
+        to="/profile"
+      >
+        <v-avatar
+          size="40"
+          color="black"
+        >
+          <img :src="this.myAvatar">
+        </v-avatar>
+      </router-link>
       <!--
       <v-icon
         color="black darken-2"
@@ -32,7 +46,7 @@
       </v-icon>
       -->
 
-      <v-bottom-sheet v-model="fillterDialog">
+      <!-- <v-bottom-sheet v-model="fillterDialog">
         <v-card>
           <v-card-title>
             <v-btn
@@ -97,7 +111,7 @@
           </v-card-actions>
 
         </v-card>
-      </v-bottom-sheet>
+      </v-bottom-sheet> -->
 
 
       <!-- search dialog -->
@@ -148,6 +162,11 @@
 
 <script>
 import Logo from '../../assets/samoimLogo.png';
+import coli from '@/assets/starfriends/coli.png';
+import bb from '@/assets/starfriends/bb.png';
+import force from '@/assets/starfriends/force.png';
+import kiki from '@/assets/starfriends/kiki.png';
+import ramu from '@/assets/starfriends/ramu.png';
 
   export default {
     name: 'TopBar',
@@ -168,11 +187,32 @@ import Logo from '../../assets/samoimLogo.png';
       address: undefined,
       category: [],
       fillterData: {},
-      classData: []
+      classData: [],
+      myInfo: {
+        email: "0818@",
+        name: "테스트",
+        phone: "",
+        password: "1234",
+        gender: "남",
+        birth: "2016-11-30",
+        city: "서울",
+        address: "강남구",
+        interest: "운동,문화,창작,",
+        photoPath: "force",
+        tag: null,
+        point: 100000
+      },
+      myAvatar: undefined,
+      coli: coli,
+      bb: bb,
+      force: force,
+      kiki: kiki,
+      ramu: ramu,
     }),
 
     mounted() {
-      this.getCategory();
+      // this.getCategory();
+      this.getMyInfo();
       //this.getLocation();
 
       //console.log(this.$store.state.loginUser);
@@ -191,26 +231,28 @@ import Logo from '../../assets/samoimLogo.png';
         }
       },
       */
-      getCategory() {
-        this.$axios.get('/api/categories')
-        .then((res) => {
-          this.categoriesData = res.data;
-          //console.log(this.categoriesData);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      },
-      getLocation() {
-        this.$axios.get('/api/location')
-        .then((res) => {
-          this.locationData = res.data;
-          //console.log(this.locationData);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      },
+      // getCategory() {
+      //   this.$axios.get('/api/categories')
+      //   .then((res) => {
+      //     this.categoriesData = res.data;
+      //     //console.log(this.categoriesData);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      // },
+
+
+      // getLocation() {
+      //   this.$axios.get('/api/location')
+      //   .then((res) => {
+      //     this.locationData = res.data;
+      //     //console.log(this.locationData);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
+      // },
       openFillterDialog() {
         this.fillterDialog = true;
       },
@@ -226,6 +268,7 @@ import Logo from '../../assets/samoimLogo.png';
 
         this.fillterData = {"category": categoryList, "area": addressList}
         
+        console.log(this.fillterData);
         //필터 검색 API 호출
         this.$axios.post('/api/classes', this.fillterData)
         .then((res) => {
@@ -239,7 +282,32 @@ import Logo from '../../assets/samoimLogo.png';
         .catch((error) => {
           console.log(error);
         });
-      }
+      },
+      refreshAll() {
+        window.location.reload();
+      },
+
+
+      getMyInfo() {
+        this.$axios.get('/api/info/' + this.$store.state.loginUser)
+        .then((res) => {
+          this.myAvatar = res.data.photoPath;
+          if(this.myAvatar === "coli") {
+            this.myAvatar = this.coli
+          } else if(this.myAvatar === "bb") {
+            this.myAvatar = this.bb
+          } else if(this.myAvatar === "force") {
+            this.myAvatar = this.force
+          } else if(this.myAvatar === "kiki") {
+            this.myAvatar = this.kiki
+          } else if(this.myAvatar === "ramu") {
+            this.myAvatar = this.ramu
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
     }
   }
 </script>

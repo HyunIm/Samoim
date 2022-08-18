@@ -21,6 +21,7 @@
           :src="item.src"
           reverse-transition="fade-transition"
           transition="fade-transition"
+          @click="suggestionClick(item.NAME)"
         ></v-carousel-item>
       </v-carousel>
     </v-row>
@@ -33,6 +34,15 @@
     <!-- 모임 리스트 -->
     <v-row class="mx-3 mt-10">
       <h2>{{ title }}</h2>
+      <v-spacer></v-spacer>
+      <v-icon
+        class="mr-5"
+        x-large
+        color="black darken-2"
+        @click="openFillterDialog()"
+      >
+        mdi-magnify
+      </v-icon>
     </v-row>
 
     <v-row>
@@ -81,6 +91,73 @@
         </v-list-item>
     </v-row>
     <br><br><br><br><br>
+
+    <v-bottom-sheet v-model="fillterDialog">
+        <v-card>
+          <v-card-title>
+            <v-btn
+              icon
+              color="black"
+              @click="fillterDialog = false"
+            >
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-card-title>
+            
+          <v-card-subtitle class="mt-3">
+            <h2>카테고리</h2>
+          </v-card-subtitle>
+
+          <v-card-text>
+            <v-row>
+              <v-col
+                cols="4"
+                v-for="(item, index) in categoriesData"
+                :key="index"
+                >
+                <v-checkbox
+                  :label=item.name
+                  color="primary"
+                  hide-details
+                  v-model="category"
+                  :value=item.name
+                ></v-checkbox>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-subtitle class="mt-3">
+            <h2>지역</h2>
+          </v-card-subtitle>
+          <v-card-text>
+            <v-radio-group v-model="address" row>
+              <v-radio
+                v-for="(item, index) in locationData"
+                :key="index"
+                :label="item.ADDRESS"
+                :value="item.ADDRESS"
+              ></v-radio>
+            </v-radio-group>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-btn
+              class="mb-3"
+              x-large
+              color="primary"
+              dark
+              block
+              rounded
+              @click="fillterClass()"
+            >
+              <h3 class="font-weight-black">검색</h3>
+            </v-btn>
+          </v-card-actions>
+
+        </v-card>
+      </v-bottom-sheet>
   </v-container>
 </template>
 
@@ -142,13 +219,26 @@ export default {
   },
 
   mounted() {
+      this.getCategory();
       this.getClassList();
       this.suggestionCategory();
+      this.getMyInfo();
     },
 
   data: () => ({
     test: 'SAMOIM MAIN PAGE',
+    fillterDialog: false,
     suggestionItems: [
+      {
+        "PHOTO_PATH": "drive",
+        "NAME": "드라이브",
+        "src": drive,
+      },
+      {
+        "PHOTO_PATH": "dog",
+        "NAME": "유기견봉사",
+        "src": dog
+      },
     ],
     climbing : climbing,
     golf : golf,
@@ -209,12 +299,39 @@ export default {
     ],
     title: "내 주변 사모임",
     suggestion: true,
-    recommendData: undefined
+    recommendData: undefined,
+    myInfo: {
+      email: "0818@",
+      name: "테스트",
+      phone: "",
+      password: "1234",
+      gender: "남",
+      birth: "2016-11-30",
+      city: "서울",
+      address: "강남구",
+      interest: "운동,문화,창작,",
+      photoPath: "force",
+      tag: null,
+      point: 100000
+    },
+    categoriesData: [],
+    locationData: [
+      { CITY: '서울', ADDRESS: '강남구' },
+      { CITY: '서울', ADDRESS: '영등포구' }
+    ],
+    address: undefined,
+    category: [],
   }),
 
   methods: {
       getClassList() {
-        this.$axios.get('/api/classes')
+        var categoryList = [];
+        var addressList = [];
+        addressList.push(this.myInfo.address);
+
+        this.classData = {"category": categoryList, "area": addressList};
+
+        this.$axios.post('/api/classes', this.classData)
         .then((res) => {
           this.classData = res.data;
           //console.log(this.classData);
@@ -265,11 +382,113 @@ export default {
           console.log(error);
         });
       },
+
+      getMyInfo() {
+        this.$axios.get('/api/info/' + this.$store.state.loginUser)
+        .then((res) => {
+          this.myInfo = res.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+      openFillterDialog() {
+        this.fillterDialog = true;
+      },
+
+      getCategory() {
+        this.$axios.get('/api/categories')
+        .then((res) => {
+          this.categoriesData = res.data;
+          //console.log(this.categoriesData);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+
       fillterData(value) {
         this.classData = value;
-        this.title = "필터링한 사모임"
+        this.title = "필터링한 사모임";
         this.suggestion = false;
       },
+
+      fillterClass() {
+        
+        var categoryList = [];
+        for(var i=0; i<this.category.length; i++) {
+          categoryList.push(this.category[i]);
+        }
+
+        var addressList = [];
+        addressList.push(this.address);
+
+        this.fillterData = {"category": categoryList, "area": addressList}
+        
+        console.log(this.fillterData);
+        //필터 검색 API 호출
+        this.$axios.post('/api/classes', this.fillterData)
+        .then((res) => {
+          this.classData = res.data;
+
+          //리스트 목록 표시에 표시
+          this.fillterDialog = false;
+          this.title = "필터링한 사모임";
+          this.suggestion = false;
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+
+      suggestionClick(value) {
+        let large = this.small2LargeCategory(value);
+        var categoryList = [];
+        categoryList.push(large);
+
+        var addressList = [];
+        addressList.push(this.myInfo.address);
+
+        var suggestionData = {"category": categoryList, "area": addressList};
+        
+        //필터 검색 API 호출
+        this.$axios.post('/api/classes', suggestionData)
+        .then((res) => {
+          this.classData = res.data;
+          this.title = value + " 사모임";
+          this.suggestion = false;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      },
+
+
+      small2LargeCategory(ct) {
+        if (ct == "클라이밍" || ct == "골프" || ct == "테니스") {
+          return "운동";
+        } else if (ct == "드라이브" || ct == "캠핑") {
+          return "여행";
+        } else if (ct == "콘서트" || ct == "뮤지컬" || ct == "전시") {
+          return "문화";
+        } else if (ct == "밴드" || ct == "작곡") {
+          return "음악";
+        } else if (ct == "드로잉" || ct == "글쓰기") {
+          return "창작";
+        } else if (ct == "독서" || ct == "스터디" || ct == "외국어") {
+          return "성장";
+        } else if (ct == "유기견봉사" || ct == "재능기부") {
+          return "봉사";
+        } else if (ct == "유리" || ct == "디저트" || ct == "전통주") {
+          return "요리";
+        }
+      },
+
+
       suggestionCategory() {
         this.$axios.get('/api/recommend/' + this.$store.state.loginUser)
         .then((res) => {
@@ -284,6 +503,8 @@ export default {
           console.log(error);
         });
       },
+
+
       imgObjectReturn(item){
 
         if(item === "climbing") {

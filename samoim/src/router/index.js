@@ -12,6 +12,7 @@ import Login from '../views/Login.vue';
 import MyGathering from '../views/my_gathering/MyGathering.vue';
 import Test from '../views/Test.vue';
 import GatheringJoin from '../views/GatheringJoin.vue';
+import FailJoin from '../views/FailJoin.vue';
 
 Vue.use(VueRouter);
 
@@ -72,6 +73,10 @@ export default new VueRouter({
       component: GatheringJoin,
       name: 'GatheringJoin',
       props: true
+    },
+    {
+      path: '/failjoin',
+      component: FailJoin
     },
   ]
 });
