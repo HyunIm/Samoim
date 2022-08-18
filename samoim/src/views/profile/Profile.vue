@@ -1,9 +1,18 @@
 <template>
   <div>
-    <h2 class="ml-3 mt-3">
-      <center>프로필 수정</center>
-    </h2>
-    <br> <br>
+    <v-row>
+      <v-col>
+        <BackButton/>
+      </v-col>
+      <v-col class="mt-3">
+        <h3>
+          <center>
+              프로필
+          </center>
+        </h3>
+      </v-col>
+      <v-col></v-col>
+    </v-row>
 
     <v-card
       class="mx-auto"
@@ -76,8 +85,10 @@ import bb from '@/assets/starfriends/bb.png';
 import force from '@/assets/starfriends/force.png';
 import kiki from '@/assets/starfriends/kiki.png';
 import ramu from '@/assets/starfriends/ramu.png';
+import BackButton from '../../components/common/BackButton.vue';
 
   export default {
+  components: { BackButton },
     name: 'Profile',
 
     data: () => ({
