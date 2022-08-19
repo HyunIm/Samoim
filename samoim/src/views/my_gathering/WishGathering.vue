@@ -5,8 +5,8 @@
       :key="index"
     >
       <v-card
-        class="mx-auto ma-5"
-        max-width="344"
+        class="ma-5"
+        width="350"
         outlined
       >
         <v-list-item three-line>

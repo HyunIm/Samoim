@@ -27,7 +27,8 @@
     </v-row>
 
     <!-- 모임 리스트 -->
-    <v-row class="mx-3 mt-10">
+    <v-row class="mt-10 mb-10" v-if="!this.suggestion"></v-row>
+    <v-row class="mt-10">
       <h2>{{ title }}</h2>
       <v-spacer></v-spacer>
       <v-icon
@@ -53,7 +54,7 @@
           <v-col cols="12">
             <v-card
               class="mx-auto"
-              max-width="360"
+              width="350"
               outlined
               shaped
             >
