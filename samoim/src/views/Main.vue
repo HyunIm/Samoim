@@ -230,10 +230,9 @@ export default {
   },
 
   mounted() {
-      this.getCategory();
-      this.getClassList();
-      this.suggestionCategory();
       this.getMyInfo();
+      this.getCategory();
+      this.suggestionCategory();
     },
 
   data: () => ({
@@ -403,6 +402,8 @@ export default {
         this.$axios.get('/api/info/' + this.$store.state.loginUser)
         .then((res) => {
           this.myInfo = res.data;
+
+          this.getClassList();
         })
         .catch((error) => {
           console.log(error);
