@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.samoim.dao.ClassDao">
+	<select id="selectClassAll" resultType="com.kb.samoim.model.Class">
+		select *
+		from CLASS
+		ORDER BY OPEN_DATE DESC
+	</select>
+
+	<select id="selectClass" parameterType="long" resultType="com.kb.samoim.model.Class">
+		select * 
+		from CLASS
+		where id = #{id}
+	</select>
+	
+	<select id="selectClassByFilter" parameterType="java.util.List" resultType="com.kb.samoim.model.Class">
+		select *
+		from CLASS
+		where 1 = 1
+		<if test="category!=null and category.size!=0">
+			and LARGE_CATEGORY in
+			<foreach collection="category" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+		<if test="area!=null and area.size!=0">
+			and CITY in
+			<foreach collection="area" item="item" index="index" open="(" close=")" separator=",">
+				#{item}
+			</foreach>
+		</if>
+	</select>
+</mapper>

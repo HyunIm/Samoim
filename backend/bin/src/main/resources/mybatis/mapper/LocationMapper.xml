@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kb.samoim.dao.LocationDao">
+
+	<!--시도, 구군 전체 조회-->
+	<select id="getLocationList" resultType="map">
+		SELECT DISTINCT CITY, ADDRESS
+		FROM LOCATION
+	</select>
+	
+	<!--시,도 조회-->
+	<select id="getCityList" resultType="map">
+		SELECT DISTINCT CITY
+		FROM LOCATION
+	</select>
+	
+</mapper>

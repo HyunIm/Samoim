@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.samoim.dao.UserDao">
+    
+    <!--사용자 저장하기 -->
+    <insert id="saveUser" parameterType="com.kb.samoim.dto.UserDto">
+        INSERT INTO USER
+        (EMAIL, NAME, PHONE, PASSWORD, GENDER, BIRTH, CITY, ADDRESS, INTEREST, PHOTO_PATH, TAG, POINT)
+        VALUES
+        (#{email},#{name},#{phone},#{password},#{gender},#{birth},#{city},#{address},#{interest},#{photoPath},#{tag},#{point});
+    </insert>
+    
+    <!--이메일로 사용자 찾기-->
+    <select id="findByEmail" parameterType="string" resultType="com.kb.samoim.dto.UserDto">
+    	SELECT *
+    	FROM USER
+    	WHERE EMAIL = #{email}
+    </select>
+    
+    <!--관심사 업데이트-->
+    <update id="updateInterest" parameterType="com.kb.samoim.dto.UserDto">
+    	UPDATE USER
+    	SET INTEREST = #{interest}
+    	WHERE EMAIL = #{email}
+    </update>
+    
+    <!--유저 정보와 함께 포인트 조회-->
+    <select id="getUserPoint" parameterType="string" resultType="com.kb.samoim.dto.UserDto">
+    	SELECT EMAIL, NAME, POINT
+    	FROM USER
+    	WHERE EMAIL = #{email}
+    </select>
+
+    <!--포인트 추가,업데이트 쿼리 동일-->
+    <update id="updatePoint" parameterType="com.kb.samoim.dto.UserDto">
+    	UPDATE USER
+    	SET POINT = #{point}
+    	WHERE EMAIL = #{email}
+    </update>
+
+    <!--이메일 중복 체크 -->
+    <select id="emailCheck" parameterType="com.kb.samoim.dto.UserDto" resultType="int">
+    	SELECT COUNT(*)
+    	FROM USER
+    	WHERE email = #{email}	
+    </select>
+
+    <!--내가 가입한 모임 목록 체크-->
+    <select id="getMyJoinClass" parameterType="string" resultType="com.kb.samoim.dto.ClassDto">
+        SELECT CLS.ID, CLS.NAME, CLS.LARGE_CATEGORY, CLS.SMALL_CATEGORY, CLS.CITY, CLS.ADDRESS, CLS.CURRENTMEMBER, CLS.MAX_MEMBER, CLS.PHOTO_PATH
+        FROM CLASS CLS, CLASS_JOIN CLJ 
+        WHERE CLJ.USER_ID =  #{user_id}
+        AND CLS.ID = CLJ.CLASS_ID
+    </select>
+
+    <!--프로필 업데이트 ing -->
+    <update id="updateUser" parameterType="com.kb.samoim.dto.UserDto">
+    	UPDATE USER
+    	SET PHONE = {phone}, INTEREST = #{interest}
+    	WHERE EMAIL = #{email}
+    </update>
+    
+</mapper>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kb.samoim.dao.RecommendDao">
+
+    <select id="getRecommendInterest" parameterType="int" resultType="map">
+        SELECT NAME,PHOTO_PATH
+        FROM SCategory
+        WHERE ID IN
+        <foreach item="item" index="index" collection="list" open = "(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+</mapper>
