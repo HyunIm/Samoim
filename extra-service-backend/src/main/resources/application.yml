@@ -1,0 +1,17 @@
+## local
+spring:
+  application:
+    name: samoim-extra-service
+    
+  redis:
+    host: 169.56.100.108
+    port: 31203
+    
+  mvc:
+    pathmatch:
+      matching-strategy: ant-path-matcher
+
+server:  
+  port: ${PORT:8080}
+  servlet:
+    context-path: ${SERVLET_CONTEXT_PATH:/}

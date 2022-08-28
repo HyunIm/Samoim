@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: samoim-extra-service-backend
+  labels:
+    app: samoim-extra-service-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: samoim-extra-service-backend
+  template:
+    metadata:
+      labels:
+        app: samoim-extra-service-backend
+    spec:
+      containers:
+      - name: samoim-extra-service-backend
+        image: jin8227/samoim-extra-service-backend:dev
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_SERVER
+          valueFrom:
+            configMapKeyRef:
+              name: samoim-extra-service-backend-config
+              key: DB_SERVER
+        - name: DB_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: samoim-extra-service-backend-config
+              key: DB_PORT
+        - name: SERVLET_CONTEXT_PATH
+          valueFrom:
+            configMapKeyRef:
+              name: samoim-extra-service-backend-config
+              key: SERVLET_CONTEXT_PATH
